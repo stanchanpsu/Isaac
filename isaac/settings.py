@@ -55,7 +55,7 @@ ROOT_URLCONF = 'isaac.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['auth/templates/auth'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
