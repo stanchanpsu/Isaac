@@ -1,16 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
-	return render(request, 'index.html', {})
+	if request.user.is_authenticated():
+		login_register = "logged in"
+	else:
+		login_register = "register"
+	return render(request, 'index.html', {"login_register":login_register})
+	
+def logout_user(request):
+	logout(request)
+	return redirect("/auth")
+	
 
 def register(request):
 	
 	if request.POST:
 	
-		#create a template form to post this data
 		username = request.POST['username']
 		#first_name = request.POST['first_name']
 		#last_name = request.POST['last_name']
