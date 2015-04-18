@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Log in</title>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'auth/style.css' %}"/>
+</head>
+
+<body>
+	<h1>{{ state }}</h1>
+	<div class="loginform">
+	<form action="/login/" method="post">
+		{% csrf_token %}
+		username:
+		<input type="text" name="username" value=""/><br/>
+		password:
+		<input type="password" name="password" value=""/><br/>
+		<input type="submit" value="Log In"/>
+	</form>
+	</div>
+</body>
+</html>
