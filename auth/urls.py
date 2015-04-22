@@ -2,4 +2,4 @@ from django.conf.urls import include, url
 
 from . import views
 
-urlpatterns=[url(r'^$', views.login_user)]
+urlpatterns=[url(r'^$', views.register, name = "register")]
