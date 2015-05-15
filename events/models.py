@@ -15,7 +15,7 @@ class OutreachTrip(models.Model):
 		return self.school
 		
 class Tour(models.Model):
-	tour_types = (('REG','regular'),('ASP', 'accepted students day'),('VIP','very important person'),('OTH','other'))
+	tour_types = (('REG','Regular'),('ASP', 'ASP'),('VIP','VIP'),('OTH','Other'))
 	tour_type = models.CharField(max_length=3,choices=tour_types,default='reg')
 	date = models.DateField()
 	time = models.TimeField()
