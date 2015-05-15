@@ -1,21 +1,22 @@
 <html>
 <head>
-<title>Log in</title>
+<title>Isaac Log in</title>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'auth/style.css' %}"/>
 </head>
 
 <body>
-	<h1>{{ state }}</h1>
-	<div class="loginform">
-	<form action="/login/" method="post">
+	
+	<form action="/login/" method="post" class="form-style">
 		{% csrf_token %}
-		username:
-		<input type="text" name="username" value=""/><br/>
-		password:
-		<input type="password" name="password" value=""/><br/>
+		<h1>Welcome Ambassador</h1>
+		<label>Username:</label>
+		<input type="text" name="username" value=""/>
+		<br/>
+		<label>Password:</label>
+		<input type="password" name="password" value=""/>
 		<input type="submit" value="Log In"/>
 	</form>
-	</div>
+	
 </body>
 </html>

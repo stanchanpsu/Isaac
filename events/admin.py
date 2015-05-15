@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Event
+from .models import OutreachTrip, Tour
 
-admin.site.register(Event)
+admin.site.register(OutreachTrip)
+admin.site.register(Tour)

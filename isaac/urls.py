@@ -10,7 +10,7 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^polls/', include('polls.urls')),
-    url(r'^events/', include('events.urls')),
+    url(r'^events/', include('events.urls', namespace = 'events')),
     
     # index and authetication
     url(r'^$', views.index, name='index'),

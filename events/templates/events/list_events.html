@@ -1,5 +1,28 @@
-<ul>
-{% for event in event_list %}
-	<li>{{ event }}</li>
+<table>
+	<h1>Outreach Trips</h1>
+	<tr>
+		<th>Date</th>
+		<th>School</th>
+		<th>Hours</th>
+		<th>Location</th>
+		<th>EAs</th>
+		<th>Notes</th>
+	</tr>
+{% for outreach in outreach_list %}
+	<tr>
+		<td>{{outreach.date}}</td>
+		<td><a href="/events/outreach/{{outreach.id}}/">{{outreach.school}}</a></td>
+		<td>{{outreach.hours}}</td>
+		<td>{{outreach.location}}</td>
+		<td>{{outreach.EAs_needed}}</td>
+		<td>{{outreach.note}}</td>
+	</tr>
 {% endfor %}
-</ul>
+</table>
+
+
+<ul>
+{% for tour in tour_list %}
+	<li>{{tour.id}}</li>
+{% endfor %}
+</ul>	
