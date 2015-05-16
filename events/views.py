@@ -8,25 +8,15 @@ from .forms import EventView
 
 def list_events(request):
 	
-	# get selection from event_view dropdown
-	event_view = request.GET.get('event_view', False)
+	title = 'EA events'
 	
-	# pass in value as preselected dropdown THIS NEEDS TO BE FIXED
-	if event_view is "out":
-		out_selected = "selected"
-		all_selected, tour_selected = '  '
-	elif event_view is "tour":
-		tour_selected = "selected"
-		all_selected, out_selected = '  '
-	else:
-		all_selected = "selected"
-		out_selected, tour_selected = '  '
-			
+	# get selection from event_view dropdown
+	event_view = request.GET.get('event_view', False)			
 	
 	outreach_list = OutreachTrip.objects.order_by('date')
 	tour_list = Tour.objects.order_by('date')
 	
-	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'all_selected': all_selected, 'out_selected': out_selected, 'tour_selected': tour_selected})
+	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title,})
 
 
 def event_detail(request, event_type, event_id):
