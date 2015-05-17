@@ -1,11 +1,4 @@
-<html>
-<head>
-<title>Isaac Log in</title>
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'auth/style.css' %}"/>
-</head>
-
-<body>
+{% include 'header.html' %}
 	
 	<form action="/login/" method="post" class="form-style">
 		{% csrf_token %}
@@ -18,5 +11,4 @@
 		<input type="submit" value="Log In"/>
 	</form>
 	
-</body>
-</html>
+{% include 'footer.html' %}

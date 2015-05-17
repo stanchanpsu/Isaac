@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class OutreachTrip(models.Model):
 	location = models.CharField(max_length = 140)
 	EAs_needed = models.PositiveSmallIntegerField()
 	note = models.CharField(max_length = 500, blank = True, null = True)
+	EAs_registered = models.ManyToManyField(User)
 	
 	def __unicode__(self):
 		return self.school
@@ -23,8 +25,7 @@ class Tour(models.Model):
 	location = models.CharField(max_length=30)
 	EAs_needed = models.PositiveSmallIntegerField()
 	note = models.CharField(max_length = 500, blank = True, null = True)
+	EAs_registered = models.ManyToManyField(User)
 	
 	def __unicode__(self):
 		return str(self.date) + " " + self.tour_type + " " + str(self.time)
-	
-

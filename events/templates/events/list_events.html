@@ -1,16 +1,7 @@
-<!-- figure out this forms in django template thing
-
-https://docs.djangoproject.com/en/1.8/topics/forms/
-
--->
-
 {% include 'header.html' %}
 
 <form action='/events/' method ='get'>
 	<select id='event_view' name='event_view' onchange='this.form.submit();'>
-<!--
-		<option>Events to view</option>
--->
 		<option value='all'>All Events</option>
 		<option value='out'>Outreach Trips</option>
 		<option value='tour'>Tours</option>
@@ -35,8 +26,7 @@ https://docs.djangoproject.com/en/1.8/topics/forms/
 	$(document).ready(
 	function(){
 	$("#event_view").val( 'tour' ); });
-	</script>
-	
+	</script>	
 	
 {% else %}
 	
