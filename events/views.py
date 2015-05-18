@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
@@ -25,6 +25,8 @@ def list_events(request):
 
 @login_required(login_url='/login/')
 def event_detail(request, event_type, event_id):
+	
+	# 1. parse the url (from regex capture) for type of event and event id (this is specific to type of event aka both Tour and Outreach can have id = 1_)	
 		
 	if event_type == 'outreach':
 		event = get_object_or_404(OutreachTrip, pk = event_id)
@@ -33,15 +35,32 @@ def event_detail(request, event_type, event_id):
 		descript_field = event.school
 	elif event_type == 'tour':
 		event = get_object_or_404(Tour, pk = event_id)
-		title = str(event.time) + ' ' + event.tour_type + ' Tour on ' + str(event.date)
+		title = str(event.time) + ' ' + event.get_tour_type_display() + ' Tour on ' + str(event.date)
 		descript = 'Time'
 		descript_field = event.time
-
-## figure this out		
+	
+	# 2. set 'event_register' button value depending on whether EA is already registered
+		
+	if request.user in event.EAs_registered.all():
+		event_register_status = "You are registered for this event."
+		event_toggle = 'Withdraw'
+	else:
+		event_register_status = "You are NOT registered for this event."
+		event_toggle = 'Sign up'
+	
+	# 3. if the user clicks the button, perform the correct action ( sign up or withdraw) and redirect to the same page - prevents incorrect resubmit of form
+	
 	if request.POST:
-		user = request.user
-		event.EAs_registered.add(user)
 		
+		if request.POST['event_register'] == 'Sign up':
+			event.EAs_registered.add(request.user)
+		elif request.POST['event_register'] == 'Withdraw':
+			event.EAs_registered.remove(request.user)
+			
+		return redirect("/events/" + event_type + "/" + event_id  +"/")
 		
+	# initial GET request or reload of page renders the page with correct context
+				
+	EAs_registered 	= event.EAs_registered.all()
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status,})

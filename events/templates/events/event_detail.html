@@ -4,7 +4,7 @@
 	<h1>{{ title }}</h1>
 	<tr>
 		<th>Date:</th>
-		<td>{{event.date}}</td>
+		<td>{{ event.date }}</td>
 	</tr>
 	<tr>
 		<th>{{descript}}:</th>
@@ -27,9 +27,18 @@
 		<td>{{event.hours}}</td>
 </table>
 
-<form action='/events/{{event_type}}/{{event_id}}/' method='post' name='event_register'>
+
+{{event_register_status}}
+<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
 	{% csrf_token %}
-	<input type='submit' value='Sign Up'>
+	<input type='submit' value="{{event_toggle}}" name = 'event_register'>
 </form>
+
+<table>
+	<h1>EAs registered for this event</h1>
+{% for EA in EAs_registered %}
+	<tr><td>{{ EA }}</td></tr>
+{% endfor %}
+</table>
 
 {% include 'footer.html' %}
