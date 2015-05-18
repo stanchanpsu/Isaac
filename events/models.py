@@ -25,7 +25,7 @@ class Tour(models.Model):
 	location = models.CharField(max_length=30)
 	EAs_needed = models.PositiveSmallIntegerField()
 	note = models.CharField(max_length = 500, blank = True, null = True)
-	EAs_registered = models.ManyToManyField(User)
+	EAs_registered = models.ManyToManyField(User, related_name = 'tours')
 	
 	def __unicode__(self):
 		return str(self.date) + " " + self.tour_type + " " + str(self.time)

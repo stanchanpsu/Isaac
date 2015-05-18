@@ -29,10 +29,7 @@
 
 <form action='/events/{{event_type}}/{{event_id}}/' method='post' name='event_register'>
 	{% csrf_token %}
-	<input type='password' name = 'password'>
 	<input type='submit' value='Sign Up'>
 </form>
-
-{{event.EAs_registered}}
 
 {% include 'footer.html' %}
