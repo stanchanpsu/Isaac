@@ -39,7 +39,7 @@ def event_detail(request, event_type, event_id):
 
 ## figure this out		
 	if request.POST:
-		user = User.objects.get(pk=1) # this must be wrong
+		user = request.user # this must be wrong
 		event.EAs_registered.add(user)
 		
 	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id,})
