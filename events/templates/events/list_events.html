@@ -1,11 +1,14 @@
 {% include 'header.html' %}
 
-<form action='/events/' method ='get'>
-	<select id='event_view' name='event_view' onchange='this.form.submit();'>
+<div class="container">
+<form action='/events/' method ='get' class="col s12">
+	<div class="input-field col s12">
+		<select id='event_view' name='event_view' onchange='this.form.submit();'>
 		<option value='all'>All Events</option>
 		<option value='out'>Outreach Trips</option>
 		<option value='tour'>Tours</option>
 	</select>
+	</div>
 </form>
 
 {% if event_view == "out" %}
@@ -40,5 +43,7 @@
 	</script>
 
 {% endif %}
+
+</div>
 
 {% include 'footer.html' %}

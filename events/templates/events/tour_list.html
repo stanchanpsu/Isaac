@@ -1,5 +1,6 @@
-<table>
-	<h1>Tours</h1>
+<table class="hoverable">
+	<h3>Tours</h3>
+	<thead>
 	<tr>
 		<th>Type</th>
 		<th>Date</th>
@@ -9,6 +10,8 @@
 		<th>Notes</th>
 		<th>Hours</th>
 	</tr>
+	</thead>
+	<tbody>
 {% for tour in tour_list %}
 	<tr>
 		<td>{{tour.tour_type}}</td>
@@ -20,4 +23,5 @@
 		<td>{{tour.hours}}</td>
 	</tr>
 {% endfor %}
+	</tbody>
 </table>

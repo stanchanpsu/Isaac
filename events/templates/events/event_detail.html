@@ -1,8 +1,8 @@
 {% include 'header.html' %}
 
-<div id = 'event_detail'>
+<div class="container">
 <table align='center'>
-	<h1>{{ title }}</h1>
+	<h3>{{ title }}</h3>
 	<tr>
 		<th>Date:</th>
 		<td>{{ event.date|date:"l, d M Y" }}</td>
@@ -16,7 +16,7 @@
 		<td>{{event.location}}</td>
 	</tr>
 	<tr>	
-		<th>EAs:</th>
+		<th>EAs needed:</th>
 		<td>{{event.EAs_needed}}</td>
 	</tr>
 	<tr>	
@@ -29,17 +29,21 @@
 </table>
 </div>
 
-<div class='{{background_color}}' id='event_register_status'>
-	<p>{{event_register_status}}</p>
-	<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
+<!--
+EVENT REGISTER STATUS
+-->
+
+<div class='card-panel {{background_color}} lighten-2' id='event_register_status'>
+	<h4 class="white-text">{{event_register_status}}</h4>
+	<span><form action='/events/{{event_type}}/{{event_id}}/' method='post' >
 		{% csrf_token %}
-		<input id = 'event_register_button' type='submit' value="{{event_toggle}}" name = 'event_register'>
-	</form>
+		<button class="{{background_color}} btn waves-effect waves-light" type='submit' name = '/events/{{event_type}}/{{event_id}}/'>{{event_toggle}}</button>
+	</form></span>
 </div>
 
-<div id='EAs_registered'>
+<div class="container">
 <table align='center'>
-	<h1>EAs registered for this event</h1>
+	<h3>EAs registered for this event</h3>
 {% for EA in EAs_registered %}
 	<tr><td>{{ EA }}</td></tr>
 {% endfor %}

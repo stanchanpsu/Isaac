@@ -3,11 +3,15 @@
 <head>
 {% load staticfiles %}
 <!--JavaScript -->
+	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	
 <!--CSS -->
-	<link rel="stylesheet" type="text/css" href="{% static 'materialize/css/materialize.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'materialize/css/materialize.css' %}">
+	
+	{% if stylesheet %}
 	<link rel="stylesheet" type="text/css" href= "{% static stylesheet %}"/>
+	{% endif %}
 	
 <title>{{title}}</title>
 

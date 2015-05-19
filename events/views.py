@@ -48,26 +48,25 @@ def event_detail(request, event_type, event_id):
 	if request.user in event.EAs_registered.all():
 		event_register_status = "You are registered for this event."
 		event_toggle = 'Withdraw'
-		background_color = 'green'
+		background_color = 'teal'
 	else:
-		event_register_status = "You are NOT registered for this event."
+		event_register_status = "You are not registered for this event."
 		event_toggle = 'Sign up'
 		background_color = 'red'
 	
 	# 3. if the user clicks the button, perform the correct action ( sign up or withdraw) and redirect to the same page - prevents incorrect resubmit of form
 	
 	if request.POST:
-		
-		if request.POST['event_register'] == 'Sign up':
-			event.EAs_registered.add(request.user)
-		elif request.POST['event_register'] == 'Withdraw':
+		if event_toggle == 'Withdraw':
 			event.EAs_registered.remove(request.user)
+		elif event_toggle == 'Sign up':
+			event.EAs_registered.add(request.user)
 			
 		return redirect("/events/" + event_type + "/" + event_id  +"/")
 		
 	# initial GET request or reload of page renders the page with correct context
 				
 	EAs_registered 	= event.EAs_registered.all()
-	# stylesheet = 'events/event_detail.css'
+	stylesheet = 'events/event_detail.css'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet,})
