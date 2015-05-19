@@ -33,7 +33,7 @@
 	<p>{{event_register_status}}</p>
 	<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
 		{% csrf_token %}
-		<input type='submit' value="{{event_toggle}}" name = 'event_register'>
+		<input id = 'event_register_button' type='submit' value="{{event_toggle}}" name = 'event_register'>
 	</form>
 </div>
 
