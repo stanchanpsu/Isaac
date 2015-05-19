@@ -96,6 +96,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+#custom date/time formats
+SHORT_TIME = "g:i A"
+SHORT_DATE_DAY = "l m/d/y"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

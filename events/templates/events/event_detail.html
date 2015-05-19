@@ -4,7 +4,7 @@
 	<h1>{{ title }}</h1>
 	<tr>
 		<th>Date:</th>
-		<td>{{ event.date }}</td>
+		<td>{{ event.date|date:"l, d M Y" }}</td>
 	</tr>
 	<tr>
 		<th>{{descript}}:</th>

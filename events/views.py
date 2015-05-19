@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from .models import OutreachTrip,Tour
 from .forms import EventView
 
+#date formatting
+from django.utils import formats
 
 @login_required(login_url='/login/')
 def list_events(request):
@@ -35,9 +37,11 @@ def event_detail(request, event_type, event_id):
 		descript_field = event.school
 	elif event_type == 'tour':
 		event = get_object_or_404(Tour, pk = event_id)
-		title = str(event.time) + ' ' + event.get_tour_type_display() + ' Tour on ' + str(event.date)
+		time = formats.date_format(event.time, "SHORT_TIME")
+		date = formats.date_format(event.date, "SHORT_DATE_DAY")
+		title = time + ' ' + event.get_tour_type_display() + ' Tour on ' + date
 		descript = 'Time'
-		descript_field = event.time
+		descript_field = time
 	
 	# 2. set 'event_register' button value depending on whether EA is already registered
 		
