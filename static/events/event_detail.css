@@ -1,0 +1,9 @@
+body {padding: 0; margin:0;}
+
+div {text-align:center;}
+
+#event_register_status {width:100%; padding:50px;}
+#event_register_status > form, p { display: inline; }
+
+.green {background-color:#43d1af;}
+.red {background-color:#ea6882;}

@@ -1,6 +1,7 @@
 {% include 'header.html' %}
 
-<table>
+<div id = 'event_detail'>
+<table align='center'>
 	<h1>{{ title }}</h1>
 	<tr>
 		<th>Date:</th>
@@ -26,19 +27,23 @@
 		<th>Hours:</th>
 		<td>{{event.hours}}</td>
 </table>
+</div>
 
+<div class='{{background_color}}' id='event_register_status'>
+	<p>{{event_register_status}}</p>
+	<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
+		{% csrf_token %}
+		<input type='submit' value="{{event_toggle}}" name = 'event_register'>
+	</form>
+</div>
 
-{{event_register_status}}
-<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
-	{% csrf_token %}
-	<input type='submit' value="{{event_toggle}}" name = 'event_register'>
-</form>
-
-<table>
+<div id='EAs_registered'>
+<table align='center'>
 	<h1>EAs registered for this event</h1>
 {% for EA in EAs_registered %}
 	<tr><td>{{ EA }}</td></tr>
 {% endfor %}
 </table>
+</div>
 
 {% include 'footer.html' %}
