@@ -2192,8 +2192,7 @@ table {
     -o-transition: background-color .25s ease;
     -ms-transition: background-color .25s ease;
     transition: background-color .25s ease; }
-    table.hoverable tbody tr:hover {
-      background-color: #f2f2f2; }
+
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 
@@ -6510,10 +6509,10 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     top: -14px;
     font-size: 0.8rem; }
 
-/*
-select {
-  display: none; }
-*/
+
+/*select {*/
+/*  display: none; }*/
+
 
 select.browser-default {
   display: block; }
