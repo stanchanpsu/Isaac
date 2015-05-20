@@ -47,13 +47,18 @@ EVENT REGISTER STATUS
 	</form></span>
 </div>
 
-<div class="container">
-<table align='center'>
-	<h3>EAs registered for this event</h3>
-{% for EA in EAs_registered %}
-	<tr><td>{{ EA }}</td></tr>
-{% endfor %}
-</table>
+<div class="card-panel white-text purple accent-4 center-align">
+	<div class="container">
+		<table align='center'>
+				<h3>EAs registered for this event</h3>
+				<hr/>
+				
+			{% for EA in EAs_registered %}
+				<tr><td>{{ EA }}</td></tr>
+			{% endfor %}
+
+		</table>
+	</div>
 </div>
 
 {% include 'footer.html' %}
