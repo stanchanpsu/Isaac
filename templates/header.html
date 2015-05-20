@@ -3,8 +3,9 @@
 <head>
 {% load staticfiles %}
 <!--JavaScript -->
-	<script src="{% static 'materialize/js/materialize.js' %}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+		<script src="{% static 'overall.js' %}"></script>
 	
 <!--CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'materialize/css/materialize.css' %}"/>
@@ -18,3 +19,21 @@
 </head>
 
 <body>
+
+{% if request.user.is_authenticated %}	
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue">
+      <a id="logo" href="/" class="brand-logo">Isaac</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	    <li><a href = '{% url "events:list_events" %}'>Events</a></li>
+		<li><a href = '#'>Calendar</a></li>
+		<li><a href = '#'>Messages</a></li>
+		<li><a href = '#'>Groups</a></li>
+		<li><a href = '#'>Personal</a></li>
+		<li><a href = '{% url "logout" %}'>Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+{% endif %}

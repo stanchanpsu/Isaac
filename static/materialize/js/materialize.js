@@ -1,4 +1,8 @@
 // t: current time, b: begInnIng value, c: change In value, d: duration
+$(document).ready(function() {
+    $('select').material_select();
+});
+
 jQuery.easing['jswing'] = jQuery.easing['swing'];
 
 jQuery.extend( jQuery.easing,

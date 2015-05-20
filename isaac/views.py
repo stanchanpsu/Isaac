@@ -5,15 +5,14 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-	stylesheet = 'auth/style.css'
+	# stylesheet = 'auth/style.css'
 	
 	if request.user.is_authenticated():
-		title = 'Welcome to Isaac'
-		return render(request, 'index.html',{'stylesheet':stylesheet, 'title':title})
+		return redirect("/events")
 	
 	else:
 		title = 'Isaac Login'
-		return render(request, 'login.html', {'stylesheet':stylesheet,'title':title,})
+		return render(request, 'login.html', {'title':title,})
 	
 def logout_user(request):
 	logout(request)

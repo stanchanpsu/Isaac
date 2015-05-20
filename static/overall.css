@@ -2,3 +2,7 @@ a { color: #bbdefb ;}
 a:hover {color: #e3f2fd;}
 
 hr {border: solid 1px white;}
+
+#logo {padding-left: 50px; font-size: 30px;}
+#logo:hover {color: white;}
+/*#logo:hover:before {content: 'Integrated Schedular and Ambassador Communicator';}*/
