@@ -11,6 +11,8 @@ from .forms import EventView
 #date formatting
 from django.utils import formats
 
+app = 'events'
+
 @login_required(login_url='/login/')
 def list_events(request):
 		
@@ -22,7 +24,7 @@ def list_events(request):
 	outreach_list = OutreachTrip.objects.order_by('date')
 	tour_list = Tour.objects.order_by('date')
 	
-	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title,})	
+	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title, 'app': app})	
 	
 
 @login_required(login_url='/login/')
@@ -69,4 +71,4 @@ def event_detail(request, event_type, event_id):
 	EAs_registered 	= event.EAs_registered.all()
 	stylesheet = 'events/event_detail.css'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'app': app,})
