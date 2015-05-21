@@ -1,11 +1,12 @@
 {% include 'header.html' %}
 
 <div class="container">
-<div class="card-panel purple accent-4 white-text center-align">
-<div class="container">
-<table >
+<div class="card-panel deep-purple darken-2 white-text center-align">
 	<h3>{{ title }}</h3>
-	<hr/>
+
+<div class="card-panel purple darken-2">
+<table >
+	
 	<tr>
 		<th>Date:</th>
 		<td>{{ event.date|date:"l, d M Y" }}</td>
@@ -24,13 +25,6 @@
 		<th>Hours:</th>
 		<td>{{event.hours}}</td>
 	</tr>
-	<!--<tr>	-->
-	
-	<!--</tr>-->
-	<!--<tr>	-->
-		
-	<!--</tr>-->
-	<!--<tr>-->
 		
 </table>
 </div>
@@ -48,24 +42,27 @@ EVENT REGISTER STATUS
 	</form></span>
 </div>
 
-<div class="card-panel white-text purple accent-4 center-align">
+<div class="card-panel white-text deep-purple darken-2 center-align">
+<!--
 	<div class="container">
-		<table align='center'>
+-->
+		<table class="center-align">
 				<h3>Registered Engineering Ambassadors</h3>
-				<hr/>
 				
-				<tr>
+				<tr class="center-align">
 				
 				    {% for EA in EAs_registered %}
-				    <td>{{ EA.first_name }} {{ EA.last_name}}</td>
+				    <td><a class="waves-effect waves-light purple darken-1 btn">{{ EA.first_name }} {{ EA.last_name }}</a></td>
 				
 				        <!-- if last column in row -->
 				        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-			        </tr><tr>
+			        </tr><tr class="center-align">
 				        {% endif %}
 				    {% endfor %}
 		</table>
+<!--
 	</div>
+-->
 </div>
 </div>
 {% include 'footer.html' %}
