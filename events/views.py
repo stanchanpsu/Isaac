@@ -68,7 +68,7 @@ def event_detail(request, event_type, event_id):
 		
 	# initial GET request or reload of page renders the page with correct context
 				
-	EAs_registered 	= event.EAs_registered.all()
+	EAs_registered 	= event.EAs_registered.order_by('username')
 	stylesheet = 'events/event_detail.css'
 		
 	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'app': app,})

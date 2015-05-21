@@ -4,6 +4,8 @@
 <div class="card-panel blue darken-3 white-text">
 <table class="hoverable" id='outreach_table'>
 	<h3>Outreach Trips</h3>
+	
+	{% if outreach_list.count != 0 %}
 	<thead>
 	<tr>
 		<th>Date</th>
@@ -15,7 +17,7 @@
 	</tr>
 	</thead>
 	<tbody>
-{% for outreach in outreach_list %}
+	{% for outreach in outreach_list %}
 	<tr>
 		<td>{{outreach.date}}</td>
 		<td class="link"><a href="/events/outreach/{{outreach.id}}/">{{outreach.school}}</a></td>
@@ -24,7 +26,10 @@
 		<td>{{outreach.note}}</td>
 		<td>{{outreach.hours}}</td>
 	</tr>
-{% endfor %}
+	{% endfor %}
 	</tbody>
+	{% else %}
+		<p>There are no Outreach Trips scheduled at this time.</p>
+	{% endif %}
 </table>
 </div>

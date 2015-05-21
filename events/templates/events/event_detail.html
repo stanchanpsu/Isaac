@@ -54,10 +54,16 @@ EVENT REGISTER STATUS
 				<h3>Registered Engineering Ambassadors</h3>
 				<hr/>
 				
-			{% for EA in EAs_registered %}
-				<tr><td>{{ EA }}</td></tr>
-			{% endfor %}
-
+				<tr>
+				
+				    {% for EA in EAs_registered %}
+				    <td>{{ EA.first_name }} {{ EA.last_name}}</td>
+				
+				        <!-- if last column in row -->
+				        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+			        </tr><tr>
+				        {% endif %}
+				    {% endfor %}
 		</table>
 	</div>
 </div>
