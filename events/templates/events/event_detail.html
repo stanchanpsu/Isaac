@@ -1,10 +1,12 @@
 {% include 'header.html' %}
 
+<style> .btn {margin-top: 10px;}</style>
+
 <div class="container">
-<div class="card-panel deep-purple darken-2 white-text center-align">
+<div class="card-panel purple darken-2 white-text center-align">
 	<h3>{{ title }}</h3>
 
-<div class="card-panel purple darken-2">
+<div class="card-panel deep-purple darken-2">
 <table >
 	
 	<tr>
@@ -42,27 +44,21 @@ EVENT REGISTER STATUS
 	</form></span>
 </div>
 
-<div class="card-panel white-text deep-purple darken-2 center-align">
-<!--
-	<div class="container">
--->
-		<table class="center-align">
-				<h3>Registered Engineering Ambassadors</h3>
-				
-				<tr class="center-align">
-				
-				    {% for EA in EAs_registered %}
-				    <td><a class="waves-effect waves-light purple darken-1 btn">{{ EA.first_name }} {{ EA.last_name }}</a></td>
-				
-				        <!-- if last column in row -->
-				        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-			        </tr><tr class="center-align">
-				        {% endif %}
-				    {% endfor %}
-		</table>
-<!--
+<div class="card-panel white-text purple darken-2 center-align">
+
+	<div class="center-align">
+		<h3>Registered Engineering Ambassadors</h3>
+		
+		<div ckass="center-align"		
+		    {% for EA in EAs_registered %}
+		    <span><a class="waves-effect waves-light deep-purple darken-2 btn">{{ EA.first_name }} {{ EA.last_name }}</a></span>
+		
+		        <!-- if last column in row -->
+		        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+	        </div><div class="center-align">
+		        {% endif %}
+		    {% endfor %}
 	</div>
--->
 </div>
 </div>
 {% include 'footer.html' %}
