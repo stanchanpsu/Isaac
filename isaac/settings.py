@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles','polls',
-    'events', 'EA_calendar',
+    'events', 'cal',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,6 +98,7 @@ USE_TZ = True
 
 #custom date/time formats
 SHORT_TIME = "g:i A"
+SHORT_DATE ="m/d/y"
 SHORT_DATE_DAY = "l m/d/y"
 
 
