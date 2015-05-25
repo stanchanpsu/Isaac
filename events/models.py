@@ -2,7 +2,8 @@ from django.db import models
 from django import forms
 from django.contrib.auth.models import User
 
-# Create your models here.
+#date formatting
+from django.utils import formats
 
 class Event(models.Model):
 	time = models.TimeField()
@@ -25,4 +26,9 @@ class Tour(Event):
 	EAs_registered = models.ManyToManyField(User, related_name = 'tours', blank = True)
 	
 	def __unicode__(self):
-		return str(self.date) + " " + self.tour_type + " " + str(self.time)
+		time = formats.date_format(self.time, "SHORT_TIME")
+		date = formats.date_format(self.date, "SHORT_DATE")
+		return self.tour_type + " " + time + " Tour"
+		
+	def short(self):
+		return str(self.time) + " Tour"

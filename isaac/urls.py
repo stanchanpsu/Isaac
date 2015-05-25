@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^events/', include('events.urls', namespace = 'events')),
     url(r'^calendar/', include('cal.urls', namespace = 'cal')),
+    url(r'^bc/', include('django_bootstrap_calendar.urls')),
     
     # index and authetication
     url(r'^$', views.index, name='index'),

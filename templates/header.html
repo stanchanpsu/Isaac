@@ -27,8 +27,8 @@
       <a id="logo" href="/" class="brand-logo">Isaac</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
 	    <li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
-			<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '#'>Calendar</a></li>
-			<li {% if app == 'messages' %} class="active" {% endif %}><a href = '#'>Messages</a></li>
+			<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
+			<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
 			<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
 			<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
 			<li><a href = '{% url "logout" %}'>Logout</a></li>
