@@ -29,6 +29,3 @@ class Tour(Event):
 		time = formats.date_format(self.time, "SHORT_TIME")
 		date = formats.date_format(self.date, "SHORT_DATE")
 		return self.tour_type + " " + time + " Tour"
-		
-	def short(self):
-		return str(self.time) + " Tour"

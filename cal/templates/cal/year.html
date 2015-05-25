@@ -1,0 +1,31 @@
+{% include 'header.html' %}
+	<div class="container row">
+		<div class="card-panel col s6 center-align">
+			<h4>Fall {{year}}</h4>
+			<table>
+				<tr>
+					{% for month in fall %}
+						<td><a href="{{year}}/{{forloop.counter|add:'6'}}">{{month}}</a></td>
+					{% if forloop.counter|divisibleby:"3" and not forloop.last %}
+					</tr><tr>
+					{% endif %}
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+		<div class="card-panel col s6 center-align">
+			<h4>Spring {{year|add:"1"}}</h4>
+			<table>
+				<tr>
+					{% for month in spring %}
+						<td><a href="{{year|add:'1'}}/{{forloop.counter}}">{{month}}</a></td>
+					{% if forloop.counter|divisibleby:"3" and not forloop.last %}
+					</tr><tr>
+					{% endif %}
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+	</div>
+
+{% include 'footer.html' %}

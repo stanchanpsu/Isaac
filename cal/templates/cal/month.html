@@ -1,0 +1,45 @@
+{% include 'header.html' %}
+{% include 'cal/navbar.html' %}
+
+<div class="container">
+	<div class="card-panel blue">
+		<h4> {{ month_name }} {{ year }}</h4>
+
+		<div class = "month card-panel">
+			<table>
+			
+				<tr>
+					<th class="">Mon</th>
+					<th class="">Tues</th>
+					<th class="">Wed</th>
+					<th class="">Thurs</th>
+					<th class="">Fri</th>
+					<th class="">Sat</th>
+					<th class="">Sun</th>		
+				</tr>
+				
+				{% for week in month_days %}
+					<tr>
+						{% for day, events, current in week %}
+							<td>
+							{% if day != 0 %}
+								{{day}}
+								{% for event in events %}
+									<br/>
+									{% if event.tour %}
+										<p>{{ event.tour }}</p>
+									{% else %}
+										{{ event.outreachtrip}}
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+							</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+
+		</div>
+	</div>
+</div>
+{% include 'footer.html' %}

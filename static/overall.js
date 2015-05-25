@@ -1,6 +1,7 @@
 $(document).ready(function(){
     
     LogoExpand();
+    $(".button-collapse").sideNav();
     
     });
 

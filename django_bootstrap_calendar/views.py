@@ -8,7 +8,6 @@ from utils import timestamp_to_datetime
 
 import datetime
 
-
 class CalendarJsonListView(ListView):
 
     template_name = 'django_bootstrap_calendar/calendar_events.html'
