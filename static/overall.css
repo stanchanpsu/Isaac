@@ -2,7 +2,11 @@ a { color: #bbdefb ;}
 a:hover {color: #e3f2fd;}
 
 hr {border: solid 1px white;}
-
-#logo {padding-left: 50px; padding-right:50px; font-size: 30px;}
-#logo:hover {color: white;}
-/*#logo:hover:before {content: 'Integrated Schedular and Ambassador Communicator';}*/
+#logo { font-size: 40px;}
+.side-nav.fixed a {color: white;}
+.side-nav.fixed li:hover {background-color:#1976d2;}
+.side-nav.fixed .active {background-color:#1976d2;}
+body { padding-left: 240px; }
+#nav-btn {display: none ;}
+@media only screen and (max-width : 992px) {body, footer { padding-left: 0; } #nav-btn{display: inline;} }
+       

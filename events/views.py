@@ -17,6 +17,7 @@ app = 'events'
 def list_events(request):
 		
 	title = 'EA events'
+	stylesheet = 'events/list_events.css'
 	
 	# get selection from event_view dropdown
 	event_view = request.GET.get('event_view', False)			
@@ -24,7 +25,7 @@ def list_events(request):
 	outreach_list = OutreachTrip.objects.order_by('date')
 	tour_list = Tour.objects.order_by('date')
 	
-	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title, 'app': app})	
+	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title, 'app': app, 'stylesheet':stylesheet,})	
 	
 
 @login_required(login_url='/login/')

@@ -40,13 +40,11 @@ EVENT REGISTER STATUS
 -->
 
 <div class='card-panel {{background_color}} lighten-2' id='event_register_status'>
-	<div class="container">
-	<h4 class="white-text">{{event_register_status}}</h4>
+	<h3 class="white-text">{{event_register_status}}</h3>
 	<form action='/events/{{event_type}}/{{event_id}}/' method='post' >
 		{% csrf_token %}
 		<button class="{{background_color}} btn waves-effect waves-light" type='submit' name = '/events/{{event_type}}/{{event_id}}/'>{{event_toggle}}</button>
 	</form>
-	</div>
 </div>
 
 <div class="card-panel white-text purple darken-2 center-align">

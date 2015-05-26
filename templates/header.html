@@ -18,33 +18,32 @@
 	
 <title>{{title}}</title>
 
+ 
+
 </head>
 
 <body>
 
-{% if request.user.is_authenticated %}	
-<div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper blue">
-      <a id="logo" href="/" class="brand-logo">Isaac</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      <ul class="right hide-on-med-and-down">
-	    <li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
-			<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
-			<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
-			<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
-			<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
-			<li><a href = '{% url "logout" %}'>Logout</a></li>
+{% if request.user.is_authenticated %}
+		<div class="white-text">
+      <ul class="side-nav fixed blue">
+      	<li class="logo"><a id="logo" href="/" class="brand-logo">Isaac</a></li>
+		    <li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
+				<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
+				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
+				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
+				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
       </ul>
-      <ul class="side-nav" id="mobile-demo">
-			<li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
-			<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
-			<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
-			<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
-			<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
-			<li><a href = '{% url "logout" %}'>Logout</a></li>
+      <a href="#" data-activates="slide-out" id = "nav-btn" class="button-collapse"><i class="mdi-navigation-menu medium"></i></a>
+
+      <ul class="side-nav blue white-text" id="slide-out">
+      	<li class="logo"><a id="logo" href="/" class="brand-logo">Isaac</a></li>
+				<li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
+				<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
+				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
+				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
+				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
+				<li><a href = '{% url "logout" %}'>Logout</a></li>
       </ul>
-    </div>
-  </nav>
-</div>
-{% endif %}
+     </div>
+ {% endif %}  
