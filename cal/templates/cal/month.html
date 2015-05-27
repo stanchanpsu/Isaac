@@ -1,35 +1,40 @@
 {% include 'header.html' %}
 
-<div class="container">
-	<div class="card-panel blue">
+<!--<div class="container">-->
+	<div class="outer card-panel blue darken-1">
 		<h4> {{ month_name }} {{ year }}</h4>
 
 		<div class = "month card-panel">
 			<table>
 			
 				<tr>
-					<th class="">Mon</th>
-					<th class="">Tues</th>
-					<th class="">Wed</th>
-					<th class="">Thurs</th>
-					<th class="">Fri</th>
-					<th class="">Sat</th>
-					<th class="">Sun</th>		
+					<th>Mon</th>
+					<th>Tues</th>
+					<th>Wed</th>
+					<th>Thurs</th>
+					<th>Fri</th>
+					<th>Sat</th>
+					<th>Sun</th>		
 				</tr>
 				
 				{% for week in month_days %}
 					<tr>
 						{% for day, events, current in week %}
-							<td>
+							<td {% if current %}class="current"{% endif %}>
 							{% if day != 0 %}
-								{{day}}
+								<a class="date waves-effect waves-teal btn-flat">{{day}}</a>
 								{% for event in events %}
-									<br/>
-									{% if event.tour %}
-										<p>{{ event.tour }}</p>
-									{% else %}
-										{{ event.outreachtrip}}
+									<!--<br/>-->
+									{% if forloop.counter < 4 %}
+										{% if event.tour %}
+											<a class="cal-event blue waves-effect waves-light btn " href="/events/tour/{{event.tour.id}}">{{ event.tour }}</a>
+										{% else %}
+											<a class="cal-event orange darken-3 waves-effect waves-light btn" href="/events/outreach/{{event.outreachtrip.id}}">{{ event.outreachtrip}}</a>
+										{% endif %}
+									{% elif forloop.counter == 4 %}
+										<a class="more waves-effect waves-teal btn-flat">{{forloop.revcounter}} more </a>
 									{% endif %}
+									
 								{% endfor %}
 							{% endif %}
 							</td>
@@ -40,5 +45,5 @@
 
 		</div>
 	</div>
-</div>
+<!--</div>-->
 {% include 'footer.html' %}
