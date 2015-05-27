@@ -1,19 +1,19 @@
 <style>#outreach_table tbody tr:hover {
       background-color: #1e88e5; }</style>
-<div class="row">
+
 <div class="card-panel blue darken-3 white-text">
 <table class="hoverable" id='outreach_table'>
-	<h3>Outreach Trips</h3>
+	<h4>Outreach Trips</h4>
 	
 	{% if outreach_list.count != 0 %}
 	<thead>
 	<tr>
 		<th>Date</th>
 		<th>School</th>
-		<th>Location</th>
+		<!--<th>Location</th>-->
 		<th>EAs</th>
-		<th>Notes</th>
-		<th>Hours</th>
+		<!--<th>Notes</th>-->
+		<!--<th>Hours</th>-->
 	</tr>
 	</thead>
 	<tbody>
@@ -21,10 +21,10 @@
 	<tr>
 		<td>{{outreach.date}}</td>
 		<td class="link"><a href="/events/outreach/{{outreach.id}}/">{{outreach.school}}</a></td>
-		<td>{{outreach.location}}</td>
+		<!--<td>{{outreach.location}}</td>-->
 		<td>{{outreach.EAs_needed}}</td>
-		<td>{{outreach.note}}</td>
-		<td>{{outreach.hours}}</td>
+		<!--<td>{{outreach.note}}</td>-->
+		<!--<td>{{outreach.hours}}</td>-->
 	</tr>
 	{% endfor %}
 	</tbody>
@@ -32,5 +32,4 @@
 		<p>There are no Outreach Trips scheduled at this time.</p>
 	{% endif %}
 </table>
-</div>
 </div>

@@ -25,25 +25,55 @@
 <body>
 
 {% if request.user.is_authenticated %}
-		<div class="white-text">
+
       <ul class="side-nav fixed blue">
       	<li class="logo"><a id="logo" href="/" class="brand-logo">Isaac</a></li>
 		    <li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
-				<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
+		    <ul class="collapsible" data-collapsible="accordion">
+		    	<li>
+					<div class="collapsible-header {% if app == 'calendar' %} active {% endif %}"><a>Calendar</a></div>
+				      <div class="collapsible-body">
+				      	<ul class="blue">
+				      	  <li><a {% if current_year %} href="/calendar/{{current_year}}"{% else %} href="/calendar/{{year}}" {% endif %}>Year</a></li>
+				      	  <li><a href="/calendar">Month</a></li>
+				      	  <li><a href="#!">Day</a></li>
+				      	</ul>
+				      </div>
+				      
+				</li>
+			</ul>
 				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
 				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
 				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
       </ul>
-      <a href="#" data-activates="slide-out" id = "nav-btn" class="button-collapse"><i class="mdi-navigation-menu medium"></i></a>
-
+      
+	<div class="navbar-fixed">
+      <nav class="blue white-text">
+      	
+      		      	      <a href="/events" data-activates="slide-out" id = "nav-btn" class="button-collapse"><i class="mdi-navigation-menu medium"></i></a>
+      	      <a href="#" class="brand-logo center">Isaac</a>
+      	
+	</nav>
+	</div>
       <ul class="side-nav blue white-text" id="slide-out">
       	<li class="logo"><a id="logo" href="/" class="brand-logo">Isaac</a></li>
 				<li {% if app == 'events' %} class="active" {% endif %}><a href = '{% url "events:list_events" %}'>Events</a></li>
-				<li {% if app == 'calendar' %} class="active" {% endif %}><a href = '{% url "cal:calendar" %}'>Calendar</a></li>
+				<ul class="collapsible" data-collapsible="accordion">
+		    	<li>
+					<div class="collapsible-header {% if app == 'calendar' %} active {% endif %}"><a>Calendar</a></div>
+				      <div class="collapsible-body">
+				      	<ul class="blue">
+				      	  <li><a {% if current_year %} href="/calendar/{{current_year}}"{% else %} href="/calendar/{{year}}" {% endif %}>Year</a></li>
+				      	  <li><a href="/calendar">Month</a></li>
+				      	  <li><a href="#!">Day</a></li>
+				      	</ul>
+				      </div>
+				      
+				</li>
+			</ul>
 				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
 				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
 				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
 				<li><a href = '{% url "logout" %}'>Logout</a></li>
       </ul>
-     </div>
  {% endif %}  

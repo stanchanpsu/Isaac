@@ -2,11 +2,27 @@ a { color: #bbdefb ;}
 a:hover {color: #e3f2fd;}
 
 hr {border: solid 1px white;}
+
+/*NAVBAR*/
 #logo { font-size: 40px;}
 .side-nav.fixed a {color: white;}
 .side-nav.fixed li:hover {background-color:#1976d2;}
 .side-nav.fixed .active {background-color:#1976d2;}
+
+.side-nav a {color: white;}
+.side-nav li:hover {background-color:#1976d2;}
+#slide-out .active {background-color:#1976d2;}
+
+/*SIDE NAVBAR FORMATTING*/
 body { padding-left: 240px; }
-#nav-btn {display: none ;}
-@media only screen and (max-width : 992px) {body, footer { padding-left: 0; } #nav-btn{display: inline;} }
+.navbar-fixed {display: none ; }
+@media only screen and (max-width : 992px) {body, footer { padding-left: 0; margin:0;} .navbar-fixed{display: block; } .container{margin:0 ; width:100%; padding:0;}}
+
+/*TABLE*/
+/*td, th {text-align:center;}*/
+td, th {font-size:1.5vw;}
+
+@media only screen and (max-width : 992px) { td, th {font-size:4vw;} }
+
+.collapsible-header {padding:0;}
        

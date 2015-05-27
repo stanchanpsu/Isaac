@@ -4,31 +4,33 @@
 
 <div class="card-panel teal darken-2 white-text">
 <table class="hoverable" id="tour_table">
-	<h3>Tours</h3>
+	<h4>Tours</h4>
 
 {% if tour_list.count != 0 %}
 	<thead>
 	<tr>
-		<th>Type</th>
+		
 		<th>Date</th>
 		<th>Time</th>
-		<th>Location</th>
+		<!--<th>Location</th>-->
+		<th>Type</th>
 		<th>EAs</th>
-		<th>Notes</th>
-		<th>Hours</th>
+		<!--<th>Notes</th>-->
+		<!--<th>Hours</th>-->
 	</tr>
 	</thead>
 	
 	<tbody>
 	{% for tour in tour_list %}
 		<tr>
-			<td>{{tour.tour_type}}</td>
+			
 			<td>{{tour.date}}</td>
 			<td><a href="/events/tour/{{tour.id}}/">{{tour.time|time:"g:i A"}}</a></td>
-			<td>{{tour.location}}</td>
+			<!--<td>{{tour.location}}</td>-->
+			<td>{{tour.tour_type}}</td>
 			<td>{{tour.EAs_needed}}</td>
-			<td>{{tour.note}}</td>
-			<td>{{tour.hours}}</td>
+			<!--<td>{{tour.note}}</td>-->
+			<!--<td>{{tour.hours}}</td>-->
 		</tr>
 	{% endfor %}
 	</tbody>
