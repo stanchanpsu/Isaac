@@ -13,11 +13,12 @@ month_names = month_names.split()
 
 @login_required(login_url='/login/')
 def year(request, year = None):
-	if year: year = int(year)
-	else: year = time.localtime()[0]
-	
+
 	current_year, current_month = time.localtime()[:2]
 	stylesheet = "cal/year.css"
+	
+	if year: year = int(year)
+	else: year = time.localtime()[0]
 
 	fall = collections.OrderedDict()
 	spring = collections.OrderedDict()
@@ -28,7 +29,7 @@ def year(request, year = None):
 		fall[month_name] = events
 		
 	for month in range(1,7):
-		events = Event.objects.filter(date__year=year, date__month=month).count()
+		events = Event.objects.filter(date__year=year+1, date__month=month).count()
 		month_name = (month_names[month-1])	
 		spring[month_name] = events
 	
