@@ -3,12 +3,10 @@ from django.contrib.auth.decorators import login_required
 
 from events.models import Event
 from datetime import date, datetime, timedelta
-import time, calendar
+import time, calendar, collections
 
 app = "calendar"
 title = "Calendar"
-stylesheet = "cal/month.css"
-
 
 month_names = "January February March April May June July August September October November December"
 month_names = month_names.split()
@@ -19,11 +17,22 @@ def year(request, year = None):
 	else: year = time.localtime()[0]
 	
 	current_year, current_month = time.localtime()[:2]
+	stylesheet = "cal/year.css"
+
+	fall = collections.OrderedDict()
+	spring = collections.OrderedDict()
 	
-	fall = month_names[6:]
-	spring = month_names[:6]
+	for month in range(7,13):
+		events = Event.objects.filter(date__year=year, date__month=month).count()
+		month_name = (month_names[month-1])	
+		fall[month_name] = events
+		
+	for month in range(1,7):
+		events = Event.objects.filter(date__year=year, date__month=month).count()
+		month_name = (month_names[month-1])	
+		spring[month_name] = events
 	
-	return render(request, 'cal/year.html', {'app':app, 'title':title, 'stylesheet':stylesheet, 'year':year, 'fall':fall, 'spring':spring, 'current_year':current_year,'current_month':current_month,})
+	return render(request, 'cal/year.html', {'app':app, 'title':title, 'stylesheet':stylesheet, 'year':year, 'fall':fall, 'spring':spring, 'current_year':current_year,'current_month':current_month, 'month_names': month_names})
 
 @login_required(login_url='/login/')
 def month(request, year = time.localtime()[0] , month=time.localtime()[1], change=None):
