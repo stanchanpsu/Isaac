@@ -6,6 +6,6 @@ urlpatterns=[
 
 url(r'^$', views.month, name = 'calendar'),
 url(r'^(?P<year>[0-9]{4})$', views.year, name = "year"),
-url(r'^(?P<year>[0-9]{4})/(?P<month>[1-9]{1,2})$', views.month, name = "month")
+url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})$', views.month, name = "month")
 
 ]

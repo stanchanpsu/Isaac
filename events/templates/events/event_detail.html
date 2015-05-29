@@ -3,10 +3,10 @@
 <style> .btn {margin-top: 10px;}</style>
 
 <div class="container">
-<div class="card-panel purple darken-2 white-text center-align">
+<div class="card-panel {{ color }} white-text center-align">
 	<h4>{{ title }}</h4>
 
-<div class="card-panel deep-purple darken-2">
+<div class="card-panel {{ color }} darken-2">
 <table >
 	
 	<tr>
@@ -45,14 +45,14 @@ EVENT REGISTER STATUS
 	</form>
 </div>
 
-<div class="card-panel white-text purple darken-2 center-align">
+<div class="card-panel white-text {{color}} center-align">
 
 	<div class="center-align">
 		<h4>Registered Engineering Ambassadors</h4>
 		
 		<div ckass="center-align"		
 		    {% for EA in EAs_registered %}
-		    <span><a class="waves-effect waves-light deep-purple darken-2 btn">{{ EA.first_name }} {{ EA.last_name }}</a></span>
+		    <span><a class="waves-effect waves-light {{color }} darken-2 btn">{{ EA.first_name }} {{ EA.last_name }}</a></span>
 		
 		        <!-- if last column in row -->
 		        {% if forloop.counter|divisibleby:"4" and not forloop.last %}

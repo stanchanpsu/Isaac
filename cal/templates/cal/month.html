@@ -2,7 +2,23 @@
 
 <!--<div class="container">-->
 	<div class="outer card-panel blue darken-1">
-		<h4> {{ month_name }} {{ year }}</h4>
+		<div class=" title row white-text valign-wrapper">
+		<div class="col s3 valign"><h5 class="left-align">
+			{% if month != 1 %}
+				<a href="/calendar/{{year}}/{{month|add:'-1'}}">
+			{% else %}	
+				<a href="/calendar/{{year|add:'-1'}}/12">
+			{% endif %}	
+				{{ previous_month }}</a></h5></div>
+		<div class="col s6 valign"><h4 class="center-align"> {{ current_month }} {{ year }}</h4></div>
+		<div class="col s3 valign"><h5 class="right-align">
+			{% if month != 12 %}
+				<a href="/calendar/{{year}}/{{month|add:'1'}}">
+			{% else %}	
+				<a href="/calendar/{{year|add:'1'}}/1">
+			{% endif %}	
+				{{ next_month }}</a></h5></div>
+		</div>
 
 		<div class = "month card-panel">
 			<table>

@@ -7,7 +7,7 @@ import time, calendar
 
 app = "calendar"
 title = "Calendar"
-stylesheet = "cal/calendar.css"
+stylesheet = "cal/month.css"
 
 
 month_names = "January February March April May June July August September October November December"
@@ -31,11 +31,16 @@ def month(request, year = time.localtime()[0] , month=time.localtime()[1], chang
 	
 	
 	#init variables
+	stylesheet = "cal/month.css"
 	cal = calendar.Calendar()
 	month_days = cal.itermonthdays(year, month)
 	nyear, nmonth, nday = time.localtime()[:3]
 	lst = [[]]
 	week = 0
+	previous_month = month_names[month-2]
+	current_month = month_names[month-1]
+	next_month = month_names[month%12] #remember python lists are zero indexed
+	
 	
 	# make month lists containing list of days for each week
 	# each day tuple will contain list of events and 'current' event indicator
@@ -51,4 +56,4 @@ def month(request, year = time.localtime()[0] , month=time.localtime()[1], chang
 			lst.append([])
 			week += 1
 			
-	return render(request, 'cal/month.html', {'app':app, 'title':title, 'stylesheet':stylesheet, 'year':year, 'month':month, 'month_days':lst, 'month_name': month_names[month-1],})
+	return render(request, 'cal/month.html', {'app':app, 'title':title, 'stylesheet':stylesheet, 'year':year, 'month':month, 'month_days':lst, 'previous_month':previous_month,'current_month':current_month,'next_month':next_month,})
