@@ -18,6 +18,7 @@ def year(request, year = None):
 	stylesheet = "cal/year.css"
 	
 	if year: year = int(year)
+	elif current_month in range(1,7): year = time.localtime()[0] - 1
 	else: year = time.localtime()[0]
 
 	fall = collections.OrderedDict()

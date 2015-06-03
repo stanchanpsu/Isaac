@@ -34,7 +34,7 @@
 					<div class="collapsible-header {% if app == 'calendar' %} active {% endif %}"><a>Calendar</a></div>
 				      <div class="collapsible-body">
 				      	<ul class="blue">
-				      	  <li><a {% if current_year %} href="/calendar/{{current_year}}"{% else %} href="/calendar/{{year}}" {% endif %}>Year</a></li>
+				      	  <li><a href="/calendar/year">Year</a></li>
 				      	  <li><a href="/calendar">Month</a></li>
 				      	  <li><a href="#!">Day</a></li>
 				      	</ul>
@@ -46,7 +46,7 @@
 				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
 				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '#'>Personal</a></li>
 				<li><a href = '{% url "logout" %}'>Logout</a></li>
-      </ul>
+    </ul>
       
 	<div class="navbar-fixed">
       <nav class="blue white-text">
