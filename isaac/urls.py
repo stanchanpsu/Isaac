@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -16,4 +17,4 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login/', views.login_user, name = 'login'),
     url(r'^logout/', views.logout_user, name = 'logout'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

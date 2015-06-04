@@ -6,4 +6,4 @@ urlpatterns=[
 
 url(r'^$', views.profile, name = 'profile'),
 
-]
+] 

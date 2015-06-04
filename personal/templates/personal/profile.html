@@ -1,5 +1,28 @@
 {% include 'header.html' %}
 
+<div class="row white-text">
+    <div id='left' class='whitespace col s12 l7'>
+        <div id='profile' class='card-panel teal'>
+            <div id="header" class= "row center-align">
+                <div class="col s12 l4">
+                <img src='{{profile_pic}}' id = 'profile_pic'>
+                </div>
+                <div class="left-align col s12 l8">
+                    <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
+                    <h4>{{ambassador.company_designation}} Ambassador</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='whitespace col s12 l5'>
+        <div id = 'events' class='card-panel orange'>
+            
+        </div>
+        <div id = 'groups' class='card-panel red'>
+            
+        </div>
 
+    </div>
+</div>
 
 {% include 'footer.html' %}
