@@ -8,6 +8,7 @@ from .models import EngineeringAmbassador
 @login_required(login_url='/login/')
 def profile(request):
     stylesheet = 'personal/profile.css'
+    app = 'personal'
     ambassador = get_object_or_404(EngineeringAmbassador, user = request.user)
     profile_pic = ambassador.picture.url
-    return render(request, 'personal/profile.html', {'stylesheet':stylesheet,'profile_pic':profile_pic, 'ambassador':ambassador})
+    return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador})
