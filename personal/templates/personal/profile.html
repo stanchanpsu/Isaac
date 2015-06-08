@@ -13,16 +13,16 @@
     <h3 class="teal-text">Profile</h3>
     <table>
         <tr>
-            <th>Graduation date: </th>
+            <th>Graduation date:</th>
             <td>{{ambassador.grad_date}}</td>
         </tr>
         <tr>
-            <th>Fall status: </th>
-            <td>{% if ambassador.fall_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="red-text small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+            <th>Fall status:</th>
+            <td>{% if ambassador.fall_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
         </tr>
         <tr>
-            <th>Spring status: </th>
-            <td>{% if ambassador.spring_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="red-text small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+            <th>Spring status:</th>
+            <td>{% if ambassador.spring_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
         </tr>
         <tr>
             <th>Student ID#</th>
@@ -72,8 +72,8 @@
 <div class="container">
     <div id="events" class="card teal white-text">
         <h3>Events Registered</h3>
-        {% for outreach in request.user.outreach.all %}
-            <div><a href="/events/outreach/{{outreach.id}}" class="waves-effect waves-light btn">{{outreach}} outreach trip</a></div>
+        {% for event in events_registered %}
+            <div><a href="/events/{{event.detail_url}}" class="waves-effect waves-light btn">{{event}}</a></div>
         {% endfor %}
     </div>
 </div>

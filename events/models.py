@@ -20,6 +20,9 @@ class OutreachTrip(Event):
 	def __unicode__(self):
 		return self.school
 		
+	def detail_url(self):
+		return "outreach/" + str(self.id)
+		
 class Tour(Event):
 	tour_types = (('REG','Regular'),('ASP', 'ASP'),('VIP','VIP'),('OTR','Other'))
 	tour_type = models.CharField(max_length=3,choices=tour_types,default='regular')
@@ -29,3 +32,6 @@ class Tour(Event):
 		time = formats.date_format(self.time, "SHORT_TIME")
 		date = formats.date_format(self.date, "SHORT_DATE")
 		return self.tour_type + " " + time + " Tour"
+		
+	def detail_url(self):
+		return "tour/" + str(self.id)
