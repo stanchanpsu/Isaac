@@ -69,4 +69,13 @@
     </table>
 </div>
 
+<div class="container">
+    <div id="events" class="card teal white-text">
+        <h3>Events Registered</h3>
+        {% for outreach in request.user.outreach.all %}
+            <div><a href="/events/outreach/{{outreach.id}}" class="waves-effect waves-light btn">{{outreach}} outreach trip</a></div>
+        {% endfor %}
+    </div>
+</div>
+
 {% include 'footer.html' %}

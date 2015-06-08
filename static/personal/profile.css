@@ -9,6 +9,10 @@
 
 #profile {margin-top:50px;}
 
+h3, table {margin: 20px;}
+
+.btn {margin: 10px; margin-left:20px;}
+
 @media only screen and (max-width : 992px) { 
 	
 	#profile_pic { height: 150px; width: 150px; border-radius: 25%; margin-bottom:20px; padding:0; }
