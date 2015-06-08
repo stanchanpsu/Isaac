@@ -1,6 +1,6 @@
 /*div,span{border:1px red solid; }*/
 
-#profile-header {height:300px; }
+#profile-header {padding:50px; }
 	#header-content {display:inline; }
 		#profile-pic-wrapper, #header-text-wrapper {float: left;}
 		#header-text-wrapper {margin-top:50px;}

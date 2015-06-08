@@ -21,7 +21,7 @@ body { padding-left: 240px; }
 /*TABLE*/
 td, th {font-size: 24px;}
 
-@media only screen and (max-width : 992px) { td, th {font-size:3vw;} }
+@media only screen and (max-width : 992px) { td, th {font-size:3.5vw;} }
 
 .collapsible-header {padding:0;}
        
