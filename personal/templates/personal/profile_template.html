@@ -1,0 +1,67 @@
+<div id="profile" class="container">
+    <table>
+    <tr>
+    <th><h3 class="teal-text">Profile</h3></th>
+    <td><form method="post" action='/personal/'>
+		{% csrf_token %}
+        <button id="edit-btn" class="btn blue waves-effect waves-light" type="submit" name="/login/">Edit
+    		<i class="mdi-content-send right"></i>
+  		</button>
+	</form></td>
+    </tr>
+        <tr>
+            <th>Graduation date:</th>
+            <td>{{ambassador.grad_date}}</td>
+        </tr>
+        <tr>
+            <th>Fall status:</th>
+            <td>{% if ambassador.fall_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Spring status:</th>
+            <td>{% if ambassador.spring_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Student ID#</th>
+            <td>{{ambassador.student_id}}</td>
+        </tr>
+        <tr>
+            <th>Major:</th>
+            <td>{{ambassador.major}}</td>
+        </tr>
+        {% if ambassador.major_2 %}
+        <tr>
+            <th>Major 2:</th>
+            <td>{{ambassador.major_2}}</td>
+        </tr>
+        {% endif %}
+        {% if ambassador.minor %}
+        <tr>
+            <th>Minor:</th>
+            <td>{{ambassador.minor}}</td>
+        </tr>
+        {% endif %}
+        {% if ambassador.minor_2 %}
+        <tr>
+            <th>Minor 2:</th>
+            <td>{{ambassador.minor_2}}</td>
+        </tr>
+        {% endif %}
+        {% if schreyer_honors %}
+        <tr>
+            <th>Schreyer Honors:</th>
+            <td><i class="green-text small mdi-toggle-check-box"></i></td>
+        </tr>
+        {% endif %}
+        {% if ambassador.companies_worked %}
+        <tr>
+            <th>Companies worked:</th>
+            <td>{{ambassador.companies_worked}}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Phone number: </th>
+            <td>{{ambassador.phone}}</td>
+        </tr>
+    </table>
+</div>

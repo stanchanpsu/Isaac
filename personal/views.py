@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
@@ -16,4 +16,17 @@ def profile(request):
     
     events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
     
-    return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador, 'events_registered':events_registered,})
+    
+    # PUT THE EDIT BOOLEAN AFTER THE IF STATEMENT TO ACCOUNT FOR RENDER FROM GET
+    
+   
+    if request.POST:
+        edit = True
+        
+    else:
+        edit = False       
+    
+    return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador, 'events_registered':events_registered, 'edit':edit,})
+        
+    
+

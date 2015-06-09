@@ -34,8 +34,7 @@ def list_events(request):
 @login_required(login_url='/login/')
 def event_detail(request, event_type, event_id):
 	
-	# 1. parse the url (from regex capture) for type of event and event id (this is specific to type of event ie. both Tour and Outreach can have id = 1_)	
-		
+	# 1. parse the url (from regex capture) for type of event and event id (this is specific to type of event ie. both Tour and Outreach can have id = 1)	
 	if event_type == 'outreach':
 		event = get_object_or_404(OutreachTrip, pk = event_id)
 		title = event.school + ' Outreach Trip'
