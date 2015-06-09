@@ -1,14 +1,10 @@
 <div id="profile" class="container">
     <table>
     <tr>
-    <th><h3 class="teal-text">Profile</h3></th>
-    <td>
-        <form method="post" action="/personal/edit/">
-		{% csrf_token %}
-        <button id="edit-btn" class="btn blue waves-effect waves-light" type="submit" name="/edit/">Edit
-    		<i class="mdi-content-send right"></i>
-  		</button>
-	</form></td>
+        <th><h3 class="teal-text">Profile</h3></th>
+        <td>
+            <a href="/personal/edit/"  class="waves-effect waves-light btn" id="edit-btn">Edit<i class="mdi-file-cloud right"></i></a>
+        </td>
     </tr>
         <tr>
             <th>Graduation date:</th>

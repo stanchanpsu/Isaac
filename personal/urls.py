@@ -5,6 +5,6 @@ from . import views
 urlpatterns=[
 
 url(r'^$', views.profile, name = 'profile'),
-url(r'(?P<edit_status>edit)/', views.profile, name = 'profile'),
+url(r'edit/', views.edit, name = 'edit'),
 
 ] 

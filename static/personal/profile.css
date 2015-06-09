@@ -13,8 +13,6 @@ table {margin: 20px;}
 
 .btn {margin: 10px; margin-left:20px;}
 
-#edit-btn {margin: 0; font-size:15px;}
-
 @media only screen and (max-width : 992px) { 
 	
 	#profile_pic { height: 150px; width: 150px; border-radius: 25%; margin-bottom:20px; padding:0; }
@@ -25,3 +23,5 @@ table {margin: 20px;}
 #events_registered {margin: 20px;}
 
 #profile_edit {margin-top:30px; margin-bottom:30px;}
+
+#edit-btn {margin: 0; font-size:18px;}
