@@ -1,0 +1,48 @@
+  <div class="container" id="profile_edit">
+    <form class="col s12" method="post" action="/personal/">
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="date" class="datepicker" value="{{ambassador.grad_date}}">
+          <label for="grad_date">Graduation Date</label>
+        </div>
+      </div>
+      <div class="row" id="semester-status">
+        <div class="col s6">
+          <input type="checkbox" class="filled-in" id="fall_status" {% if ambassador.fall_status %} checked="checked" {% endif %}/>
+          <label for="fall_status">Fall Status</label>
+        </div>
+        <div class="col s6">
+          <input type="checkbox" class="filled-in" id="spring_status" {% if ambassador.spring_status %} checked="checked" {% endif %}/>
+          <label for="spring_status">Spring Status</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="student_id" type="text" class="validate" value="{{ambassador.student_id}}">
+          <label for="student_id">Student ID#</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="company_designation" type="text" class="validate" value="{{ambassador.company_designation}}">
+          <label for="company_designation">Company Designation</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="companies_worked" class="validate" type="text" length="240" value="{{ambassador.companies_worked}}">
+          <label for="companies_worked">Companies Worked</label>
+        </div>
+      </div>
+      <button id="edit-btn" class="btn blue waves-effect waves-light" type="submit" name="save">Save
+    		<i class="mdi-content-send right"></i>
+  		</button>
+
+      <!--<div class="row">-->
+      <!--  <div class="input-field col s6">-->
+      <!--    <input id="student_id" type="text" class="validate" value="{{ambassador.student_id}}">-->
+      <!--    <label for="student_id">Student ID#</label>-->
+      <!--  </div>-->
+      <!--</div>-->
+    </form>
+  </div>
