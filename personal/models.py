@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 class EngineeringAmbassador(models.Model):
      user = models.OneToOneField(User)
      picture = models.ImageField(blank = True, upload_to = 'profile_pics/')
-     grad_date = models.DateField(blank = True, null = True)
+     grad_semester = models.CharField(max_length = 6, blank = True)
+     grad_year = models.CharField(max_length = 4, blank = True)
      fall_status = models.BooleanField()
      spring_status = models.BooleanField()
      student_id = models.PositiveIntegerField()

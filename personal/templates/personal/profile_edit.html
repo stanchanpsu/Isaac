@@ -1,12 +1,24 @@
   <div class="container" id="profile_edit">
     <form class="col s12" method="post" action="/personal/">
     {% csrf_token %}
-      <!--<div class="row">
+      <label>Graduation Date</label>
+      <div class="row">
         <div class="input-field col s6">
-          <input type="date" class="datepicker" id="grad_date" name="grad_date" value="{{ambassador.grad_date}}">
-          <label for="grad_date">Graduation Date</label>
+          <select>
+            <option value="" disabled selected>Semester</option>
+            <option {% if ambassador.grad_semester == "Fall" %} selected="selected" {% endif %} value="Fall">Fall</option>
+            <option {% if ambassador.grad_semester == "Spring" %} selected="selected" {% endif %} value="Spring">Spring</option>
+          </select>
         </div>
-      </div>-->
+        <div class="input-field col s6">
+          <select>
+            <option value="" disabled selected>Year</option>
+            {% for year in years %}
+            <option value="{{year}}">{{year}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
       <div class="row" id="semester-status">
         <div class="col s6">
           <input type="checkbox" class="filled-in" id="fall_status" value= "True" name="fall_status" {% if ambassador.fall_status %} checked="checked" {% endif %}/>
