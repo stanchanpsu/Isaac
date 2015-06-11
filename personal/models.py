@@ -22,4 +22,3 @@ class EngineeringAmbassador(models.Model):
      def __unicode__(self):
 		return self.user.first_name + ' ' + self.user.last_name
      
-     
