@@ -1,0 +1,2 @@
+Use regex or some other method to make profile phone numbers only accept one format (###) ###-####
+Color code the events across all the apps

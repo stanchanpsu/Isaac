@@ -8,7 +8,7 @@
     </tr>
         <tr>
             <th>Graduation date:</th>
-            <td>{{ambassador.grad_date}}</td>
+            <td>{{ambassador.grad_semester}} {{ambassador.grad_year}}</td>
         </tr>
         <tr>
             <th>Fall status:</th>
@@ -44,7 +44,7 @@
             <td>{{ambassador.minor_2}}</td>
         </tr>
         {% endif %}
-        {% if schreyer_honors %}
+        {% if ambassador.schreyer_honors %}
         <tr>
             <th>Schreyer Honors:</th>
             <td><i class="green-text small mdi-toggle-check-box"></i></td>

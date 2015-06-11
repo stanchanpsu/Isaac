@@ -15,15 +15,17 @@ def profile(request):
     app = 'personal'
     ambassador = get_object_or_404(EngineeringAmbassador, user = request.user)
     profile_pic = ambassador.picture.url
-    
+        
     events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
     
     if request.POST:
         
         fall_status = request.POST.getlist('fall_status')
         spring_status = request.POST.getlist('spring_status')
+        schreyer_honors = request.POST.getlist('schreyer_honors')
         
-        ambassador.grad_date = request.POST['grad_date']
+        ambassador.grad_semester = request.POST['grad_semester']
+        ambassador.grad_year = request.POST['grad_year']
         
         if not fall_status:
             ambassador.fall_status = False
@@ -38,6 +40,18 @@ def profile(request):
         ambassador.student_id = request.POST['student_id']
         ambassador.company_designation = request.POST['company_designation']
         ambassador.companies_worked = request.POST['companies_worked']
+        
+        ambassador.major = request.POST['major']
+        ambassador.major_2 = request.POST['major_2']
+        ambassador.minor = request.POST['minor']
+        ambassador.minor_2 = request.POST['minor_2']
+        
+        if not schreyer_honors:
+            ambassador.schreyer_honors = False
+        else:
+            ambassador.schreyer_honors = True
+        
+        ambassador.phone = request.POST['phone']
         
         ambassador.save()
             
@@ -58,10 +72,11 @@ def edit(request):
     app = 'personal'
     ambassador = get_object_or_404(EngineeringAmbassador, user = request.user)
     profile_pic = ambassador.picture.url
+    grad_year = int(ambassador.grad_year)
     
     events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
     
-    return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador, 'events_registered':events_registered, 'edit':edit, 'years':years}) 
+    return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador, 'events_registered':events_registered, 'edit':edit, 'years':years,'grad_year':grad_year,}) 
         
     
 

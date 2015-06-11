@@ -3,40 +3,44 @@
     {% csrf_token %}
       <label>Graduation Date</label>
       <div class="row">
-        <div class="input-field col s6">
-          <select>
+        <div class="input-field col s12 l6">
+          <select name="grad_semester">
             <option value="" disabled selected>Semester</option>
             <option {% if ambassador.grad_semester == "Fall" %} selected="selected" {% endif %} value="Fall">Fall</option>
             <option {% if ambassador.grad_semester == "Spring" %} selected="selected" {% endif %} value="Spring">Spring</option>
           </select>
         </div>
-        <div class="input-field col s6">
-          <select>
+        <div class="input-field col s12 l6">
+          <select name="grad_year">
             <option value="" disabled selected>Year</option>
             {% for year in years %}
-            <option value="{{year}}">{{year}}</option>
+            <option value="{{year}}"
+              {% if grad_year == year %}
+              selected="selected"
+              {% endif %} 
+            >{{year}}</option>
             {% endfor %}
           </select>
         </div>
       </div>
       <div class="row" id="semester-status">
-        <div class="col s6">
+        <div class="col s12 l6">
           <input type="checkbox" class="filled-in" id="fall_status" value= "True" name="fall_status" {% if ambassador.fall_status %} checked="checked" {% endif %}/>
           <label for="fall_status">Fall Status</label>
         </div>
-        <div class="col s6">
+        <div class="col s12 l6">
           <input type="checkbox" class="filled-in" id="spring_status" value= "True" name="spring_status" {% if ambassador.spring_status %} checked="checked" {% endif %}/>
           <label for="spring_status">Spring Status</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12 l6">
           <input id="student_id" name="student_id" type="text" class="validate" value="{{ambassador.student_id}}">
           <label for="student_id">Student ID#</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12 l6">
           <input id="company_designation" name="company_designation" type="text" class="validate" value="{{ambassador.company_designation}}">
           <label for="company_designation">Company Designation</label>
         </div>
@@ -47,15 +51,43 @@
           <label for="companies_worked">Companies Worked</label>
         </div>
       </div>
+      
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <input id="major" name="major" type="text" class="validate" value="{{ambassador.major}}">
+          <label for="major">Major</label>
+        </div>
+        <div class="input-field col s12 l6">
+          <input id="major_2" name="major_2" type="text" class="validate" value="{{ambassador.major_2}}">
+          <label for="major_2">Major 2</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <input id="minor" name="minor" type="text" class="validate" value="{{ambassador.minor}}">
+          <label for="minor">Minor</label>
+        </div>
+        <div class="input-field col s12 l6">
+          <input id="minor_2" name="minor_2" type="text" class="validate" value="{{ambassador.minor_2}}">
+          <label for="minor_2">Minor 2</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s12 l6">
+          <input type="checkbox" class="filled-in" id="schreyer_honors" value= "True" name="schreyer_honors" {% if ambassador.schreyer_honors %} checked="checked" {% endif %}/>
+          <label for="schreyer_honors">Schreyer Honors</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <input id="phone" name="phone" type="text" class="validate" value="{{ambassador.phone}}">
+          <label for="phone">Phone Number</label>
+        </div>
+      </div>
       <button id="edit-btn" class="btn blue waves-effect waves-light" type="submit" name="save">Save
     		<i class="mdi-content-save right"></i>
   		</button>
-
-      <!--<div class="row">-->
-      <!--  <div class="input-field col s6">-->
-      <!--    <input id="student_id" type="text" class="validate" value="{{ambassador.student_id}}">-->
-      <!--    <label for="student_id">Student ID#</label>-->
-      <!--  </div>-->
-      <!--</div>-->
+      
     </form>
   </div>
