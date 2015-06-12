@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles','polls',
-    'events', 'cal', 'personal', 'django_bootstrap_calendar',
+    'events', 'cal', 'directory', 'personal', 'django_bootstrap_calendar',
 )
 
 MIDDLEWARE_CLASSES = (

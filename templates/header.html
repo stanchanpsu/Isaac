@@ -37,8 +37,8 @@
 					<div class="collapsible-header {% if app == 'calendar' %} active {% endif %}"><a>Calendar</a></div>
 				      <div class="collapsible-body">
 				      	<ul class="blue">
-				      	  <li><a href="/calendar/year">Year</a></li>
-				      	  <li><a href="/calendar">Month</a></li>
+				      	  <li><a href='{% url "cal:current_year" %}'>Year</a></li>
+				      	  <li><a href="{% url 'cal:calendar' %}">Month</a></li>
 				      	  <li><a href="#!">Day</a></li>
 				      	</ul>
 				      </div>
@@ -47,7 +47,8 @@
 			</ul>
 				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
 				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
-				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '/personal'>Personal</a></li>
+				<li {% if app == 'directory' %} class="active" {% endif %}><a href = '{% url "directory:directory" %}'>Directory</a></li>
+				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '{% url "personal:profile" %}'>Personal</a></li>
 				<li><a href = '{% url "logout" %}'>Logout</a></li>
     </ul>
       
@@ -69,8 +70,8 @@
 				<div class="collapsible-header {% if app == 'calendar' %} active {% endif %}"><a>Calendar</a></div>
 			      <div class="collapsible-body">
 			      	<ul class="blue">
-			      	  <li><a {% if current_year %} href="/calendar/{{current_year}}"{% else %} href="/calendar/{{year}}" {% endif %}>Year</a></li>
-			      	  <li><a href="/calendar">Month</a></li>
+			      	  <li><a href='{% url "cal:current_year" %}'>Year</a></li>
+			      	  <li><a href="{% url 'cal:calendar' %}">Month</a></li>
 			      	  <li><a href="#!">Day</a></li>
 			      	</ul>
 			      </div>
@@ -78,8 +79,8 @@
 			</li>
 		</ul>
 		<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
-		<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
-		<li {% if app == 'personal' %} class="active" {% endif %}><a href = '/personal'>Personal</a></li>
+		<li {% if app == 'directory' %} class="active" {% endif %}><a href = '{% url "directory:directory" %}'>Directory</a></li>
+		<li {% if app == 'personal' %} class="active" {% endif %}><a href = '{% url "personal:profile" %}'>Personal</a></li>
 		<li><a href = '{% url "logout" %}'>Logout</a></li>
       </ul>
  {% endif %}  
