@@ -12,3 +12,13 @@
 	height: 84px;
     padding-left: 72px;
     position: relative;}
+    
+.card-image {
+    overflow: hidden;
+    margin: 10px;
+    position: relative;
+    margin-bottom: 0;
+    max-height: 400px;
+}
+
+.card > .card-content{margin-top:0; padding-top:0;}
