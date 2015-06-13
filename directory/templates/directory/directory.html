@@ -17,10 +17,26 @@
     source: "/directory/names/"
   });
   </script>
-  <style type="text/css">
-    .ui-autocomplete {padding: 10px; font-family:roboto;}
-    .autocomplete > li:hover {background-color: white;}
-  </style>
+  
+  <div class="row">
+    {% for ambassador in ambassadors %}
+    <div class="col s12 l2">
+      <div class="card">
+        <div class="card-image">
+          {% if ambassador.picture %}
+          <img src="{{ambassador.picture.url}}">
+          {% endif %}
+          <span class="card-title">{{ambassador}}</span>
+        </div>
+      </div>
+    </div>
+    
+    {% if forloop.counter|divisibleby:"6" and not forloop.last %}
+      </div><div class="row">
+    {% endif %}
+    {% endfor %}
+ </div>
+  
   
   
 
