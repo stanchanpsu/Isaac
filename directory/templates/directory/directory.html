@@ -4,7 +4,7 @@
     <div class="nav-wrapper">
       <form>
         <div class="input-field">
-          <input id="search" type="search" >
+          <input id="directory_search" type="search" class="try">
           <label for="directory_search"><i class="mdi-action-search"></i></label>
           <i class="mdi-navigation-close"></i>
         </div>
@@ -12,11 +12,7 @@
     </div>
   </nav>
   
-  <script>
-  $( "#search" ).autocomplete({
-    source: "/directory/names/"
-  });
-  </script>
+  <input id="myTextBox" type="text"/>
   
   <div class="row">
     {% for ambassador in ambassadors %}
@@ -35,8 +31,6 @@
         </div>
       </div>
     </div>
-    
-
     
     {% if forloop.counter|divisibleby:"4" and not forloop.last %}
       </div><div class="row">
