@@ -12,33 +12,30 @@
     </div>
   </nav>
   
-  <input id="myTextBox" type="text"/>
-  
-  <div class="row">
-    {% for ambassador in ambassadors %}
-    <div class="col s6 l3">
-        <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="{{ambassador.picture.url}}">
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{ambassador}} <i class="mdi-navigation-more-vert right"></i></span>
-          <p>{{ambassador.major}}</p>
-        </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">{{ambassador}}<i class="mdi-navigation-close right"></i></span>
-          <p>Here is some more information about this product that is only revealed once clicked on.</p><a href="">Profile</a>
+  <div id="grid">
+    <div class="row">
+      {% for ambassador in ambassadors %}
+      <div class="col s6 l3">
+          <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{{ambassador.picture.url}}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{ambassador}} <i class="mdi-navigation-more-vert right"></i></span>
+            <p>{{ambassador.major}}</p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ambassador}}<i class="mdi-navigation-close right"></i></span>
+            <p>Here is some more information about this product that is only revealed once clicked on.</p><a href="">Profile</a>
+          </div>
         </div>
       </div>
-    </div>
-    
-    {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-      </div><div class="row">
-    {% endif %}
-    {% endfor %}
- </div>
-  
-  
-  
+      
+      {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+        </div><div class="row">
+      {% endif %}
+      {% endfor %}
+   </div>
+  </div>
 
 {% include 'footer.html' %}

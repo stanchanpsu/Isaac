@@ -27,11 +27,7 @@ def names(request):
         # parse the GET request for the query "term" and lowercase it
         query = request.GET.get('term', '')
         query = query.lower()
-        
-        if query == '':
-            response = JsonResponse('', safe=False)
-            return response
-        
+                
         #get a django query object containing all ambassadors
         ambassadors = User.objects.all()
         
