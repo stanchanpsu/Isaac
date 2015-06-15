@@ -26,7 +26,7 @@ $(function(){
 			//append it to the grid
 			$('#grid').append($row);
 			// for every ambassador within the object json data
-			for (i; i < object.length ; i++){
+			for (i; i < object.length; i++){
 				//instantiate a column div and card div as well as the ambassador card which uses dynamic data for each person
 				var $col = $('<div>', {id: 'col' + i, class: 'col s6 l3'});
 				var $card = $('<div>', {id: 'card' + i, class:'card'});

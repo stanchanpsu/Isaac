@@ -2,9 +2,10 @@
 
   <nav>
     <div class="nav-wrapper">
-      <form>
+      <form method = "post" action="/directory/ambassador_profile/">
+        {% csrf_token %}
         <div class="input-field">
-          <input id="directory_search" type="search" class="try">
+          <input id="directory_search" type="search" name="directory_search">
           <label for="directory_search"><i class="mdi-action-search"></i></label>
           <i class="mdi-navigation-close"></i>
         </div>

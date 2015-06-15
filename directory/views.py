@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, HttpResponse
 import json
 from django.contrib.auth.models import User
 from personal.models import EngineeringAmbassador
 from fuzzywuzzy import fuzz
 from django.db.models import Q
 
-# Create your views here.
+@login_required(login_url='/login/')
 def directory(request):
     stylesheet = "directory/directory.css"
     script = "directory/directory.js"
@@ -21,6 +22,7 @@ def directory(request):
     return render(request,'directory/directory.html',{'stylesheet':stylesheet, 'script':script, 'ambassadors':ambassadors})
  
 #http://flaviusim.com/blog/AJAX-Autocomplete-Search-with-Django-and-jQuery/   for some help
+@login_required(login_url='/login/')
 def names(request):
     if request.is_ajax():
         
@@ -63,4 +65,10 @@ def names(request):
      
     response = JsonResponse(data, safe=False)
     return response
+
+@login_required(login_url='/login/')    
+def ambassador_profile(request, ambassador_name = None):
+    
+    return render(request,'ambassador_profile.html', {})
+    
     
