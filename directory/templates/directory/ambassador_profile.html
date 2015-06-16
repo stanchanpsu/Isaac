@@ -1,5 +1,84 @@
 {% include 'header.html' %}
 
-{{query}}
+<div id="profile-header" class="valign-wrapper teal">
+    <div id="header-content" class="container valign ">
+        <div id="profile-pic-wrapper"><img {% if ambassador.picture %}src='{{ambassador.picture.url}}'{% endif %} alt="{{ambassador}} Profile Picture" id='profile_pic' align="middle"></div>
+        <div id="header-text-wrapper" class="white-text">
+            <h2>{{ambassador}}</h2>
+            <h4>{{ambassador.company_designation}} {{ambassador.rank}}</h4>
+        </div>
+    </div>
+</div>
+    
+<div id="profile" class="container">
+    <table>
+    <tr>
+        <th><h3 class="teal-text">Profile</h3></th>
+    </tr>
+        <tr>
+            <th>Graduation date:</th>
+            <td>{{ambassador.grad_semester}} {{ambassador.grad_year}}</td>
+        </tr>
+        <tr>
+            <th>Fall status:</th>
+            <td>{% if ambassador.fall_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Spring status:</th>
+            <td>{% if ambassador.spring_status %}<i class="green-text small mdi-toggle-check-box"></i>{% else %}<i class="small mdi-toggle-check-box-outline-blank"></i>{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Student ID#</th>
+            <td>{{ambassador.student_id}}</td>
+        </tr>
+        <tr>
+            <th>Major:</th>
+            <td>{{ambassador.major}}</td>
+        </tr>
+        {% if ambassador.major_2 %}
+        <tr>
+            <th>Major 2:</th>
+            <td>{{ambassador.major_2}}</td>
+        </tr>
+        {% endif %}
+        {% if ambassador.minor %}
+        <tr>
+            <th>Minor:</th>
+            <td>{{ambassador.minor}}</td>
+        </tr>
+        {% endif %}
+        {% if ambassador.minor_2 %}
+        <tr>
+            <th>Minor 2:</th>
+            <td>{{ambassador.minor_2}}</td>
+        </tr>
+        {% endif %}
+        {% if ambassador.schreyer_honors %}
+        <tr>
+            <th>Schreyer Honors:</th>
+            <td><i class="green-text small mdi-toggle-check-box"></i></td>
+        </tr>
+        {% endif %}
+        {% if ambassador.companies_worked %}
+        <tr>
+            <th>Companies worked:</th>
+            <td>{{ambassador.companies_worked}}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Phone number: </th>
+            <td>{{ambassador.phone}}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="container">
+    <div id="events" class="card teal white-text">
+        <h3 id="events_registered">Events Registered</h3>
+        {% for event in events_registered %}
+            <div><a href="/events/{{event.detail_url}}" class="waves-effect waves-light btn">{{event}}</a></div>
+        {% endfor %}
+    </div>
+</div>
 
 {% include 'footer.html' %}

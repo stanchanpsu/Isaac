@@ -2,7 +2,7 @@
 var grid = "<div id='grid'></div>";
 
 // main function that is self calling
-$(function(){
+$(function ajax_query(){
 	// on change, paste, or keyup within the directory search bar
 	$("#directory_search").on("change paste keyup", function(){
 		//ajax request /directory/names/ for a json with the search value as a query "term"
@@ -55,3 +55,9 @@ $(function(){
 		});
 	});
 });
+
+// $(function search_submit() {
+// 	$('#directory_search').submit(function (event) {
+//          event.preventDefault();
+// 	});
+// });
