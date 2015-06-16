@@ -55,6 +55,7 @@ def names(request):
             if match_ratio > 75 or query in name.lower():
                 profile = get_object_or_404(EngineeringAmbassador, user=ambassador)
                 ambassador_json = {}
+                ambassador_json['id'] = profile.user.id
                 ambassador_json['full_name'] = name
                 ambassador_json['major'] = profile.major
                 ambassador_json['picture'] = profile.picture.url
@@ -69,6 +70,11 @@ def names(request):
 @login_required(login_url='/login/')    
 def ambassador_profile(request, ambassador_name = None):
     
-    return render(request,'ambassador_profile.html', {})
+    query = request.GET.get('directory_search', '')
+    ambassadors = User.objects.all()
+    for term in query.split():
+        ambassadors = ambassadors.filter( Q(first_name__contains = term) | Q(last_name__contains = term))
+    
+    return render(request,'directory/ambassador_profile.html', {'ambassadors':ambassadors,})
     
     

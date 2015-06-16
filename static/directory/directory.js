@@ -31,7 +31,7 @@ $(function(){
 				var $col = $('<div>', {id: 'col' + i, class: 'col s6 l3'});
 				var $card = $('<div>', {id: 'card' + i, class:'card'});
 				// note: the javascript string marker quotation must be single quote and the html quotes must be double quote because the json returned by django stores strings as double quotes
-				var ambassador_card = '<div class="card-image waves-effect waves-block waves-light"><img class="activator" src=' + object[i]['picture'] + '></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">' + object[i]['full_name'] + '<i class="mdi-navigation-more-vert right"></i></span><p>' + object[i]['major'] + '</p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">' + object[i]['full_name'] + '<i class="mdi-navigation-close right"></i></span><p>Here is some more information about this product that is only revealed once clicked on.</p><a href="">Profile</a></div>';
+				var ambassador_card = '<div class="card-image waves-effect waves-block waves-light"><img class="activator" src=' + object[i]['picture'] + '></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">' + object[i]['full_name'] + '<i class="mdi-navigation-more-vert right"></i></span><p>' + object[i]['major'] + '</p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">' + object[i]['full_name'] + '<i class="mdi-navigation-close right"></i></span><p>Here is some more information about this product that is only revealed once clicked on.</p><a href="/directory/ambassador_profile/?directory_search=' + object[i]['full_name'] + '">Profile</a></div>';
 				
 				// if the card is not the end of a row or it is the first card
 				if (i % 4 != 0 || i == 0){
