@@ -1,0 +1,12 @@
+<div id="profile-header" class="valign-wrapper teal">
+    <div id="header-content" class="container valign ">
+        <div id="profile-pic-wrapper"><img {% if ambassador.picture %}src='{{ambassador.picture.url}}'{% endif %} alt="{{ambassador}}" id='profile_pic' align="middle"></div>
+        <div id="header-text-wrapper" class="white-text">
+            <h2>{{ambassador}}</h2>
+            <h4>{{ambassador.company_designation}} {{ambassador.rank}}</h4>
+        </div>
+    </div>
+</div>
+<div id="aboutme" class="white-text teal">
+    <h5 class="container">{{ambassador.aboutme}}</h5>
+</div>

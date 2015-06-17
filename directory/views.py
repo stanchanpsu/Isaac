@@ -12,10 +12,11 @@ import operator
 @login_required(login_url='/login/')
 def directory(request):
     
+    app = 'directory'
+    
     if request.GET and 'directory_search' in request.GET:
         
         stylesheet = 'personal/profile.css'
-        app = 'directory'
         
         directory_search = request.GET['directory_search']
         if directory_search is not None and directory_search != '':
@@ -46,7 +47,7 @@ def directory(request):
             ambassador = get_object_or_404(EngineeringAmbassador, user = user)
             ambassadors.append(ambassador)
         
-        return render(request,'directory/directory.html',{'stylesheet':stylesheet, 'script':script, 'ambassadors':ambassadors})
+        return render(request,'directory/directory.html',{'stylesheet':stylesheet, 'app':app,'script':script, 'ambassadors':ambassadors})
  
 #http://flaviusim.com/blog/AJAX-Autocomplete-Search-with-Django-and-jQuery/   for some help
 @login_required(login_url='/login/')
@@ -87,6 +88,7 @@ def names(request):
                 ambassador_json['full_name'] = name
                 ambassador_json['major'] = profile.major
                 ambassador_json['picture'] = profile.picture.url
+                ambassador_json['aboutme'] = profile.aboutme
                 matching.append(ambassador_json)
             data = json.dumps(matching)
     else:
@@ -97,6 +99,29 @@ def names(request):
 
 @login_required(login_url='/login/')    
 def ambassador_profile(request, ambassador_id = None):
+    
+    if request.GET and 'directory_search' in request.GET:
+        
+        stylesheet = 'personal/profile.css'
+        app = 'directory'
+        
+        directory_search = request.GET['directory_search']
+        if directory_search is not None and directory_search != '':
+            ambassadors = User.objects.all()
+            matching = []
+            for term in directory_search.split():
+                matching_ambassadors = ambassadors.filter( Q(first_name__contains = term) | Q(last_name__contains = term))
+                for matching_ambassador in matching_ambassadors:
+                    matching.append(matching_ambassador)
+            if not matching:
+                return redirect('/directory/')
+            else:
+                match = get_object_or_404(User, username = matching[0])
+                ambassador = get_object_or_404(EngineeringAmbassador, user = match)
+                events_registered = sorted(chain(match.outreach.all(), match.tours.all()), key=lambda instance: instance.date)
+                return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
+        else:
+            return redirect('/directory/')
     
     stylesheet = 'personal/profile.css'
     app = 'directory'

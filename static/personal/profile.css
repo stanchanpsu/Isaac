@@ -1,15 +1,17 @@
 /*div,span{border:1px red solid; }*/
 
 #profile-header {padding:50px; }
-	#header-content {display:inline; }
+	#header-content {display:block; }
 		#profile-pic-wrapper, #header-text-wrapper {float: left; padding: 0; }
 		#header-text-wrapper {margin-top:50px;}
 			#profile_pic { height: 200px; width: 200px;  margin-right: 30px; border-radius:2px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);}
 			h2 {margin: 0;}
+			
+#aboutme {padding: 30px; word-wrap:break-word;}
 
 #profile {margin-top:50px;}
 
-table {margin: 20px;}
+table {margin: 0px; margin-bottom: 20px;}
 
 .btn {margin: 10px; margin-left:20px;}
 

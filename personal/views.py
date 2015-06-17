@@ -53,6 +53,8 @@ def profile(request):
         
         ambassador.phone = request.POST['phone']
         
+        ambassador.aboutme = request.POST['aboutme']
+        
         ambassador.save()
             
             

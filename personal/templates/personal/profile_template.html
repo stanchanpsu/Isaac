@@ -2,9 +2,11 @@
     <table>
     <tr>
         <th><h3 class="teal-text">Profile</h3></th>
+        {% if ambassador.user == request.user %}
         <td>
             <a href="/personal/edit/"  class="waves-effect waves-light btn" id="edit-btn">Edit<i class="mdi-image-edit right"></i></a>
         </td>
+        {% endif %}
     </tr>
         <tr>
             <th>Graduation date:</th>

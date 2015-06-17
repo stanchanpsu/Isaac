@@ -1,14 +1,6 @@
 {% include 'header.html' %}
 
-<div id="profile-header" class="valign-wrapper teal">
-    <div id="header-content" class="container valign ">
-        <div id="profile-pic-wrapper"><img src='{{profile_pic}}' id='profile_pic' align="middle"></div>
-        <div id="header-text-wrapper" class="white-text">
-            <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
-            <h4>{{ambassador.company_designation}} {{ambassador.rank}}</h4>
-        </div>
-    </div>
-</div>
+{% include 'personal/profile_header.html' %}
 
 {% if edit %}
     
@@ -20,13 +12,7 @@
     
 {% endif %}
 
-<div class="container">
-    <div id="events" class="card teal white-text">
-        <h3 id="events_registered">Events Registered</h3>
-        {% for event in events_registered %}
-            <div><a href="/events/{{event.detail_url}}" class="waves-effect waves-light btn">{{event}}</a></div>
-        {% endfor %}
-    </div>
-</div>
+
+{% include 'personal/profile_events.html' %}
 
 {% include 'footer.html' %}
