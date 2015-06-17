@@ -7,6 +7,7 @@ from personal.models import EngineeringAmbassador
 from fuzzywuzzy import fuzz
 from django.db.models import Q
 from itertools import chain
+import operator
 
 @login_required(login_url='/login/')
 def directory(request):
@@ -57,10 +58,11 @@ def names(request):
         query = query.lower()
                 
         #get a django query object containing all ambassadors
-        ambassadors = User.objects.all()
+        ambassadors = User.objects.all().order_by('first_name')
         
         #make a dict to store ambassador and full name as key value pair   
         ambassador_names = {}
+        # ambassador_names_sorted = sorted(ambassador_names.items(), key=operator.itemgetter(1))
         matching = []
         
         # populate ambassador_names
@@ -94,13 +96,14 @@ def names(request):
     return response
 
 @login_required(login_url='/login/')    
-def ambassador_profile(request, ambassador_name = None):
+def ambassador_profile(request, ambassador_id = None):
     
-    query = request.GET.get('directory_search', '')
-    ambassadors = User.objects.all()
-    for term in query.split():
-        ambassadors = ambassadors.filter( Q(first_name__contains = term) | Q(last_name__contains = term))
+    stylesheet = 'personal/profile.css'
+    app = 'directory'
+    user = get_object_or_404(User, id = ambassador_id)
+    ambassador = get_object_or_404(EngineeringAmbassador, user = user)
+    events_registered = sorted(chain(user.outreach.all(), user.tours.all()), key=lambda instance: instance.date)
     
-    return render(request,'directory/ambassador_profile.html', {'ambassadors':ambassadors,})
+    return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
     
     

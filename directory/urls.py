@@ -6,6 +6,6 @@ urlpatterns=[
 
 url(r'^$', views.directory, name = 'directory'),
 url(r'^names', views.names, name = 'names'),
-url(r'^ambassador_profile/(?P<ambassador_name>[A-z]+)', views.ambassador_profile, name = 'ambassador_profile'),
+url(r'^(?P<ambassador_id>\d+)', views.ambassador_profile, name = 'ambassador_profile'),
 
 ]
