@@ -50,7 +50,7 @@
 				</li>
 			</ul>
 				<li {% if app == 'messages' %} class="active" {% endif %}><a href = '/bc'>Messages</a></li>
-				<li {% if app == 'groups' %} class="active" {% endif %}><a href = '#'>Groups</a></li>
+				<li {% if app == 'groupme' %} class="active" {% endif %}><a href = '/groupme'>Groupme</a></li>
 				<li {% if app == 'directory' %} class="active" {% endif %}><a href = '{% url "directory:directory" %}'>Directory</a></li>
 				<li {% if app == 'personal' %} class="active" {% endif %}><a href = '{% url "personal:profile" %}'>Personal</a></li>
 				<li><a href = '{% url "logout" %}'>Logout</a></li>

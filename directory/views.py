@@ -23,7 +23,7 @@ def directory(request):
             ambassadors = User.objects.all()
             matching = []
             for term in directory_search.split():
-                matching_ambassadors = ambassadors.filter( Q(first_name__contains = term) | Q(last_name__contains = term))
+                matching_ambassadors = ambassadors.filter( Q(first_name__contains = term) | Q(last_name__contains = term)).order_by('first_name')
                 for matching_ambassador in matching_ambassadors:
                     matching.append(matching_ambassador)
             if not matching:
