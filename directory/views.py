@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
-import json
+import json, operator
 from django.contrib.auth.models import User
 from personal.models import EngineeringAmbassador
 from fuzzywuzzy import fuzz
 from django.db.models import Q
 from itertools import chain
-import operator
 
 @login_required(login_url='/login/')
 def directory(request):
