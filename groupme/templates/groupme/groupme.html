@@ -4,6 +4,28 @@
 <a href='{{auth_url}}' class="waves-effect waves-light btn">Connect to Groupme</a>
 {% else %}
 
+<section class="module">
+	<header class="top-bar">
+		<h3>Groupme</h3>
+	</header>
+	<ol class="conversation">
+		<li class="self">
+			<div class="avatar">
+				<img>
+			</div>
+			<div class="message">
+				<p>Test Message</p>
+			</div>
+		</li>
+		<li class="other">
+			<img class="avatar">
+			<div class="message">
+				<p>Test Reply Message</p>
+			</div>
+		</li>
+	</ol>
+</section>
+
 {% endif %}
 
 {% include 'footer.html' %}
