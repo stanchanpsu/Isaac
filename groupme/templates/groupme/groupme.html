@@ -11,7 +11,7 @@
       <h1>Groupme</h1>
     </div>
     <div class="right">
-      <i class="material-icons small">menu</i>
+      <a data-activates="slide-out-groups" id = "nav-btn" class="button-collapse groups-menu"><i class="material-icons small">menu</i></a>
     </div>
   </header>
 </div>
@@ -95,6 +95,14 @@
     </div>
    </form>
 </div>
+
+<nav>
+  <ul id="slide-out-groups" class="side-nav blue">
+  <li><a href="#!">First Sidebar Link</a></li>
+  <li><a href="#!">Second Sidebar Link</a></li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+</nav>
 
 {% endif %}
 
