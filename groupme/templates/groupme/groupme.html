@@ -4,26 +4,54 @@
 <a href='{{auth_url}}' class="waves-effect waves-light btn">Connect to Groupme</a>
 {% else %}
 
-<section class="module">
-	<header class="top-bar">
-		<h3>Groupme</h3>
-	</header>
-	<ol class="conversation">
-		<li class="self">
-			<div class="avatar">
-				<img>
-			</div>
-			<div class="message">
-				<p>Test Message</p>
-			</div>
-		</li>
-		<li class="other">
-			<img class="avatar">
-			<div class="message">
-				<p>Test Reply Message</p>
-			</div>
-		</li>
-	</ol>
+ <section class="module">
+
+  <header class="top-bar teal">
+
+    <div class="left">
+      <span class="icon typicons-message"></span>
+      <h1>Groupme</h1>
+    </div>
+
+    <div class="right">
+      <span class="icon typicons-minus"></span>
+      <span class="icon typicons-times"></span>
+    </div>
+
+  </header>
+
+  <ol class="discussion grey">
+    <li class="other">
+      <div class="avatar">
+        <img src="" />
+      </div>
+      <div class="messages teal white-text">
+        <p>This is a test</p>
+        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="avatar">
+        <img src="" />
+      </div>
+      <div class="messages teal white-text">
+        <p>That makes sense.</p>
+        <p>It's a pretty small airport.</p>
+        <time datetime="2009-11-13T20:14">37 mins</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="avatar">
+        <img src="" />
+      </div>
+      <div class="messages teal white-text">
+        <p>that mongodb thing looks good, huh?</p>
+        <p>
+          tiny master db, and huge document store</p> 
+      </div>
+    </li>
+  </ol>
+
 </section>
 
 {% endif %}
