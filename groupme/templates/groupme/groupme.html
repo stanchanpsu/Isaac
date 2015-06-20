@@ -1,5 +1,9 @@
 {% include 'header.html' %}
 
-https://oauth.groupme.com/oauth/authorize?client_id=eb4581f0f78a0132268c4e9d801e9a8c
+{% if auth_url %}
+<a href='{{auth_url}}' class="waves-effect waves-light btn">Connect to Groupme</a>
+{% else %}
+
+{% endif %}
 
 {% include 'footer.html' %}
