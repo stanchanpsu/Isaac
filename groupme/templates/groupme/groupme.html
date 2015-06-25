@@ -4,21 +4,19 @@
 <a href='{{auth_url}}' class="waves-effect waves-light btn">Connect to Groupme</a>
 {% else %}
 
+<!--HEADER BAR-->
 <div class="row">
- <section class="module col s12 l8">
-
   <header class="top-bar teal">
-
     <div class="left">
       <h1>Groupme</h1>
-    </div> 
-
+    </div>
     <div class="right">
       <i class="material-icons small">menu</i>
     </div>
-
   </header>
-
+</div>
+<!--MAIN DISCUSSION WINDOW-->
+<div class="row discussion-div">
   <ol class="discussion grey lighten-5">
     <li class="other">
       <div class="avatar">
@@ -80,24 +78,23 @@
       </div>
     </li>
   </ol>
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-      	<div class="input-field col s9">
-      		<i class="material-icons prefix">mode_edit</i>
-          	<input placeholder="Message" id="message-write" type="text" class="validate">
-        </div>
-        <div class="input-field col s3">
-          <a id="send-btn" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Send</a>
-        </div>
-      </div>
-  </form>
-  </div>
-  
-  </section>
 </div>
-  
-  
+
+
+<!--MESSAGE BAR-->
+<div class="row">
+  <form class="">
+    <div class="row">
+    	<div class="input-field col s12 l10">
+    		<i class="material-icons prefix">mode_edit</i>
+        	<input placeholder="Message" id="message-write" type="text" class="validate">
+      </div>
+      <div class="input-field col s12 l2">
+        <a id="send-btn" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Send</a>
+      </div>
+    </div>
+   </form>
+</div>
 
 {% endif %}
 

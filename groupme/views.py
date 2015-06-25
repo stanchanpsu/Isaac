@@ -16,7 +16,8 @@ def groupme(request):
 		# if user logged into groupme
 		if 'access_token' in request.session:
 			stylesheet = 'groupme/chat.css'
-			return render(request, 'groupme/groupme.html',{'access_token':request.session['access_token'], 'stylesheet':stylesheet,})
+			script = 'groupme/chat.js'
+			return render(request, 'groupme/groupme.html',{'access_token':request.session['access_token'], 'stylesheet':stylesheet, 'script':script,})
 			
 		#if user is logged out of groupme
 		else:
