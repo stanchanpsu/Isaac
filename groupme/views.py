@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from personal.models import EngineeringAmbassador
 import json
+import requests
+
+groupme_url = "https://api.groupme.com/v3"
 
 @login_required(login_url='/login/')
 def groupme(request):
@@ -10,6 +14,16 @@ def groupme(request):
 	if request.GET and 'access_token' in request.GET:
 		request.session['access_token'] = request.GET['access_token']
 		access_token = request.session['access_token']
+		
+		parameters = {"token":access_token}
+		me = requests.get(groupme_url + "/users/me", params = parameters)
+		
+		ambassador = get_object_or_404(EngineeringAmbassador,user = request.user)
+		
+		groupme_id = me.json()['response']["id"]
+		
+		ambassador.groupme_id = groupme_id		
+		ambassador.save()
 		
 		return redirect('/groupme/')
 	

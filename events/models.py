@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
+from model_utils.managers import InheritanceManager
 
 #date formatting
 from django.utils import formats
@@ -12,6 +13,8 @@ class Event(models.Model):
 	location = models.CharField(max_length = 140, blank = True, null = True)
 	EAs_needed = models.PositiveSmallIntegerField(blank = True, null = True)
 	note = models.CharField(max_length = 500, blank = True, null = True)
+	
+	
 	
 class OutreachTrip(Event):
 	school = models.CharField(max_length=30)

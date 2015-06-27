@@ -20,6 +20,7 @@ class EngineeringAmbassador(models.Model):
      minor_2 = models.CharField(max_length = 40, blank = True)
      schreyer_honors = models.BooleanField()
      phone = models.CharField(max_length = 10)
+     groupme_id = models.CharField(max_length = 20, default = None)
      
      def __unicode__(self):
 		return self.user.first_name + ' ' + self.user.last_name
