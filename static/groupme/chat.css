@@ -1,7 +1,9 @@
 body{
   overflow:hidden;
 }
-
+#chat{
+  height: calc(100vh - 50px);
+}
 .top-bar {
   color: white;
   overflow: hidden;
@@ -9,7 +11,7 @@ body{
   position:fixed;
   top:0;
   z-index: 100;
-  width: calc(100vw - 240px);
+  width: calc(100vw - 500px);
   
 }
 .top-bar h1 {
@@ -42,7 +44,7 @@ body{
   padding: 10px;
   overflow-y:scroll;
   height: calc(100vh - 125px);
-  width: calc(100vw - 240px);
+  width: calc(100vw - 500px);
 }
 .discussion li {
   padding: 0.5rem;
@@ -117,7 +119,7 @@ form {
   bottom: 0;
   background-color: white;
   height: 75px;
-  width: calc(100vw - 240px);
+  width: calc(100vw - 500px);
 }
 
 #message-write {
@@ -132,11 +134,22 @@ img {
   border-radius: 2px 0 2px 2px;
 }
 
+.groups{
+  margin: 0;
+  top: 0;
+  right: 0;
+  position: fixed;
+  height:100vh;
+  width: 260px;
+  z-index: 120;
+  
+}
+
 @media only screen and (max-width : 992px) {
   .top-bar{
     top: 58px;
     width: 100%;
-  } 
+  }
   .discussion-div{
     top: 106px;
   }
@@ -149,9 +162,3 @@ img {
   }
 }
 
-.groups{
-  position: fixed;
-  top: ;
-  right: 0;
-  background-color: blue;
-}
