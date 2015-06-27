@@ -1,12 +1,10 @@
-
-
-
 $(function(){
   var $discussion = $('.discussion-div');
   var $form = $('form');
   var $activate = $("#activate-groups");
   var $groups = $('.groups'); 
   var $winWidth = $(window).width();
+  var token;
     
     //initialize page with activate buttom showing if mobile and groups hidden to the right by 260px (width of panel)
     if ($winWidth <= 992){
@@ -55,4 +53,15 @@ $(function(){
       });
     }
   });
+  
+  //get the groupme access token from django view
+  $.ajax({
+    url: "/groupme/token/",
+    dataType: "json",
+  }).done(function(data){
+    var object = JSON.parse(data);
+    token = object['token'];
+  });
+  
+  
 });

@@ -135,6 +135,8 @@ img {
 }
 
 .groups{
+  padding: 0;
+  padding-top: 56px;
   margin: 0;
   top: 0;
   right: 0;
@@ -143,6 +145,16 @@ img {
   width: 260px;
   z-index: 120;
   
+}
+
+.groups > li {
+  width: 100%;
+  list-style-type: none;
+  padding: 20px 50px 20px 50px;
+}
+
+.groups > li:hover{
+  background-color:#1976d2;
 }
 
 @media only screen and (max-width : 992px) {
