@@ -1,2 +1,3 @@
 Use regex or some other method to make profile phone numbers only accept one format (###) ###-####
 Color code the events across all the apps
+Rewrite personal.views to query for events (maybe) instead of outreach and tours seperately, this will make it much easier to reuse the code as new event subclasses are created

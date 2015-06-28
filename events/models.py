@@ -14,7 +14,16 @@ class Event(models.Model):
 	EAs_needed = models.PositiveSmallIntegerField(blank = True, null = True)
 	note = models.CharField(max_length = 500, blank = True, null = True)
 	
+	# This allows Event objects to be queried returning instances of the subclasses - documentation: http://django-model-utils.readthedocs.org/en/latest/managers.html#inheritancemanager
+	objects = InheritanceManager()
 	
+	def __unicode__(self):
+		if hasattr(self, 'outreachtrip'):
+			return self.outreachtrip.__unicode__()
+		elif hasattr(self, 'tour'):
+			return self.tour.__unicode__()
+		else:
+			return 'Event'
 	
 class OutreachTrip(Event):
 	school = models.CharField(max_length=30)
