@@ -147,13 +147,14 @@ img {
   
 }
 
-.groups > li {
+.groups > a > li {
   width: 100%;
   list-style-type: none;
   padding: 20px 50px 20px 50px;
+  color: white;
 }
 
-.groups > li:hover{
+.groups > a > li:hover{
   background-color:#1976d2;
 }
 

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from personal.models import EngineeringAmbassador
+from .models import Group
+from django.core import serializers
 import json
 import requests
 
@@ -33,7 +35,35 @@ def groupme(request):
 		if 'access_token' in request.session:
 			stylesheet = 'groupme/chat.css'
 			script = 'groupme/chat.js'
-			return render(request, 'groupme/groupme.html',{'access_token':request.session['access_token'], 'stylesheet':stylesheet, 'script':script,})
+			
+			# store all the isaac groups in groups
+			user = request.user
+			ambassador = get_object_or_404(EngineeringAmbassador, user = user)
+			groups = ambassador.group_set.all()
+			
+			
+			#create a list of isaac groups and a dictionary for matching relevant groupme groups
+			isaac_groups = []
+			relevant_groups = {}
+			
+			# iterating through groups append their group_id to isaac_groups
+			for group in groups:
+				isaac_groups.append(group.group_id)
+			
+			# get request to groupme for all a user's groupme groups (up to 20)
+			params = {"token":request.session['access_token'], "per_page":20}
+			groupme_groups = requests.get(groupme_url + "/groups", params = params)
+			
+			#reinstantiate the variable to store only the response object portion
+			groupme_groups = groupme_groups.json()['response']
+			
+			# iterate through these groupme groups and compare them to Isaac_groups, if they match store their id and name in relevant groups
+			for group in groupme_groups:
+				if group['group_id'] in isaac_groups:
+					relevant_groups[group['group_id']] = group['name']
+			
+			#pass on only relevant groups to template
+			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
 			
 		#if user is logged out of groupme
 		else:
@@ -53,3 +83,16 @@ def token(request):
 	else:
 		return redirect('/groupme/')
 		
+@login_required(login_url='/login/')
+def getGroups(request):
+	if request.is_ajax():
+		
+		user = request.user
+		ambassador = get_object_or_404(EngineeringAmbassador, user = user)
+		groups = ambassador.group_set.all()
+		groups = serializers.serialize("json", groups)
+		response = JsonResponse(groups, safe=False)
+		return response
+		
+	else:
+		return redirect('/groupme/')

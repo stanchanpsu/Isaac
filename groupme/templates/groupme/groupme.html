@@ -98,13 +98,10 @@
      </form>
   </div>
 
-<ol class="groups blue white-text">
-  <li>
-    Friends
-  </li>
-  <li>
-    Family
-  </li>
+<ol class="groups blue">
+  {% for group, groupname in relevant_groups.items %}
+  <a><li>{{groupname}}</li></a>
+  {% endfor %}
 </ol>
 
 {% endif %}
