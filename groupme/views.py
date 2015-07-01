@@ -4,8 +4,7 @@ from django.http import JsonResponse
 from personal.models import EngineeringAmbassador
 from .models import Group
 from django.core import serializers
-import json
-import requests
+import json, requests, operator
 
 groupme_url = "https://api.groupme.com/v3"
 
@@ -61,7 +60,8 @@ def groupme(request):
 			for group in groupme_groups:
 				if group['group_id'] in isaac_groups:
 					relevant_groups[group['group_id']] = group['name']
-			
+					
+			relevant_groups = sorted(relevant_groups.items(), key=operator.itemgetter(1))
 			#pass on only relevant groups to template
 			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
 			

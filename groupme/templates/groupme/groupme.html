@@ -9,7 +9,7 @@
   <div class="row">
     <header class="top-bar teal">
       <div class="left">
-        <h1>Groupme</h1>
+        <h1 id="header">Groupme</h1>
       </div>
       <div class="right">
         <i id="activate-groups" class="material-icons small">list</i>
@@ -87,11 +87,11 @@
   <div class="row">
     <form class="">
       <div class="row">
-      	<div class="input-field col s12 l10">
+      	<div class="input-field col s12 l9">
       		<i class="material-icons prefix">mode_edit</i>
           	<input placeholder="Message" id="message-write" type="text" class="validate">
         </div>
-        <div class="input-field col s12 l2">
+        <div class="input-field col s12 l3">
           <a id="send-btn" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Send</a>
         </div>
       </div>
@@ -99,8 +99,8 @@
   </div>
 
 <ol class="groups blue">
-  {% for group, groupname in relevant_groups.items %}
-  <a><li>{{groupname}}</li></a>
+  {% for group in relevant_groups %}
+  <a><li data-id={{group.0}}>{{group.1}}</li></a>
   {% endfor %}
 </ol>
 
