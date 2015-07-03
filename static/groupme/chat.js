@@ -3,51 +3,56 @@ var token;
 var myid;
 var baseurl = "https://api.groupme.com/v3";
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+
 //instantiate token value from python which requested it from groupme during authentication
 $.ajax({
     url: "/groupme/token/",
     dataType: "json",
   }).done(function(data){
     var object = JSON.parse(data);
-    token = "?token=" + object['token']; // ?token=alphanumberictoken
+    token = object['token']; // ?token=alphanumberictoken
     
-    $.get(baseurl + "/users/me" + token, function(data){
+    $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
       
       groupClick();
+            
     });
     
-    
-    
   });
+  
 
-// get list of Isaac relevant groupmegroups from django
-// function getIsaacGroups(){
-//   $.ajax({
-//     url: "/groupme/getgroups/",
-//     dataType: "json",
-//   }).done(function(data){
-//       var object = JSON.parse(data);
-//       console.log(object);
-//       return(object);
-//   });
-// }
-
-
-//get a user's groupme groups from groupme 
-function getGroupmeGroups(){
-  var baseurl = "https://api.groupme.com/v3";
-  $.get(baseurl +"/groups"+ token, {"per_page": 20}, function(data){
-    console.log(data);
-    return(data);
+//function to listen to clicks on groups
+function groupClick(){
+  $('.groups li').on("click", function(){
+    var group_id = $(this).data("id");
+    var group_name = $(this).text();
+    displayGroup(group_id, group_name);
+    sendMessagebyEnter(group_id);
   });
 }
 
+//function to display messages of a group
 function displayGroup(group_id, group_name){
-  // GET /groups/:group_id/messages
   
-  $.get(baseurl + "/groups/" + group_id + "/messages" + token, function(data){
-    console.log(group_name, data);
+  $.get(baseurl + "/groups/" + group_id + "/messages?token=" + token, function(data){
     $("#header").text(group_name);
     
     var messages = [];
@@ -70,22 +75,53 @@ function displayGroup(group_id, group_name){
       messages[i] = '<li class =' + message_class + '><div class="avatar"><img/></div><div class="messages white-text"><p>' + message_content['text'] + '</p><time>' + message['name'] + '</time></div></li>';
     }
     
-    console.log(messages);
     
     $('.discussion').empty();
     for (var user_id in messages){
       $('.discussion').append(messages[user_id]);
     }
+    
+    $('.discussion').scrollTop($('.discussion')[0].scrollHeight);
+    
   });
 }
 
-function groupClick(){
-  $('.groups li').on("click", function(){
-    var group_id = $(this).data("id");
-    var group_name = $(this).text();
-    displayGroup(group_id, group_name);
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+function sendMessagebyEnter(group_id){
+  $('#message-form').submit(function(event){
+    
+    
+    var message = $("input:first").val();
+    console.log(group_id);
+    $(this).find("input[type=text]").val("");
+    
+    var data = {"text": message, "group_id":group_id};
+    
+    $.ajax({
+     "beforeSend": function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    },
+      "type": 'POST',
+      "url": '/groupme/message/',
+      "data": data,
+      "complete": function(response){
+        console.log(response);
+      }
+    });
+    
+    return false;
   });
 }
+
+// function sendMessagebyBtn(){
+  
+// }
 
 
 // animate group panel 
@@ -144,5 +180,14 @@ $(function(){
       }, sliderate);
     }
   });
+  $('.groups li').on("click", function(){
+    if($groups.is(":visible") && $winWidth <= 992){
+      $groups.animate({
+        right: -260
+      }, sliderate);
+    }
+  });
+  
+  
 
 });

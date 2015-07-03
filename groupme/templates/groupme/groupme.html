@@ -9,7 +9,7 @@
   <div class="row">
     <header class="top-bar teal">
       <div class="left">
-        <h1 id="header">Groupme</h1>
+        <h1 id="header" class="truncate flow-text">Groupme</h1>
       </div>
       <div class="right">
         <i id="activate-groups" class="material-icons small">list</i>
@@ -85,11 +85,11 @@
   
   <!--MESSAGE BAR-->
   <div class="row">
-    <form class="">
+    <form id="message-form">
       <div class="row">
       	<div class="input-field col s12 l9">
       		<i class="material-icons prefix">mode_edit</i>
-          	<input placeholder="Message" id="message-write" type="text" class="validate">
+          	<input autocomplete="off" placeholder="Message" id="message-write" type="text" class="validate">
         </div>
         <div class="input-field col s12 l3">
           <a id="send-btn" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Send</a>
