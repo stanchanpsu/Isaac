@@ -97,7 +97,7 @@ def token(request):
 			
 			sub_user_channel = requests.post(push_url, data=data, headers=headers)	
 			
-			response = json.dumps({"token":token, "handshake":handshake.json(), "sub_user_channel":sub_user_channel.json()})
+			response = json.dumps({"token":token, "handshake":handshake.json()[0], "sub_user_channel":sub_user_channel.json()[0]})
 			response = JsonResponse(response,safe=False)
 			return response
 		else:
@@ -164,6 +164,21 @@ def message(request):
 	
 @login_required(login_url='/login/')
 def longpoll(request):
+	# return JsonResponse(json.dumps("hello"),safe=False)
 	if request.is_ajax():
 		if 'access_token' in request.session:
 			token = request.session['access_token']
+			if 'json_data' in request.POST:
+				message_data = json.loads(request.POST.get('json_data'))
+				clientId = message_data["clientId"]
+				id = message_data["id"]
+				headers = {"Content-Type":"application/json"}
+			
+				data = json.dumps([{"channel":"/meta/connect","clientId":clientId,"connectionType":"long-polling","id":id}])
+				
+				pollMessages = requests.post(push_url, data=data,headers=headers)
+				
+				response = pollMessages.json()
+	# response = json.dumps("hello")
+				
+	return JsonResponse(response,safe=False)

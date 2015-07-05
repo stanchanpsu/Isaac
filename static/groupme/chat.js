@@ -37,7 +37,7 @@ $.ajax({
   }).done(function(data){
     var object = JSON.parse(data);
     token = object['token']; // ?token=alphanumberictoken
-    clientId = object['sub_user_channel'][0]['clientId']
+    clientId = object['sub_user_channel']['clientId']
     console.log(object);
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
@@ -72,6 +72,7 @@ function groupClick(){
         console.log(response);
       }
     });
+    poll();
   });
   
   
@@ -147,10 +148,21 @@ function sendMessage(){
 
 function poll() {
    setTimeout(function() {
-       $.ajax({ url: "/groupme/longpoll", success: function(data) {
+        var data = {json_data: JSON.stringify({"clientId":clientId,"id":id})};
+        $.ajax({
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+         type: "POST",
+         url: "/groupme/longpoll", 
+         data:data,
+         success: function(data) {
             console.log(data);
+            id++;
        }, dataType: "json", complete: poll });
-    }, 30000);
+    }, 1000);
 }
 
 
