@@ -93,7 +93,7 @@ def token(request):
 			
 			user_id = me.json()["response"]["id"]
 			
-			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":"2","ext":{"access_token":token,"timestamp":time.time()}}])
+			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":2,"ext":{"access_token":token,"timestamp":time.time()}}])
 			
 			sub_user_channel = requests.post(push_url, data=data, headers=headers)	
 			
@@ -104,6 +104,29 @@ def token(request):
 			return redirect('/groupme/')
 	else:
 		return redirect('/groupme/')
+
+@login_required(login_url='/login/')		
+def group(request):
+	if request.is_ajax():
+		if 'access_token' in request.session:
+			token = request.session['access_token']
+			if 'json_data' in request.POST:
+				message_data = json.loads(request.POST.get('json_data'))
+				group_id = str(message_data["group_id"])
+				clientId = message_data["clientId"]
+				id = message_data["id"]
+				data = json.dumps([{
+					"channel":"/meta/subscribe","clientId":clientId,"subscription":"/group/"+group_id,"id":id,"ext":{"access_token":token,"timestamp":time.time()}
+				}])
+				
+				headers = {"Content-Type":"application/json"}
+				
+				sub_group_channel = requests.post(push_url, data=data, headers=headers)
+				
+				response = sub_group_channel.json()
+				response = JsonResponse(response, safe=False)
+				return response
+				
 
 # @ensure_csrf_cookie	
 # @login_required(login_url='/login/')

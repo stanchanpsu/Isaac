@@ -3,7 +3,8 @@ var token;
 var myid;
 var baseurl = "https://api.groupme.com/v3";
 var current_group_id;
-var id = 1;
+var id = 3;
+var clientId;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -23,6 +24,12 @@ function getCookie(name) {
 var csrftoken = getCookie('csrftoken');
 
 
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
 //instantiate token value from python which requested it from groupme during authentication
 $.ajax({
     url: "/groupme/token/",
@@ -30,6 +37,7 @@ $.ajax({
   }).done(function(data){
     var object = JSON.parse(data);
     token = object['token']; // ?token=alphanumberictoken
+    clientId = object['sub_user_channel'][0]['clientId']
     console.log(object);
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
@@ -47,7 +55,26 @@ function groupClick(){
     var group_id = $(this).data("id");
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
+    
+    var data = {json_data: JSON.stringify({"group_id":group_id,"clientId":clientId,"id":id})};
+    
+  $.ajax({
+     beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    },
+      type: 'POST',
+      url: '/groupme/group/',
+      data: data,
+      complete: function(response){
+        id++;
+        console.log(response);
+      }
+    });
   });
+  
+  
 }
 
 //function to display messages of a group
@@ -85,11 +112,6 @@ function displayGroup(group_id, group_name){
     $('.discussion').scrollTop($('.discussion')[0].scrollHeight);
     
   });
-}
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
 function sendMessage(){
