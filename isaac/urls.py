@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^calendar/', include('cal.urls', namespace = 'cal')),
     url(r'^groupme/', include('groupme.urls', namespace = 'groupme')),
     url(r'^directory/', include('directory.urls', namespace = 'directory')),
-    url(r'^bc/', include('django_bootstrap_calendar.urls')),
     url(r'^personal/', include('personal.urls', namespace = 'personal')),
     
     # index and authetication

@@ -2,6 +2,7 @@
 var token;
 var myid;
 var baseurl = "https://api.groupme.com/v3";
+var current_group_id;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -31,9 +32,8 @@ $.ajax({
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
-      
       groupClick();
-            
+      sendMessage();
     });
     
   });
@@ -45,19 +45,18 @@ function groupClick(){
     var group_id = $(this).data("id");
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
-    sendMessagebyEnter(group_id);
   });
 }
 
 //function to display messages of a group
 function displayGroup(group_id, group_name){
   
-  $.get(baseurl + "/groups/" + group_id + "/messages?token=" + token, function(data){
+  $.get(baseurl + "/groups/" + group_id + "/messages?token=" + token, function(d){
     $("#header").text(group_name);
     
     var messages = [];
     
-    var group_messages = data['response']['messages'].reverse();
+    var group_messages = d['response']['messages'].reverse();
     var length = group_messages.length;
     
     for (var i = 0; i < length; i++){
@@ -91,15 +90,18 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-function sendMessagebyEnter(group_id){
+function sendMessage(){
+  $('.groups li').on("click", function(){
+    current_group_id = $(this).data("id");
+  });
   $('#message-form').submit(function(event){
     
-    
+    var group_id = current_group_id;
     var message = $("input:first").val();
     console.log(group_id);
     $(this).find("input[type=text]").val("");
     
-    var data = {"text": message, "group_id":group_id};
+    var data = {json_data: JSON.stringify({"text": message, "group_id":group_id})};
     
     $.ajax({
      "beforeSend": function(xhr, settings) {

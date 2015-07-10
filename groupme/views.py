@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from personal.models import EngineeringAmbassador
 from .models import Group
 from django.core import serializers
@@ -104,13 +104,19 @@ def token(request):
 
 @login_required(login_url='/login/')
 def message(request):
-	# if request.is_ajax() and "message[text]" in request.POST:
+	if request.is_ajax():
 		if 'access_token' in request.session:
-			guid = ''.join(random.choice(string.lowercase) for x in range(10))
-			# data = json.loads(request.POST['data'])
-			parameters  = {'message':{'source_guid': guid,'text': "hello"}}
-			sentMessage = requests.post(groupme_url + "/groups/13917588/messages?token=" + request.session['access_token'], data = parameters)
-			responseMessage = sentMessage.json()
-			# responseMessage = json.dumps(responseMessage)
-			# response = JsonResponse(responseMessage, safe=False)
-			return sentMessage.json()
+			token = request.session['access_token']
+			if 'json_data' in request.POST:
+				#contains text and group_id
+				message_data = json.loads(request.POST.get('json_data'))
+				
+				text = message_data["text"]
+				guid = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(10))
+				group_id = str(message_data["group_id"])
+				data = json.dumps({"message":{"source_guid":guid, "text":text}})
+				headers = {"X-Access-Token": token, "Content-Type":"application/json"}
+				send_message = requests.post(groupme_url+'/groups/'+group_id+'/messages', headers = headers, data = data )
+	
+				response = send_message.json()
+	return JsonResponse(response, safe=False)
