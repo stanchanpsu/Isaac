@@ -3,13 +3,14 @@ var token;
 var myid;
 var baseurl = "https://api.groupme.com/v3";
 var current_group_id;
+var id = 1;
 
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
+            var cookie = $.trim(cookies[i]);
             // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) == (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -29,6 +30,7 @@ $.ajax({
   }).done(function(data){
     var object = JSON.parse(data);
     token = object['token']; // ?token=alphanumberictoken
+    console.log(object);
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
@@ -104,15 +106,15 @@ function sendMessage(){
     var data = {json_data: JSON.stringify({"text": message, "group_id":group_id})};
     
     $.ajax({
-     "beforeSend": function(xhr, settings) {
+     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
     },
-      "type": 'POST',
-      "url": '/groupme/message/',
-      "data": data,
-      "complete": function(response){
+      type: 'POST',
+      url: '/groupme/message/',
+      data: data,
+      complete: function(response){
         console.log(response);
       }
     });
@@ -121,9 +123,13 @@ function sendMessage(){
   });
 }
 
-// function sendMessagebyBtn(){
-  
-// }
+function poll() {
+   setTimeout(function() {
+       $.ajax({ url: "/groupme/longpoll", success: function(data) {
+            console.log(data);
+       }, dataType: "json", complete: poll });
+    }, 30000);
+}
 
 
 // animate group panel 

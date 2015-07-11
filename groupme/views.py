@@ -5,10 +5,11 @@ from django.http import JsonResponse, HttpResponse
 from personal.models import EngineeringAmbassador
 from .models import Group
 from django.core import serializers
-import json, requests, operator, string, random
+import json, requests, operator, string, random, time
 
 
 groupme_url = "https://api.groupme.com/v3"
+push_url = "https://push.groupme.com/faye"
 
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
@@ -78,9 +79,26 @@ def groupme(request):
 def token(request):			
 	if request.is_ajax():
 		if 'access_token' in request.session:
-			token = {'token':request.session['access_token']}
-			token = json.dumps(token)
-			response = JsonResponse(token,safe=False)
+			token = request.session['access_token']
+			
+			headers = {"Content-Type":"application/json"}
+			
+			data = json.dumps([{"channel":"/meta/handshake","version":"1.0", "supportedConnectionTypes":["long-polling"], "id":1}])
+			
+			handshake = requests.post(push_url,data=data, headers=headers)
+			
+			signature = handshake.json()[0]["clientId"]
+			params = {"token":token}
+			me = requests.get(groupme_url + "/users/me", params = params)
+			
+			user_id = me.json()["response"]["id"]
+			
+			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":"2","ext":{"access_token":token,"timestamp":time.time()}}])
+			
+			sub_user_channel = requests.post(push_url, data=data, headers=headers)	
+			
+			response = json.dumps({"token":token, "handshake":handshake.json(), "sub_user_channel":sub_user_channel.json()})
+			response = JsonResponse(response,safe=False)
 			return response
 		else:
 			return redirect('/groupme/')
@@ -120,3 +138,9 @@ def message(request):
 	
 				response = send_message.json()
 	return JsonResponse(response, safe=False)
+	
+@login_required(login_url='/login/')
+def longpoll(request):
+	if request.is_ajax():
+		if 'access_token' in request.session:
+			token = request.session['access_token']
