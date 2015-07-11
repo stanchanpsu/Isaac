@@ -44,6 +44,7 @@ $.ajax({
       myid = data['response']['id'];
       groupClick();
       sendMessage();
+      poll();
     });
     
   });
@@ -58,23 +59,21 @@ function groupClick(){
     
     var data = {json_data: JSON.stringify({"group_id":group_id,"clientId":clientId,"id":id})};
     
-  $.ajax({
-     beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    },
-      type: 'POST',
-      url: '/groupme/group/',
-      data: data,
-      complete: function(response){
-        id++;
-        console.log(response);
-      }
-    });
-    poll();
+  // $.ajax({
+  //    beforeSend: function(xhr, settings) {
+  //       if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+  //           xhr.setRequestHeader("X-CSRFToken", csrftoken);
+  //       }
+  //   },
+  //     type: 'POST',
+  //     url: '/groupme/group/',
+  //     data: data,
+  //     complete: function(response){
+  //       id++;
+  //       console.log(response);
+  //     }
+  //   });
   });
-  
   
 }
 
@@ -160,6 +159,31 @@ function poll() {
          data:data,
          success: function(data) {
             console.log(data);
+            if ($.isArray(data)){
+              for (var i = 1; i < data.length; i++){
+                var message = data[i]["data"]["subject"];
+                var group_id = message["group_id"];
+                if (group_id == current_group_id){
+                  var name = message["name"];
+                  var sender_id = message["sender_id"];
+                  var text = message["text"];
+                  var message_class;
+                  if (sender_id == myid){
+                    message_class = "self";
+                  }
+                  else{
+                    message_class = "other";
+                  }
+                  message = '<li class =' + message_class + '><div class="avatar"><img/></div><div class="messages white-text"><p>' + text + '</p><time>' + name + '</time></div></li>';
+                  $('.discussion').append(message);
+                  $('.discussion').scrollTop($('.discussion')[0].scrollHeight);
+                }
+                else{
+                  continue;
+                }
+              }
+            }
+              
             id++;
        }, dataType: "json", complete: poll });
     }, 1000);

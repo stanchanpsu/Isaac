@@ -176,9 +176,10 @@ def longpoll(request):
 			
 				data = json.dumps([{"channel":"/meta/connect","clientId":clientId,"connectionType":"long-polling","id":id}])
 				
-				pollMessages = requests.post(push_url, data=data,headers=headers)
-				
-				response = pollMessages.json()
-	# response = json.dumps("hello")
-				
-	return JsonResponse(response,safe=False)
+				while True:
+					pollMessages = requests.post(push_url, data=data,headers=headers)
+					
+					if pollMessages.status_code is 200:
+						response = pollMessages.json()
+						return JsonResponse(response,safe=False)
+	
