@@ -83,7 +83,7 @@ def token(request):
 			
 			headers = {"Content-Type":"application/json"}
 			
-			data = json.dumps([{"channel":"/meta/handshake","version":"1.0", "supportedConnectionTypes":["long-polling"], "id":1}])
+			data = json.dumps([{"channel":"/meta/handshake","version":"1.0", "supportedConnectionTypes":["long-polling"], "id":"1"}])
 			
 			handshake = requests.post(push_url,data=data, headers=headers)
 			
@@ -93,7 +93,7 @@ def token(request):
 			
 			user_id = me.json()["response"]["id"]
 			
-			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":2,"ext":{"access_token":token,"timestamp":time.time()}}])
+			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":"2","ext":{"access_token":token,"timestamp":time.time()}}])
 			
 			sub_user_channel = requests.post(push_url, data=data, headers=headers)	
 			
@@ -176,10 +176,7 @@ def longpoll(request):
 			
 				data = json.dumps([{"channel":"/meta/connect","clientId":clientId,"connectionType":"long-polling","id":id}])
 				
-				while True:
-					pollMessages = requests.post(push_url, data=data,headers=headers)
-					
-					if pollMessages.status_code is 200:
-						response = pollMessages.json()
-						return JsonResponse(response,safe=False)
+				pollMessages = requests.post(push_url, data=data,headers=headers)
+				response = pollMessages.json()
+				return JsonResponse(response,safe=False)
 	

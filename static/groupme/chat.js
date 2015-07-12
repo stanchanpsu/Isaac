@@ -146,8 +146,9 @@ function sendMessage(){
 }
 
 function poll() {
+  id++;
    setTimeout(function() {
-        var data = {json_data: JSON.stringify({"clientId":clientId,"id":id})};
+        var data = {json_data: JSON.stringify({"clientId":clientId,"id":id.toString()})};
         $.ajax({
         beforeSend: function(xhr, settings) {
           if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -183,10 +184,15 @@ function poll() {
                 }
               }
             }
-              
-            id++;
-       }, dataType: "json", complete: poll });
-    }, 1000);
+            poll();
+       },
+       error: function(x,text,error){
+         console.log("error: "+ text + " (" + error + ")");
+         poll();
+       },
+       timeout: 10000,
+       dataType: "json"});
+    }, 500);
 }
 
 
