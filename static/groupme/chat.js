@@ -3,8 +3,6 @@ var token;
 var myid;
 var baseurl = "https://api.groupme.com/v3";
 var current_group_id;
-var id = 3;
-var clientId;
 var current_message_id;
 
 function getCookie(name) {
@@ -35,8 +33,7 @@ $.ajax({
     dataType: "json",
   }).done(function(data){
     var object = JSON.parse(data);
-    token = object['token']; // ?token=alphanumberictoken
-    clientId = object['sub_user_channel']['clientId']
+    token = object['token']; // ?token=alphanumerictoken
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
@@ -50,6 +47,7 @@ $.ajax({
 function groupClick(){
   $('.groups li').on("click", function(){
     var group_id = $(this).data("id");
+    current_group_id = group_id;
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
   });
@@ -97,9 +95,6 @@ function displayGroup(group_id, group_name){
 }
 
 function sendMessage(){
-  $('.groups li').on("click", function(){
-    current_group_id = $(this).data("id");
-  });
   $('#message-form').submit(function(event){
     
     var group_id = current_group_id;
