@@ -5,6 +5,7 @@ var baseurl = "https://api.groupme.com/v3";
 var current_group_id;
 var id = 3;
 var clientId;
+var current_message_id;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -23,12 +24,10 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
-
 
 //instantiate token value from python which requested it from groupme during authentication
 $.ajax({
@@ -38,17 +37,14 @@ $.ajax({
     var object = JSON.parse(data);
     token = object['token']; // ?token=alphanumberictoken
     clientId = object['sub_user_channel']['clientId']
-    console.log(object);
     
     $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
       groupClick();
       sendMessage();
-      poll();
+      pullMessages();
     });
-    
-  });
-  
+  });  
 
 //function to listen to clicks on groups
 function groupClick(){
@@ -56,25 +52,7 @@ function groupClick(){
     var group_id = $(this).data("id");
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
-    
-    var data = {json_data: JSON.stringify({"group_id":group_id,"clientId":clientId,"id":id})};
-    
-  // $.ajax({
-  //    beforeSend: function(xhr, settings) {
-  //       if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-  //           xhr.setRequestHeader("X-CSRFToken", csrftoken);
-  //       }
-  //   },
-  //     type: 'POST',
-  //     url: '/groupme/group/',
-  //     data: data,
-  //     complete: function(response){
-  //       id++;
-  //       console.log(response);
-  //     }
-  //   });
   });
-  
 }
 
 //function to display messages of a group
@@ -91,6 +69,10 @@ function displayGroup(group_id, group_name){
     for (var i = 0; i < length; i++){
       var message = group_messages[i];
       var message_class;
+      
+      if (i == length - 1){
+        current_message_id = message['id'];
+      }
       
       if (message['user_id'] == myid){
         message_class = "self";
@@ -122,7 +104,6 @@ function sendMessage(){
     
     var group_id = current_group_id;
     var message = $("input:first").val();
-    console.log(group_id);
     $(this).find("input[type=text]").val("");
     
     var data = {json_data: JSON.stringify({"text": message, "group_id":group_id})};
@@ -137,7 +118,6 @@ function sendMessage(){
       url: '/groupme/message/',
       data: data,
       complete: function(response){
-        console.log(response);
       }
     });
     
@@ -145,50 +125,44 @@ function sendMessage(){
   });
 }
 
-function poll() {
-   setTimeout(function() {
-        var data = {json_data: JSON.stringify({"clientId":clientId,"id":id})};
-        $.ajax({
-        beforeSend: function(xhr, settings) {
-          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+function pullMessages(){
+  setInterval(function(){
+    
+      $.get(baseurl + "/groups/" + current_group_id + "/messages?token=" + token, {"since_id": current_message_id}, function(d){
+      
+      var messages = [];
+      if (typeof d !== 'undefined'){ 
+        var group_messages = d['response']['messages'].reverse();
+        var length = group_messages.length;
+        
+        for (var i = 0; i < length; i++){
+          var message = group_messages[i];
+          var message_class;
+          
+          if ( i == length - 1){
+            current_message_id = message["id"];
           }
-        },
-         type: "POST",
-         url: "/groupme/longpoll", 
-         data:data,
-         success: function(data) {
-            console.log(data);
-            if ($.isArray(data)){
-              for (var i = 1; i < data.length; i++){
-                var message = data[i]["data"]["subject"];
-                var group_id = message["group_id"];
-                if (group_id == current_group_id){
-                  var name = message["name"];
-                  var sender_id = message["sender_id"];
-                  var text = message["text"];
-                  var message_class;
-                  if (sender_id == myid){
-                    message_class = "self";
-                  }
-                  else{
-                    message_class = "other";
-                  }
-                  message = '<li class =' + message_class + '><div class="avatar"><img/></div><div class="messages white-text"><p>' + text + '</p><time>' + name + '</time></div></li>';
-                  $('.discussion').append(message);
-                  $('.discussion').scrollTop($('.discussion')[0].scrollHeight);
-                }
-                else{
-                  continue;
-                }
-              }
-            }
-              
-            id++;
-       }, dataType: "json", complete: poll });
-    }, 1000);
+          
+          if (message['user_id'] == myid){
+            message_class = "self";
+          }
+          else{
+            message_class = "other";
+          }
+        
+          var message_content = {"user_id": message['user_id'], "name": message['name'], "time": message['created_at'], "text": message['text']};
+          messages[i] = '<li class =' + message_class + '><div class="avatar"><img/></div><div class="messages white-text"><p>' + message_content['text'] + '</p><time>' + message['name'] + '</time></div></li>';
+        }
+      
+        for (var user_id in messages){
+          $('.discussion').append(messages[user_id]);
+        }
+        
+        $('.discussion').scrollTop($('.discussion')[0].scrollHeight);
+      }
+    });
+  }, 1000);
 }
-
 
 // animate group panel 
 $(function(){
@@ -253,7 +227,5 @@ $(function(){
       }, sliderate);
     }
   });
-  
-  
 
 });
