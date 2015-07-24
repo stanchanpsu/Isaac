@@ -126,22 +126,6 @@ def group(request):
 				response = sub_group_channel.json()
 				response = JsonResponse(response, safe=False)
 				return response
-				
-
-# @ensure_csrf_cookie	
-# @login_required(login_url='/login/')
-# def getGroups(request):
-# 	if request.is_ajax():
-		
-# 		user = request.user
-# 		ambassador = get_object_or_404(EngineeringAmbassador, user = user)
-# 		groups = ambassador.group_set.all()
-# 		groups = serializers.serialize("json", groups)
-# 		response = JsonResponse(groups, safe=False)
-# 		return response
-		
-# 	else:
-# 		return redirect('/groupme/')
 
 @login_required(login_url='/login/')
 def message(request):
@@ -161,22 +145,4 @@ def message(request):
 	
 				response = send_message.json()
 	return JsonResponse(response, safe=False)
-	
-@login_required(login_url='/login/')
-def longpoll(request):
-	# return JsonResponse(json.dumps("hello"),safe=False)
-	if request.is_ajax():
-		if 'access_token' in request.session:
-			token = request.session['access_token']
-			if 'json_data' in request.POST:
-				message_data = json.loads(request.POST.get('json_data'))
-				clientId = message_data["clientId"]
-				id = message_data["id"]
-				headers = {"Content-Type":"application/json"}
-			
-				data = json.dumps([{"channel":"/meta/connect","clientId":clientId,"connectionType":"long-polling","id":id}])
-				
-				pollMessages = requests.post(push_url, data=data,headers=headers)
-				response = pollMessages.json()
-				return JsonResponse(response,safe=False)
 	
