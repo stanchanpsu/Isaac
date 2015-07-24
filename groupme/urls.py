@@ -8,5 +8,4 @@ url(r'^$', views.groupme, name = 'groupme'),
 url(r'^token', views.token, name ='token'),
 url(r'^group', views.group, name = 'group'),
 url(r'^message', views.message, name = 'message'),
-url(r'^longpoll', views.longpoll, name = 'longpoll'),
 ]
