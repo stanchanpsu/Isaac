@@ -66,6 +66,7 @@ def groupme(request):
 					relevant_groups[group['group_id']] = group['name']
 					
 			relevant_groups = sorted(relevant_groups.items(), key=operator.itemgetter(1))
+			
 			#pass on only relevant groups to template
 			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
 			
@@ -80,7 +81,18 @@ def token(request):
 	if request.is_ajax():
 		if 'access_token' in request.session:
 			token = request.session['access_token']
-			response = json.dumps({"token":token,})
+			user = request.user
+			ambassador = get_object_or_404(EngineeringAmbassador, user = user)
+			groups = ambassador.group_set.all()
+			
+			if "group_id" in request.session:
+				group_id = request.session["group_id"]
+			else:
+				group_id = group[0].group_id
+				
+			group_name = groups.get(group_id = group_id).name
+				
+			response = json.dumps({"token":token, "group_id":group_id, "group_name":group_name})
 			response = JsonResponse(response,safe=False)
 			return response
 		else:

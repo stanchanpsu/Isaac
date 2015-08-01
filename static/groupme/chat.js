@@ -34,12 +34,16 @@ $.ajax({
   }).done(function(data){
     var object = JSON.parse(data);
     token = object['token']; // ?token=alphanumerictoken
-    
+    var group_id = object['group_id'];
+    current_group_id = group_id;
+    var group_name = object['group_name'];
+
     $.get(baseurl + "/users/me?token=" + token, function(data){
       myid = data['response']['id'];
       groupClick();
       sendMessage();
       pullMessages();
+      displayGroup(group_id, group_name);
     });
   });  
 
@@ -64,7 +68,6 @@ function groupClick(){
         url: '/groupme/group_id/',
         data: data,
         complete: function(data){
-          console.log(data);
         }
       });
       
