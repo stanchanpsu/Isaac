@@ -50,7 +50,25 @@ function groupClick(){
     current_group_id = group_id;
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
-  });
+    
+    
+    //send the current group to django to store in session variable
+    var data = {json_data: JSON.stringify({"group_id": current_group_id})};
+    $.ajax({
+       beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      },
+        type: 'POST',
+        url: '/groupme/group_id/',
+        data: data,
+        complete: function(data){
+          console.log(data);
+        }
+      });
+      
+    });
 }
 
 //function to display messages of a group
@@ -94,6 +112,8 @@ function displayGroup(group_id, group_name){
   });
 }
 
+
+// event listener to send messages to groupme
 function sendMessage(){
   $('#message-form').submit(function(event){
     
@@ -120,6 +140,7 @@ function sendMessage(){
   });
 }
 
+// set interval of 1 second to check for newest 20 messages since last check
 function pullMessages(){
   setInterval(function(){
     

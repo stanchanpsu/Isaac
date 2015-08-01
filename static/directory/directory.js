@@ -35,7 +35,7 @@ $(function ajax_query(){
 			dataType: "json",
 			// on return of the data
 		}).done(function(data){
-			console.log(data); // for debugging
+			// console.log(data); // for debugging
 			// remove the current grid div containing all the cards
 			$('#grid').remove();
 			// parse the data as a json and store it in object

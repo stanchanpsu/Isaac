@@ -1,10 +1,4 @@
 {% include 'header.html' %}
-
-{% if auth_url %}
-<a href='{{auth_url}}' class="waves-effect waves-light btn">Connect to Groupme</a>
-{% else %}
-
-
   <!--HEADER BAR-->
   <div class="row">
     <header class="top-bar teal">
@@ -103,7 +97,5 @@
   <a><li data-id={{group.0}}>{{group.1}}</li></a>
   {% endfor %}
 </ol>
-
-{% endif %}
 
 {% include 'footer.html' %}

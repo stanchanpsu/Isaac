@@ -72,7 +72,7 @@ def groupme(request):
 		#if user is logged out of groupme
 		else:
 			auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
-			return render(request, 'groupme/groupme.html',{'auth_url':auth_url,})
+			return redirect(auth_url)
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
@@ -80,52 +80,13 @@ def token(request):
 	if request.is_ajax():
 		if 'access_token' in request.session:
 			token = request.session['access_token']
-			
-			headers = {"Content-Type":"application/json"}
-			
-			data = json.dumps([{"channel":"/meta/handshake","version":"1.0", "supportedConnectionTypes":["long-polling"], "id":"1"}])
-			
-			handshake = requests.post(push_url,data=data, headers=headers)
-			
-			signature = handshake.json()[0]["clientId"]
-			params = {"token":token}
-			me = requests.get(groupme_url + "/users/me", params = params)
-			
-			user_id = me.json()["response"]["id"]
-			
-			data = json.dumps([{"channel":"/meta/subscribe","clientId":signature,"subscription":"/user/" + user_id, "id":"2","ext":{"access_token":token,"timestamp":time.time()}}])
-			
-			sub_user_channel = requests.post(push_url, data=data, headers=headers)	
-			
-			response = json.dumps({"token":token, "handshake":handshake.json()[0], "sub_user_channel":sub_user_channel.json()[0]})
+			response = json.dumps({"token":token,})
 			response = JsonResponse(response,safe=False)
 			return response
 		else:
 			return redirect('/groupme/')
 	else:
 		return redirect('/groupme/')
-
-@login_required(login_url='/login/')		
-def group(request):
-	if request.is_ajax():
-		if 'access_token' in request.session:
-			token = request.session['access_token']
-			if 'json_data' in request.POST:
-				message_data = json.loads(request.POST.get('json_data'))
-				group_id = str(message_data["group_id"])
-				clientId = message_data["clientId"]
-				id = message_data["id"]
-				data = json.dumps([{
-					"channel":"/meta/subscribe","clientId":clientId,"subscription":"/group/"+group_id,"id":id,"ext":{"access_token":token,"timestamp":time.time()}
-				}])
-				
-				headers = {"Content-Type":"application/json"}
-				
-				sub_group_channel = requests.post(push_url, data=data, headers=headers)
-				
-				response = sub_group_channel.json()
-				response = JsonResponse(response, safe=False)
-				return response
 
 @login_required(login_url='/login/')
 def message(request):
@@ -145,4 +106,13 @@ def message(request):
 	
 				response = send_message.json()
 	return JsonResponse(response, safe=False)
-	
+
+@login_required(login_url='/login/')	
+def group_id(request):
+	if request.is_ajax():
+		if 'json_data' in request.POST:
+			data = json.loads(request.POST.get('json_data'))
+			group_id =  data["group_id"]
+			request.session["group_id"] = group_id
+			response = json.dumps({'group_id':request.session["group_id"]})
+	return JsonResponse(response,safe = False)
