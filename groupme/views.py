@@ -34,8 +34,12 @@ def groupme(request):
 	
 	# if regular page request by user	
 	else:
+		# print request.session['access_token']
 		# if user logged into groupme
-		if 'access_token' in request.session:
+		if 'access_token' not in request.session:
+			auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
+			return redirect(auth_url)
+		else:
 			stylesheet = 'groupme/chat.css'
 			script = 'groupme/chat.js'
 			
@@ -70,10 +74,10 @@ def groupme(request):
 			#pass on only relevant groups to template
 			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
 			
-		#if user is logged out of groupme
-		else:
-			auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
-			return redirect(auth_url)
+		# #if user is logged out of groupme
+		# else:
+		# 	auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
+		# 	return redirect(auth_url)
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
@@ -87,10 +91,18 @@ def token(request):
 			
 			if "group_id" in request.session:
 				group_id = request.session["group_id"]
+			
+			# set current group_id to the group_id of first registered group
 			else:
-				group_id = group[0].group_id
-				
-			group_name = groups.get(group_id = group_id).name
+				# if the user has no groups
+				try:
+					group_id = groups[0].group_id
+				except:
+					group_id=""
+			try:
+				group_name = groups.get(group_id = group_id).name
+			except:
+				group_name = ""
 				
 			response = json.dumps({"token":token, "group_id":group_id, "group_name":group_name})
 			response = JsonResponse(response,safe=False)

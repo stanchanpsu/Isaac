@@ -1,6 +1,8 @@
 from django.db import models
 from personal.models import EngineeringAmbassador
 from events.models import Event
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Group(models.Model):
 	group_id = models.CharField(max_length = 20, default = 0, blank = True)

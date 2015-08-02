@@ -14,8 +14,10 @@ def profile(request):
     stylesheet = 'personal/profile.css'
     app = 'personal'
     ambassador = get_object_or_404(EngineeringAmbassador, user = request.user)
-    profile_pic = ambassador.picture.url
-        
+    try:
+        profile_pic = ambassador.picture.url
+    except:
+        profile_pic = ""
     events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
     
     if request.POST:

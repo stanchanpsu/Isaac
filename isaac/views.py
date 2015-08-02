@@ -16,6 +16,8 @@ def index(request):
 	
 def logout_user(request):
 	logout(request)
+	response = redirect("/")
+	response.delete_cookie('access_token')
 	return redirect("/")
 	
 def login_user(request):
