@@ -42,8 +42,28 @@ class Tour(Event):
 	
 	def __unicode__(self):
 		time = formats.date_format(self.time, "SHORT_TIME")
-		date = formats.date_format(self.date, "SHORT_DATE")
 		return self.tour_type + " " + time + " Tour"
 		
 	def detail_url(self):
 		return "tour/" + str(self.id)
+	
+class Class(Event):
+	veterans = models.BooleanField(default = False)
+	
+	def __unicode__(self):
+		date = formats.date_format(self.date, "SHORT_DATE")
+		return "ENGR Class " + date
+		
+	class Meta:
+		verbose_name_plural = "classes"
+
+class MyCoe(Event):
+	def __unicode__(self):
+		date = formats.date_format(self.date, "SHORT_DATE")
+		return "MyCOE " + date
+		
+class FreshmanSeminar(Event):
+	major = models.CharField(max_length = 40)
+	professor = models.CharField(max_length = 40)
+	def __unicode__(self):
+		return self.major + " Freshman Seminar"
