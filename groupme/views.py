@@ -74,11 +74,6 @@ def groupme(request):
 			#pass on only relevant groups to template
 			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
 			
-		# #if user is logged out of groupme
-		# else:
-		# 	auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
-		# 	return redirect(auth_url)
-			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
 def token(request):			
