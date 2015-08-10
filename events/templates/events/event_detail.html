@@ -1,6 +1,6 @@
 {% include 'header.html' %}
 
-<div class="card-panel">
+<div>
 	<div class="row">
 		<div class="card blue white-text col s12 jumbo valign-wrapper">
 			<div class="jumbo-container valign-wrapper">
@@ -27,9 +27,30 @@
 				<i class="material-icons medium">event_note</i><h5>{{event.note}}</h5>
 			</div>
 		</div>
-		<div class="col l5 s12 card-panel {{background_color}} lighten-2 center-align" id='event_register_status'>
-			<h5 class="white-text">{{event_register_status}}</h5>
-			<p><button class="{{background_color}} btn waves-effect waves-light" type='submit' name = '/events/{{event_type}}/{{event_id}}/'>{{event_toggle}}</button></p>
+		<!--EVENT REGISTER STATUS-->
+		<div class="col l5 s12 " id="right-card">
+			<div class="card-panel {{background_color}} lighten-2 center-align" id='event_register_status'>
+				<h5 class="white-text">{{event_register_status}}</h5>
+				<p><button class="{{background_color}} btn waves-effect waves-light" type='submit' name = '/events/{{event_type}}/{{event_id}}/'>{{event_toggle}}</button></p>
+			</div>
+			
+			<div class="card-panel white-text {{color}} center-align">
+			
+				<div class="center-align">
+					<h5>Registered Engineering Ambassadors</h5>
+					
+					<div ckass="center-align"		
+					    {% for EA in EAs_registered %}
+					    <span><a class="waves-effect waves-light {{color }} darken-2 btn">{{ EA.first_name }} {{ EA.last_name }}</a></span>
+					
+					        <!-- if last column in row -->
+					        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+				        </div><div class="center-align">
+					        {% endif %}
+					    {% endfor %}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
