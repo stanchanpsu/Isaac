@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import EngineeringAmbassador
 
-from itertools import chain
+# from itertools import chain
 
 import time
 
@@ -18,7 +18,8 @@ def profile(request):
         profile_pic = ambassador.picture.url
     except:
         profile_pic = ""
-    events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
+        
+    events_registered = request.user.event.all()
     
     if request.POST:
         
@@ -78,7 +79,7 @@ def edit(request):
     profile_pic = ambassador.picture.url
     grad_year = int(ambassador.grad_year)
     
-    events_registered = sorted(chain(request.user.outreach.all(), request.user.tours.all()), key=lambda instance: instance.date)
+    events_registered = request.user.event.all()
     
     return render(request, 'personal/profile.html', {'stylesheet':stylesheet, 'app': app, 'profile_pic':profile_pic, 'ambassador':ambassador, 'events_registered':events_registered, 'edit':edit, 'years':years,'grad_year':grad_year,}) 
         

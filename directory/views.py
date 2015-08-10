@@ -30,7 +30,7 @@ def directory(request):
             else:
                 match = get_object_or_404(User, username = matching[0])
                 ambassador = get_object_or_404(EngineeringAmbassador, user = match)
-                events_registered = sorted(chain(match.outreach.all(), match.tours.all()), key=lambda instance: instance.date)
+                events_registered = match.event.all()
                 return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
         else:
             return redirect('/directory/')
@@ -117,7 +117,7 @@ def ambassador_profile(request, ambassador_id = None):
             else:
                 match = get_object_or_404(User, username = matching[0])
                 ambassador = get_object_or_404(EngineeringAmbassador, user = match)
-                events_registered = sorted(chain(match.outreach.all(), match.tours.all()), key=lambda instance: instance.date)
+                events_registered = match.event.all()
                 return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
         else:
             return redirect('/directory/')
@@ -126,7 +126,7 @@ def ambassador_profile(request, ambassador_id = None):
     app = 'directory'
     user = get_object_or_404(User, id = ambassador_id)
     ambassador = get_object_or_404(EngineeringAmbassador, user = user)
-    events_registered = sorted(chain(user.outreach.all(), user.tours.all()), key=lambda instance: instance.date)
+    events_registered = user.event.all()
     
     return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
     

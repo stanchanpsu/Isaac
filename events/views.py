@@ -38,18 +38,11 @@ def event_detail(request, event_type, event_id):
 	if event_type == 'outreach':
 		event = get_object_or_404(OutreachTrip, pk = event_id)
 		title = event.school + ' Outreach Trip'
-		descript = 'School'
-		descript_field = event.school
-		color = 'orange'
 		
 	elif event_type == 'tour':
 		event = get_object_or_404(Tour, pk = event_id)
 		time = formats.date_format(event.time, "SHORT_TIME")
-		date = formats.date_format(event.date, "SHORT_DATE_DAY")
 		title = event.get_tour_type_display() + ' Tour at ' + time
-		descript = 'Time'
-		descript_field = time
-		color = 'blue'
 	
 	# 2. set 'event_register' button value depending on whether EA is already registered
 		
@@ -67,8 +60,12 @@ def event_detail(request, event_type, event_id):
 	if request.POST:
 		if event_toggle == 'Withdraw':
 			event.EAs_registered.remove(request.user)
+			event.EAs_needed += 1
+			event.save()
 		elif event_toggle == 'Sign up':
 			event.EAs_registered.add(request.user)
+			event.EAs_needed -= 1
+			event.save()
 			
 		return redirect("/events/" + event_type + "/" + event_id  +"/")
 		
@@ -77,4 +74,4 @@ def event_detail(request, event_type, event_id):
 	EAs_registered 	= event.EAs_registered.order_by('username')
 	stylesheet = 'events/event_detail.css'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'descript':descript, 'descript_field':descript_field,'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'app': app, 'color': color, })
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'app': app,})

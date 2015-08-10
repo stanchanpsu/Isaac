@@ -12,8 +12,6 @@
 		<th>School</th>
 		<th>Location</th>
 		<th>EAs</th>
-		<!--<th>Notes</th>-->
-		<!--<th>Hours</th>-->
 	</tr>
 	</thead>
 	<tbody>
@@ -21,10 +19,8 @@
 	<tr>
 		<td>{{outreach.date}}</td>
 		<td class="link"><a href="/events/outreach/{{outreach.id}}/">{{outreach.school}}</a></td>
-		<!--<td>{{outreach.location}}</td>-->
+		<td>{{outreach.location}}</td>
 		<td>{{outreach.EAs_needed}}</td>
-		<!--<td>{{outreach.note}}</td>-->
-		<!--<td>{{outreach.hours}}</td>-->
 	</tr>
 	{% endfor %}
 	</tbody>
