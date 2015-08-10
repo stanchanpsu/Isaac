@@ -18,7 +18,7 @@
 	{% for outreach in outreach_list %}
 	<tr>
 		<td>{{outreach.date}}</td>
-		<td class="link"><a href="/events/outreach/{{outreach.id}}/">{{outreach.school}}</a></td>
+		<td class="link"><a href="{% url 'events:detail' outreach.id %}">{{outreach.school}}</a></td>
 		<td>{{outreach.location}}</td>
 		<td>{{outreach.EAs_needed}}</td>
 	</tr>

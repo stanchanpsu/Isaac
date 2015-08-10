@@ -42,7 +42,6 @@ class Event(models.Model):
 
 	
 class OutreachTrip(Event):
-	id 
 	school = models.CharField(max_length=30)
 	
 	def __unicode__(self):

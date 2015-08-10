@@ -22,7 +22,7 @@
 		<tr>
 			
 			<td>{{tour.date}}</td>
-			<td><a href="/events/tour/{{tour.id}}/">{{tour.time|time:"g:i A"}}</a></td>
+			<td><a href="{% url 'events:detail' tour.id %}">{{tour.time|time:"g:i A"}}</a></td>
 			<td>{{tour.tour_type}}</td>
 			<td>{{tour.EAs_needed}}</td>
 		</tr>
