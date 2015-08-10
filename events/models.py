@@ -9,7 +9,7 @@ from django.utils import formats
 class Event(models.Model):
 	time = models.TimeField()
 	date = models.DateField()
-	hours = models.DecimalField(max_digits=3,decimal_places=1, blank = True, null = True)
+	hours = models.DecimalField(max_digits=3,decimal_places=1, blank = True, null = True, default=0)
 	location = models.CharField(max_length = 140, blank = True, null = True)
 	EAs_needed = models.PositiveSmallIntegerField(default = 0, blank = True, null = True)
 	note = models.CharField(max_length = 500, blank = True, null = True, default="No additional notes")

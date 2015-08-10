@@ -46,7 +46,7 @@ def event_detail(request, event_type, event_id):
 		event = get_object_or_404(Tour, pk = event_id)
 		time = formats.date_format(event.time, "SHORT_TIME")
 		date = formats.date_format(event.date, "SHORT_DATE_DAY")
-		title = event.get_tour_type_display() + ' Tour on ' + date + ' - ' + time
+		title = event.get_tour_type_display() + ' Tour at ' + time
 		descript = 'Time'
 		descript_field = time
 		color = 'blue'
