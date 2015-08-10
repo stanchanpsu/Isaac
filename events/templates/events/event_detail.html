@@ -18,7 +18,7 @@
 				<i class="material-icons medium">location_on</i><h5>{{event.location}}</h5>
 			</div>
 			<div class="row valign-wrapper">
-				<i class="material-icons medium">person</i><h5>{{event.EAs_needed}} ambassadors needed</h5>
+				<i class="material-icons medium">person</i><h5 id="EAs_needed">{{event.EAs_needed}} ambassadors needed</h5>
 			</div>
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">access_time</i><h5>{{event.hours}} hours</h5>
@@ -30,8 +30,8 @@
 		<!--EVENT REGISTER STATUS-->
 		<div class="col l5 s12 " id="right-card">
 			<div class="card-panel {{background_color}} lighten-2 center-align" id='event_register_status'>
-				<h5 class="white-text">{{event_register_status}}</h5>
-				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{{event_toggle}}</a></p>
+				<h5 class="white-text" id="status_text">{{event_register_status}}</h5>
+				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{% if registered %}Withdraw {% else %} Sign up {% endif %}</a></p>
 			</div>
 			
 			<div class="card-panel white-text blue center-align">

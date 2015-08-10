@@ -45,7 +45,7 @@ class OutreachTrip(Event):
 	school = models.CharField(max_length=30)
 	
 	def __unicode__(self):
-		return self.school
+		return self.school + " Outreach Trip"
 		
 	def detail_url(self):
 		return "outreach/" + str(self.id)
@@ -57,7 +57,7 @@ class Tour(Event):
 	
 	def __unicode__(self):
 		time = formats.date_format(self.time, "SHORT_TIME")
-		return self.tour_type + " " + time + " Tour"
+		return str(self.get_tour_type_display()) + " Tour at " + time
 		
 	def detail_url(self):
 		return "tour/" + str(self.id)

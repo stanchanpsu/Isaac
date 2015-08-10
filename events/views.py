@@ -34,9 +34,7 @@ def list_events(request):
 @login_required(login_url='/login/')
 def detail(request, event_id):
 	
-	# request.session['event_type'], request.session['event_id'] = event_type, event_id
-	
-	# 1. parse the url (from regex capture) for type of event and event id (this is specific to type of event ie. both Tour and Outreach can have id = 1)	THIS IS WRONG. ALL SUBCLASSES SHARE THE SAME PK SYSTEM NOW
+	# 1. parse the url (from regex capture) for event id
 	
 	event = get_object_or_404(Event, pk = event_id)
 	request.session['event_id'] = event_id
@@ -75,4 +73,4 @@ def register(request):
 			event.save()
 			registered = True
 		request.session['event_registered'] = registered
-	return JsonResponse("test", safe=False)
+		return JsonResponse(json.dumps({"registered":registered, "EAs_needed":event.EAs_needed,}), safe=False)
