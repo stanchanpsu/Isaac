@@ -11,8 +11,8 @@ class Event(models.Model):
 	date = models.DateField()
 	hours = models.DecimalField(max_digits=3,decimal_places=1, blank = True, null = True)
 	location = models.CharField(max_length = 140, blank = True, null = True)
-	EAs_needed = models.PositiveSmallIntegerField(blank = True, null = True)
-	note = models.CharField(max_length = 500, blank = True, null = True)
+	EAs_needed = models.PositiveSmallIntegerField(default = 0, blank = True, null = True)
+	note = models.CharField(max_length = 500, blank = True, null = True, default="No additional notes")
 	
 	# This allows Event objects to be queried returning instances of the subclasses - documentation: http://django-model-utils.readthedocs.org/en/latest/managers.html#inheritancemanager
 	objects = InheritanceManager()

@@ -1,5 +1,18 @@
-#event_register_status {text-align: center;}
+.jumbo{
+	height: 300px;
+}
 
-#event_register_status {width:100%; padding:50px;}
+i{
+	min-width: 56px;
+	margin-right: 10px;
+}
+
+h5 {
+	margin-left: 10px;
+}
+
+#event_register_status{
+	/*min-height: 150px;*/
+}
 
 

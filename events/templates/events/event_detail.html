@@ -1,38 +1,36 @@
 {% include 'header.html' %}
 
-<style> .btn {margin-top: 10px;}</style>
-
-<!--<div class="container {{color}}">-->
-<div class="card-panel {{ color }} white-text center-align">
-	<h4>{{ title }}</h4>
-
-<!--<div class="card-panel {{ color }} darken-2">-->
-<table >
-	
-	<tr>
-		<th>Date:</th>
-		<td>{{ event.date|date:"l, d M Y" }}</td>
-		<th>EAs needed:</th>
-		<td>{{event.EAs_needed}}</td>
-	</tr>
-	<tr>
-		<th>{{descript}}:</th>
-		<td>{{descript_field}}</td>
-		<th>Notes:</th>
-		<td>{{event.notes}}</td>
-	</tr>
-	<tr>
-		<th>Location:</th>
-		<td>{{event.location}}</td>
-		<th>Hours:</th>
-		<td>{{event.hours}}</td>
-	</tr>
+<div class="card-panel">
+	<div class="row">
+		<div class="col s12 jumbo valign-wrapper">
+			<h3 class="valign">{{title}}</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card-panel blue col l7 s12">
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">event</i><h5 class="valign">{{ event.date|date:"l, M d, Y" }} at {{event.time}}</h5>
+			</div>
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">location_on</i><h5>{{event.location}}</h5>
+			</div>
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">person</i><h5>{{event.EAs_needed}} EA spots</h5>
+			</div>
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">access_time</i><h5>{{event.hours}} hours</h5>
+			</div>
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">event_note</i><h5>{{event.note}}</h5>
+			</div>
+		</div>
 		
-</table>
+		<div class="col l5 s12 card-panel {{background_color}} lighten-2 center-align" id='event_register_status'>
+			<h5 class="white-text">{{event_register_status}}</h5>
+			<p><button class="{{background_color}} btn waves-effect waves-light" type='submit' name = '/events/{{event_type}}/{{event_id}}/'>{{event_toggle}}</button></p>
+		</div>
+	</div>
 </div>
-<!--</div>-->
-
-<!--</div>-->
 
 <!--
 EVENT REGISTER STATUS
