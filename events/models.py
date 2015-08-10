@@ -11,13 +11,21 @@ class Event(models.Model):
 	date = models.DateField()
 	hours = models.DecimalField(max_digits=3,decimal_places=1, blank = True, null = True, default=0)
 	location = models.CharField(max_length = 140, blank = True, null = True)
-	EAs_needed = models.PositiveSmallIntegerField(default = 0, blank = True, null = True)
+	total_EAs = models.PositiveSmallIntegerField(default = 0, blank = True, null = True)
+	EAs_needed = models.PositiveSmallIntegerField(default = 0, blank = True, null = True, editable=False)
 	note = models.CharField(max_length = 500, blank = True, null = True, default="No additional notes")
 	EAs_registered = models.ManyToManyField(User, related_name= "event", blank = True)
 	
 	# This allows Event objects to be queried returning instances of the subclasses - documentation: http://django-model-utils.readthedocs.org/en/latest/managers.html#inheritancemanager
 	objects = InheritanceManager()
 	
+	def save(self, *args, **kwargs):
+		try:
+			self.EAs_needed = self.total_EAs - self.EAs_registered.count()
+		except:
+			pass
+		super(Event, self).save(*args, **kwargs)
+		
 	def __unicode__(self):
 		if hasattr(self, 'outreachtrip'):
 			return self.outreachtrip.__unicode__()
@@ -34,6 +42,7 @@ class Event(models.Model):
 
 	
 class OutreachTrip(Event):
+	id 
 	school = models.CharField(max_length=30)
 	
 	def __unicode__(self):

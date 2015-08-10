@@ -67,8 +67,9 @@ function groupClick(){
         type: 'POST',
         url: '/groupme/group_id/',
         data: data,
-        complete: function(data){
-        }
+        // complete: function(data){
+        //   consol.log(data);
+        // }
       });
       
     });

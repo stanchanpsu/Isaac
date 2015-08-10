@@ -1,17 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 
-from .models import OutreachTrip,Tour
+from .models import Event,OutreachTrip,Tour
 from .forms import EventView
 
 #date formatting
 from django.utils import formats
 
-import time
+import time, json
 
 app = 'events'
 current_year = time.localtime()[0]
@@ -34,6 +34,8 @@ def list_events(request):
 @login_required(login_url='/login/')
 def event_detail(request, event_type, event_id):
 	
+	request.session['event_type'], request.session['event_id'] = event_type, event_id
+	
 	# 1. parse the url (from regex capture) for type of event and event id (this is specific to type of event ie. both Tour and Outreach can have id = 1)	
 	if event_type == 'outreach':
 		event = get_object_or_404(OutreachTrip, pk = event_id)
@@ -48,23 +50,21 @@ def event_detail(request, event_type, event_id):
 		
 	if request.user in event.EAs_registered.all():
 		event_register_status = "You are registered for this event."
-		event_toggle = 'Withdraw'
+		request.session['event_registered'] = True
 		background_color = 'teal'
 	else:
 		event_register_status = "You are not registered for this event."
-		event_toggle = 'Sign up'
+		request.session['event_registered'] = False
 		background_color = 'red'
 	
 	# 3. if the user clicks the button, perform the correct action ( sign up or withdraw) and redirect to the same page - prevents incorrect resubmit of form
 	
-	if request.POST:
+	if request.is_ajax():
 		if event_toggle == 'Withdraw':
 			event.EAs_registered.remove(request.user)
-			event.EAs_needed += 1
 			event.save()
 		elif event_toggle == 'Sign up':
 			event.EAs_registered.add(request.user)
-			event.EAs_needed -= 1
 			event.save()
 			
 		return redirect("/events/" + event_type + "/" + event_id  +"/")
@@ -73,5 +73,20 @@ def event_detail(request, event_type, event_id):
 				
 	EAs_registered 	= event.EAs_registered.order_by('username')
 	stylesheet = 'events/event_detail.css'
+	script = 'events/event_detail.js'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_type':event_type, 'event_id':event_id, 'event_toggle': event_toggle, 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'app': app,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_type':event_type, 'event_id':event_id, 'registered': request.session['event_registered'], 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'script':script, 'app': app,})
+
+@login_required(login_url='/login/')
+def register(request):
+	if request.is_ajax():
+		events = Event.objects.order_by("pk")
+		event = get_object_or_404(Event, pk=9)
+		registered = request.session['event_registered']
+		if registered:
+			event.EAs_registered.remove(request.user)
+			event.save()
+		elif not registered:
+			event.EAs_registered.add(request.user)
+			event.save()
+		return JsonResponse(json.dumps(str(events)), safe=False)
