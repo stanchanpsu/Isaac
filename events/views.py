@@ -51,26 +51,42 @@ def detail(request, event_id):
 		request.session['event_registered'] = False
 		background_color = 'red'
 		
+	# 3. figure out if event needs more EAs
+	
+	if event.EAs_needed <= 0:
+		need = False
+		if not request.session['event_registered']:
+			background_color = "grey disabled white-text"
+	else:
+		need = True
+		
 	# initial GET request or reload of page renders the page with correct context
 				
 	EAs_registered 	= event.EAs_registered.order_by('username')
 	stylesheet = 'events/event_detail.css'
 	script = 'events/event_detail.js'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_id':event_id, 'registered': request.session['event_registered'], 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'background_color':background_color,'stylesheet':stylesheet, 'script':script, 'app': app,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_id':event_id, 'registered': request.session['event_registered'], 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'need':need, 'background_color':background_color,'stylesheet':stylesheet, 'script':script, 'app': app,})
 
 @login_required(login_url='/login/')
 def register(request):
 	if request.is_ajax():
 		event = get_object_or_404(Event, pk = request.session['event_id'])
+
 		registered = request.session['event_registered']
+		
 		if registered:
 			event.EAs_registered.remove(request.user)
 			event.save()
 			registered = False
+
 		elif not registered:
-			event.EAs_registered.add(request.user)
-			event.save()
-			registered = True
+			if event.EAs_needed <=0:
+				registered = False
+			else:
+				event.EAs_registered.add(request.user)
+				event.save()
+				registered = True
+				
 		request.session['event_registered'] = registered
 		return JsonResponse(json.dumps({"registered":registered, "EAs_needed":event.EAs_needed,}), safe=False)

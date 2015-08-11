@@ -29,9 +29,9 @@
 		</div>
 		<!--EVENT REGISTER STATUS-->
 		<div class="col l5 s12 " id="right-card">
-			<div class="card-panel {{background_color}} lighten-2 center-align" id='event_register_status'>
+			<div class="card-panel {{background_color}} lighten-1 center-align" id='event_register_status'>
 				<h5 class="white-text" id="status_text">{{event_register_status}}</h5>
-				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{% if registered %}Withdraw {% else %} Sign up {% endif %}</a></p>
+				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{% if registered %}Withdraw {% elif registered != True and need %} Sign up {% else %} No EAs needed {% endif %}</a></p>
 			</div>
 			
 			<div class="card-panel white-text blue center-align">
@@ -40,7 +40,10 @@
 				
 				<div class="center-align">		
 				    {% for EA in EAs_registered %}
-				    <img id= "{{EA.id}} pic" class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}">
+					<div class="figure">
+				        <img id="{{EA.id}}-pic" class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}"/>
+						<figcaption>{{EA.engineeringambassador}}</figcaption>
+					</div>
 				    {% endfor %}
 				</div>
 				
