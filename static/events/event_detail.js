@@ -18,4 +18,14 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$('.picture').hover(
+		
+		function(/*when mouseenter*/){
+			
+			
+			
+	}, 	function(/*when mouseleave */){
+		
+	});
 });

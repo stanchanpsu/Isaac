@@ -40,12 +40,7 @@
 				
 				<div class="center-align">		
 				    {% for EA in EAs_registered %}
-				    <img src="{{EA.picture.url}}" alt="{{EA.first_name}}"><p>{{EA.profile}}</p>
-				
-				        <!-- if last column in row -->
-				        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-			        </div><div class="center-align">
-				        {% endif %}
+				    <img id= "{{EA.id}} pic" class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}">
 				    {% endfor %}
 				</div>
 				
@@ -54,15 +49,3 @@
 	</div>
 </div>
 {% include 'footer.html' %}
-
-
-<div class="center-align">		
-    {% for EA in EAs_registered %}
-    <span><a class="waves-effect waves-light darken-2 btn">{{ EA.first_name }} {{ EA.last_name }}</a></span>
-
-        <!-- if last column in row -->
-        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
-    </div><div class="center-align">
-        {% endif %}
-    {% endfor %}
-</div>

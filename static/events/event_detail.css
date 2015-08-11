@@ -47,6 +47,11 @@ h5 {
 	margin: 0;
 }
 
+.picture{
+	width: 90px;
+	height: 90px;
+}
+
 @media only screen and (max-width : 992px) {
 	.jumbo-container{
 		padding: 5px;
