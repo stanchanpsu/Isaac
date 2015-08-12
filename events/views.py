@@ -89,4 +89,9 @@ def register(request):
 				registered = True
 				
 		request.session['event_registered'] = registered
-		return JsonResponse(json.dumps({"registered":registered, "EAs_needed":event.EAs_needed,}), safe=False)
+		
+		ea = request.user.engineeringambassador
+		
+		response = json.dumps({"registered":registered, "EAs_needed":event.EAs_needed, "me": str(ea), "me-id":request.user.id, "me-url": ea.picture.url,})
+		
+		return JsonResponse(response, safe=False)

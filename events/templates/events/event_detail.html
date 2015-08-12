@@ -38,10 +38,10 @@
 			
 				<h5>Registered Engineering Ambassadors</h5>
 				
-				<div class="center-align">		
+				<div id="eas" class="center-align">		
 				    {% for EA in EAs_registered %}
-					<div class="figure">
-				        <img id="{{EA.id}}-pic" class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}"/>
+					<div id="{{EA.id}}" class="figure">
+				        <img class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}"/>
 						<figcaption>{{EA.engineeringambassador}}</figcaption>
 					</div>
 				    {% endfor %}
