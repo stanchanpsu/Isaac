@@ -1,0 +1,31 @@
+<style>#freshman_table tbody tr:hover {
+      background-color: #1e88e5; }</style>
+
+<div class="card-panel purple darken-3 white-text">
+<table class="hoverable" id='freshman_table'>
+	<h4>Freshman Seminars</h4>
+	
+	{% if freshman_list.count != 0 %}
+	<thead>
+	<tr>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Major</th>
+		<th>EAs</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for freshman in freshman_list %}
+		<tr>
+			<td>{{freshman.date}}</td>
+			<td class="link"><a href="{% url 'events:detail' freshman.id %}">{{freshman.time}}</a></td>
+			<td>{{freshman.major}}</td>
+			<td>{{freshman.EAs_needed}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	{% else %}
+		<p>There are no freshman seminars scheduled at this time.</p>
+	{% endif %}
+</table>
+</div>

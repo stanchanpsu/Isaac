@@ -5,16 +5,20 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 
-from .models import Event,OutreachTrip,Tour
+from .models import Event,OutreachTrip,Tour, MyCoe, FreshmanSeminar, ENGRClass
 from .forms import EventView
 
 #date formatting
 from django.utils import formats
 
-import time, json
+import datetime, time, json
 
 app = 'events'
 current_year = time.localtime()[0]
+current_month = time.localtime()[1]
+current_day = time.localtime()[2]
+current_hour = time.localtime()[3]
+current_minute = time.localtime()[4]
 
 @login_required(login_url='/login/')
 def list_events(request):
@@ -23,12 +27,15 @@ def list_events(request):
 	stylesheet = 'events/list_events.css'
 	
 	# get selection from event_view dropdown
-	event_view = request.GET.get('event_view', False)			
+	event_view = request.GET.get('event_view', False)
 	
-	outreach_list = OutreachTrip.objects.order_by('date')
-	tour_list = Tour.objects.order_by('date')
+	outreach_list = OutreachTrip.objects.order_by('date') #filter only dates past today's date
+	tour_list = Tour.objects.filter(date__gte=datetime.date(current_year,current_month,current_day)).order_by('date')
+	mycoe_list = MyCoe.objects.filter(date__gte=datetime.date(current_year,current_month,current_day)).order_by('date')
+	freshman_list = FreshmanSeminar.objects.filter(date__gte=datetime.date(current_year,current_month,current_day)).order_by('date')
+	class_list = ENGRClass.objects.filter(date__gte=datetime.date(current_year,current_month,current_day)).order_by('date')
 	
-	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'event_view': event_view, 'title':title, 'app': app, 'stylesheet':stylesheet, })	
+	return render(request,'events/list_events.html', {'outreach_list':outreach_list, 'tour_list':tour_list, 'mycoe_list': mycoe_list, 'freshman_list':freshman_list, 'class_list': class_list, 'event_view': event_view, 'title':title, 'app': app, 'stylesheet':stylesheet, })	
 	
 
 @login_required(login_url='/login/')

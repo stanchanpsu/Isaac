@@ -1,0 +1,31 @@
+<style>#class_table tbody tr:hover {
+      background-color: #1e88e5; }</style>
+
+<div class="card-panel pink darken-3 white-text">
+<table class="hoverable" id='class_table'>
+	<h4>ENGR Classes</h4>
+	
+	{% if class_list.count != 0 %}
+	<thead>
+	<tr>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Location</th>
+		<th>Veterans</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for class in class_list %}
+		<tr>
+			<td>{{class.date}}</td>
+			<td class="link"><a href="{% url 'events:detail' class.id %}">{{class.time}}</a></td>
+			<td>{{class.location}}</td>
+			<td>{% if class.veterans %}Required{% else %}Not required{% endif %}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	{% else %}
+		<p>There are no ENGR classes scheduled at this time.</p>
+	{% endif %}
+</table>
+</div>

@@ -5,20 +5,23 @@
 	<div class="input-field col s12">
 		<select id='event_view' name='event_view' onchange='this.form.submit();'>
 		<option value='all'>All Events</option>
-		<option value='out'>Outreach Trips</option>
+		<option value='outreach'>Outreach Trips</option>
 		<option value='tour'>Tours</option>
+		<option value='mycoe'>My COE</option>
+		<option value='freshman'>Freshman Seminars</option>
+		<option value='class'>ENGR Class</option>
 	</select>
 	</div>
 </form>
 
-{% if event_view == "out" %}
+{% if event_view == "outreach" %}
 
 	{% include "events/outreach_list.html" %}
 	
 	<script>
 	$(document).ready(
 	function(){
-	$("#event_view").val( 'out' ); });
+	$("#event_view").val( 'outreach' ); });
 	</script>
 	
 {% elif event_view == "tour" %}
@@ -29,12 +32,45 @@
 	$(document).ready(
 	function(){
 	$("#event_view").val( 'tour' ); });
+	</script>
+	
+{% elif event_view == "mycoe" %}
+	
+	{% include "events/mycoe_list.html" %}
+	
+	<script>
+	$(document).ready(
+	function(){
+	$("#event_view").val( 'mycoe' ); });
+	</script>	
+	
+{% elif event_view == "freshman" %}
+	
+	{% include "events/freshman_list.html" %}
+	
+	<script>
+	$(document).ready(
+	function(){
+	$("#event_view").val( 'freshman' ); });
+	</script>	
+	
+{% elif event_view == "class" %}
+	
+	{% include "events/class_list.html" %}
+	
+	<script>
+	$(document).ready(
+	function(){
+	$("#event_view").val('class'); });
 	</script>	
 	
 {% else %}
 	
 	{% include "events/outreach_list.html" %}
 	{% include "events/tour_list.html" %}
+	{% include "events/mycoe_list.html" %}
+	{% include "events/freshman_list.html" %}
+	{% include "events/class_list.html" %}
 		
 	<script>
 	$(document).ready(

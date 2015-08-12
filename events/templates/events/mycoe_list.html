@@ -1,0 +1,31 @@
+<style>#mycoe_table tbody tr:hover {
+      background-color: #1e88e5; }</style>
+
+<div class="card-panel orange darken-3 white-text">
+<table class="hoverable" id='mycoe_table'>
+	<h4>My COE</h4>
+	
+	{% if mycoe_list.count != 0 %}
+	<thead>
+	<tr>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Location</th>
+		<th>EAs</th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for mycoe in mycoe_list %}
+		<tr>
+			<td>{{mycoe.date}}</td>
+			<td class="link"><a href="{% url 'events:detail' mycoe.id %}">{{mycoe.time}}</a></td>
+			<td>{{mycoe.location}}</td>
+			<td>{{mycoe.EAs_needed}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	{% else %}
+		<p>There are no My COEs scheduled at this time.</p>
+	{% endif %}
+</table>
+</div>
