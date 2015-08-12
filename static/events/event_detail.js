@@ -32,7 +32,11 @@ $(document).ready(function(){
 				else{
 					$('#register-btn').text("No EAs Needed");
 				}
-				$("#EAs_needed").text(object["EAs_needed"] + " ambassadors needed");
+				
+				if (object["is_class"] === false){
+					$("#EAs_needed").text(object["EAs_needed"] + " ambassadors needed");
+				}
+
 			}
 		});
 	});

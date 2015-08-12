@@ -14,11 +14,26 @@
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">event</i><h5 class="valign">{{ event.date|date:"l, M d, Y" }} at {{event.time}}</h5>
 			</div>
+			{% if event.school %}
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">school</i><h5>{{event.school}}</h5>
+			</div>
+			{% endif %}
+			{% if event.major %}
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">book</i><h5>{{event.major}}</h5>
+			</div>
+			{% endif %}
+			{% if event.professor %}
+			<div class="row valign-wrapper">
+				<i class="material-icons medium">perm_identity</i><h5>{{event.professor}}</h5>
+			</div>
+			{% endif %}
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">location_on</i><h5>{{event.location}}</h5>
 			</div>
 			<div class="row valign-wrapper">
-				<i class="material-icons medium">person</i><h5 id="EAs_needed">{{event.EAs_needed}} ambassadors needed</h5>
+				<i class="material-icons medium">person</i><h5 id="EAs_needed">{% if event.veterans == True %} Veterans required {% elif event.veterans == False %} Veterans NOT required {% else %} {{event.EAs_needed}} ambassadors needed {{event.veterans}} {% endif %}</h5>
 			</div>
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">access_time</i><h5>{{event.hours}} hours</h5>
