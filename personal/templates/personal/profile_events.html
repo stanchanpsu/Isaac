@@ -2,7 +2,7 @@
     <div id="events" class="card teal white-text">
         <h3 id="events_registered">Events Registered</h3>
         {% for event in events_registered %}
-            <div><a href="/events/{{event.detail_url}}" class="waves-effect waves-light btn">{{event}}</a></div>
+            <span><a href="{% url 'events:detail' event.id %}" class="waves-effect waves-light btn">{{event}}</a></span>
         {% endfor %}
     </div>
 </div>

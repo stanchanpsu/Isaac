@@ -25,7 +25,8 @@ class Event(models.Model):
 		except:
 			pass
 		super(Event, self).save(*args, **kwargs)
-		
+	
+	# this is somewhat redundant with InheritanceManager, but it is neccessary since I don't have access to the admin code	
 	def __unicode__(self):
 		if hasattr(self, 'outreachtrip'):
 			return self.outreachtrip.__unicode__()
@@ -46,9 +47,6 @@ class OutreachTrip(Event):
 	
 	def __unicode__(self):
 		return self.school + " Outreach Trip"
-		
-	def detail_url(self):
-		return "outreach/" + str(self.id)
 
 		
 class Tour(Event):
@@ -58,9 +56,6 @@ class Tour(Event):
 	def __unicode__(self):
 		time = formats.date_format(self.time, "SHORT_TIME")
 		return str(self.get_tour_type_display()) + " Tour at " + time
-		
-	def detail_url(self):
-		return "tour/" + str(self.id)
 
 	
 class ENGRClass(Event):

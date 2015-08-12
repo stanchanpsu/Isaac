@@ -40,9 +40,9 @@
 				
 				<div id="eas" class="center-align">		
 				    {% for EA in EAs_registered %}
-					<div id="{{EA.id}}" class="figure">
+					<div id="{{EA.id}}" class="figure"><a href="{% url 'directory:ambassador_profile' EA.id %}">
 				        <img class="z-depth-1 picture" src="{{EA.engineeringambassador.picture.url}}" alt="{{EA.engineeringambassador}}"/>
-						<figcaption>{{EA.engineeringambassador}}</figcaption>
+						<figcaption>{{EA.engineeringambassador}}</figcaption></a>
 					</div>
 				    {% endfor %}
 				</div>
