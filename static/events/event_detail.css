@@ -84,6 +84,12 @@ figcaption {
 	margin: 7px 6px;
 }
 
+#register-btn .left{
+	font-size: 2rem;
+	min-width: 0;
+	margin-right: 6px;
+}
+
 @media only screen and (max-width : 992px) {
 	.jumbo-container{
 		padding: 5px;

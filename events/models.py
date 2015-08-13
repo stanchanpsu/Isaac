@@ -44,7 +44,8 @@ class Event(models.Model):
 	
 class OutreachTrip(Event):
 	school = models.CharField(max_length=30)
-	color = "blue darken-1"
+	color = "blue"
+	shade = "darken-1"
 	
 	def __unicode__(self):
 		return self.school + " Outreach Trip"
@@ -53,7 +54,8 @@ class OutreachTrip(Event):
 class Tour(Event):
 	tour_types = (('REG','Regular'),('ASP', 'ASP'),('VIP','VIP'),('OTR','Other'))
 	tour_type = models.CharField(max_length=3,choices=tour_types,default='regular')
-	color = "cyan darken-1"
+	color = "cyan"
+	shade = "darken-1"
 	
 	def __unicode__(self):
 		time = formats.date_format(self.time, "SHORT_TIME")
@@ -61,17 +63,19 @@ class Tour(Event):
 
 
 class MyCoe(Event):
-	color = "light-blue darken-1"
+	color = "light-blue"
+	shade = "darken-1"
 	
 	def __unicode__(self):
 		date = formats.date_format(self.date, "SHORT_DATE")
-		return "MyCOE " + date
+		return "My COE " + date
 	
 		
 class FreshmanSeminar(Event):
 	major = models.CharField(max_length = 40)
 	professor = models.CharField(max_length = 40)
 	color = "indigo"
+	shade = ""
 	
 	def __unicode__(self):
 		return self.major + " Freshman Seminar"
@@ -79,7 +83,8 @@ class FreshmanSeminar(Event):
 		
 class ENGRClass(Event):
 	veterans = models.BooleanField(default = False)
-	color = "deep-purple darken-1"
+	color = "deep-purple"
+	shade = "darken-1"
 	
 	def __unicode__(self):
 		date = formats.date_format(self.date, "SHORT_DATE")

@@ -2,7 +2,7 @@
 
 <div>
 	<div class="row">
-		<div class="card {{event.color}} white-text col s12 jumbo valign-wrapper">
+		<div class="card {{event.color}} {{event.shade}} white-text col s12 jumbo valign-wrapper">
 			<div class="jumbo-container valign-wrapper">
 				<div class="valign date-icon"><p class="date-icon-line month center-align">{{event.date |date:"M"}}</p>
 				<p class="date-icon-line day center-align"><b>{{event.date|date:"d"}}</b></p></div><h3 class="valign">{{title}}</h3>
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="card-panel {{event.color}} white-text col l7 s12" id="details">
+		<div class="card-panel {{event.color}} {{event.shade}} white-text col l7 s12" id="details">
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">event</i><h5 class="valign">{{ event.date|date:"l, M d, Y" }} at {{event.time}}</h5>
 			</div>
@@ -48,19 +48,19 @@
 			<!--GROUPME INTEGRATION-->
 			{% load staticfiles %}
 			
-			<div class="card-panel {{event.color}} center-align" id='groupme'>
+			<div class="card-panel {{event.color}} {% if groupme_status %} {{event.shade}} {% else %} lighten-1 {% endif %} center-align" id='groupme'>
 				<h5 class="white-text" id="groupme_text">{% if groupme_status %}This event already has a groupme.{% else %}This event doesn't have a groupme yet. {% endif %}</h5>
-				<p  ><a href="{% if groupme_status %} {% url 'groupme:event_call' event.group.group_id %} {% else %} {% url 'groupme:event_create' event.id %} {% endif %}" class="{{event.color}} valign darken-2 waves-effect waves-light btn-large" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}<img class="groupme_icon left" src="{% static 'img/groupme_logo.png' %}"/></a></p>
+				<p ><a href="{% if groupme_status %} {% url 'groupme:event_call' event.group.group_id %} {% else %} {% url 'groupme:event_create' event.id %} {% endif %}" class="{{event.color}} {% if groupme_status %} lighten-1 {% else %} darken-1 {% endif %} valign waves-effect waves-light btn-large" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}<img class="groupme_icon left" src="{% static 'img/groupme_logo.png' %}"/></a></p>
 			</div>
 			
 			<!--EVENT REGISTER STATUS-->
 			
 			<div class="card-panel {{background_color}} lighten-1 center-align" id='event_register_status'>
 				<h5 class="white-text" id="status_text">{{event_register_status}}</h5>
-				<p><a class="{{background_color}} btn-large waves-effect waves-light" id="register-btn">{% if registered %}Withdraw{% elif registered != True and need %}Sign up{% else %}No EAs needed{% endif %}</a></p>
+				<p><a class="{{background_color}} btn-large waves-effect waves-light" id="register-btn">{% if registered %}Withdraw<i class="material-icons left">radio_button_checked</i>{% elif registered != True and need %}Sign up<i class="material-icons left">radio_button_unchecked</i>{% else %}No EAs needed{% endif %}</a></p>
 			</div>
 			
-			<div class="card-panel white-text {{event.color}} center-align">
+			<div class="card-panel white-text {{event.color}} {{event.shade}} center-align">
 			
 				<h5>Registered Engineering Ambassadors</h5>
 				
