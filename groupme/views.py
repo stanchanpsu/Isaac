@@ -7,7 +7,7 @@ from .models import Group
 from django.core import serializers
 import json, requests, operator, string, random, time
 
-
+app = "groupme"
 groupme_url = "https://api.groupme.com/v3"
 push_url = "https://push.groupme.com/faye"
 
@@ -72,7 +72,12 @@ def groupme(request):
 			relevant_groups = sorted(relevant_groups.items(), key=operator.itemgetter(1))
 			
 			#pass on only relevant groups to template
-			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,})
+			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,"app":app,})
+			
+@login_required(login_url='/login/')
+def event_call(request, group_id):
+	request.session['group_id'] = group_id
+	return redirect("/groupme/")
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')

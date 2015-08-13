@@ -67,13 +67,20 @@ def detail(request, event_id):
 	else:
 		need = True
 		
+ 	# 4. relay groupme status information for this event
+	 
+	if hasattr(event,"group"):
+		 groupme_status = True
+	else:
+		groupme_status = False
+		
 	# initial GET request or reload of page renders the page with correct context
 				
 	EAs_registered 	= event.EAs_registered.order_by('username')
 	stylesheet = 'events/event_detail.css'
 	script = 'events/event_detail.js'
 		
-	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_id':event_id, 'registered': request.session['event_registered'], 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'need':need, 'background_color':background_color,'stylesheet':stylesheet, 'script':script, 'app': app,})
+	return render(request, 'events/event_detail.html', {'title':title, 'event':event, 'event_id':event_id, 'registered': request.session['event_registered'], 'EAs_registered':EAs_registered,'event_register_status':event_register_status, 'need':need, 'background_color':background_color,'groupme_status':groupme_status, 'stylesheet':stylesheet, 'script':script, 'app': app,})
 
 @login_required(login_url='/login/')
 def register(request):
