@@ -2,7 +2,7 @@
 
 <div>
 	<div class="row">
-		<div class="card blue white-text col s12 jumbo valign-wrapper">
+		<div class="card {{event.color}} white-text col s12 jumbo valign-wrapper">
 			<div class="jumbo-container valign-wrapper">
 				<div class="valign date-icon"><p class="date-icon-line month center-align">{{event.date |date:"M"}}</p>
 				<p class="date-icon-line day center-align"><b>{{event.date|date:"d"}}</b></p></div><h3 class="valign">{{title}}</h3>
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="card-panel blue white-text col l7 s12" id="details">
+		<div class="card-panel {{event.color}} white-text col l7 s12" id="details">
 			<div class="row valign-wrapper">
 				<i class="material-icons medium">event</i><h5 class="valign">{{ event.date|date:"l, M d, Y" }} at {{event.time}}</h5>
 			</div>
@@ -49,7 +49,7 @@
 				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{% if registered %}Withdraw {% elif registered != True and need %} Sign up {% else %} No EAs needed {% endif %}</a></p>
 			</div>
 			
-			<div class="card-panel white-text blue center-align">
+			<div class="card-panel white-text {{event.color}} center-align">
 			
 				<h5>Registered Engineering Ambassadors</h5>
 				

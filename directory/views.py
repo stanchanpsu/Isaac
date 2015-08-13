@@ -7,6 +7,7 @@ from personal.models import EngineeringAmbassador
 from fuzzywuzzy import fuzz
 from django.db.models import Q
 from itertools import chain
+from events.models import Event
 
 @login_required(login_url='/login/')
 def directory(request):
@@ -126,7 +127,7 @@ def ambassador_profile(request, ambassador_id = None):
     app = 'directory'
     user = get_object_or_404(User, id = ambassador_id)
     ambassador = get_object_or_404(EngineeringAmbassador, user = user)
-    events_registered = user.event.all()
+    events_registered = Event.objects.select_subclasses().filter(EAs_registered = request.user)
     
     return render(request, 'directory/ambassador_profile.html', {'stylesheet':stylesheet, 'app': app, 'ambassador':ambassador, 'events_registered':events_registered, })
     

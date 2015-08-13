@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
+from events.models import Event, OutreachTrip, Tour, MyCoe, FreshmanSeminar, ENGRClass
 from .models import EngineeringAmbassador
 
 # from itertools import chain
@@ -19,7 +20,7 @@ def profile(request):
     except:
         profile_pic = ""
         
-    events_registered = request.user.event.all()
+    events_registered = Event.objects.select_subclasses().filter(EAs_registered = request.user)
     
     if request.POST:
         

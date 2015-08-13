@@ -1,8 +1,11 @@
+
+
 <div class="container">
-    <div id="events" class="card teal white-text">
+    <div class="divider"></div>
+    <div id="events"  class="teal-text">
         <h3 id="events_registered">Events Registered</h3>
         {% for event in events_registered %}
-            <span><a href="{% url 'events:detail' event.id %}" class="waves-effect waves-light btn">{{event}}</a></span>
+            <span><a href="{% url 'events:detail' event.id %}" class=" {{event.color}} waves-effect waves-light btn">{{event}}</a></span>
         {% endfor %}
     </div>
 </div>
