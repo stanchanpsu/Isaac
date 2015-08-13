@@ -1,3 +1,7 @@
 Use regex or some other method to make profile phone numbers only accept one format (###) ###-####
-Color code the events across all the apps
-Rewrite personal.views to query for events (maybe) instead of outreach and tours seperately, this will make it much easier to reuse the code as new event subclasses are created
+
+Disband group must do a few things:
+	1. ask for confirmation
+	2. delete group from django db
+	3. disband group through groupme api
+	4. clear the request.session["group_id"] cookie

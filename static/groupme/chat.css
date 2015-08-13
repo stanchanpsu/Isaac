@@ -176,6 +176,9 @@ img {
     width: 100%;
     height: 50px; 
   }
+  .top-bar #delete{
+    display: none;
+  }
   .discussion-div{
     top: 106px;
   }
