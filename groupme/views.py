@@ -98,10 +98,14 @@ def event_create(request, event_id):
 		
 		new_group = Group.objects.get_or_create(event = event, group_id = group_id, name = name)[0]
 		
-		new_group.members.add(request.user.engineeringambassador)
+		members = event.EAs_registered.all()
 		
-				
-	return redirect("/groupme/")
+		# FIGURE THIS OUT STAN!
+		for member in members:
+			if member.engineeringambassador not in new_group.members.all():
+				new_group.members.add(member.engineeringambassador)
+			
+		return redirect("/groupme/")
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
