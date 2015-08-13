@@ -59,7 +59,7 @@ def groupme(request):
 				isaac_groups.append(group.group_id)
 			
 			# get request to groupme for all a user's groupme groups (up to 20)
-			params = {"token":request.session['access_token'], "per_page":20}
+			params = {"token":request.session['access_token'], "per_page":200}
 			groupme_groups = requests.get(groupme_url + "/groups", params = params)
 			
 			#reinstantiate the variable to store only the response object portion
@@ -86,6 +86,7 @@ def event_create(request, event_id):
 		auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
 		return redirect(auth_url)
 	else:
+		#send a POST request to groupme to make the group
 		token = request.session['access_token']
 		event = Event.objects.get_subclass(id=event_id)
 		name = str(event)
@@ -93,17 +94,23 @@ def event_create(request, event_id):
 		data = json.dumps({"name":name, "description":description})
 		headers = {"X-Access-Token": token, "Content-Type":"application/json"}
 		send_message = requests.post(groupme_url+'/groups', headers = headers, data = data)
-		# print send_message.json()
-		group_id = request.session['group_id'] = send_message.json()["response"]["id"]
 		
+		#add the groupme group to django database
+		group_id = request.session['group_id'] = send_message.json()["response"]["id"]
 		new_group = Group.objects.get_or_create(event = event, group_id = group_id, name = name)[0]
 		
+		#add members to groupme group in django and add them via groupme api
 		members = event.EAs_registered.all()
+		group_members = []
 		
-		# FIGURE THIS OUT STAN!
 		for member in members:
 			if member.engineeringambassador not in new_group.members.all():
 				new_group.members.add(member.engineeringambassador)
+				member_details = {"nickname":str(member.engineeringambassador), "user_id":member.engineeringambassador.groupme_id}
+				group_members.append(member_details)
+		
+		data = json.dumps({"members":group_members})
+		send_message = requests.post(groupme_url+'/groups/' + group_id + '/members/add')	
 			
 		return redirect("/groupme/")
 			
