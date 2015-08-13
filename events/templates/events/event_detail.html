@@ -46,17 +46,18 @@
 		<div class="col l5 s12 " id="right-card">
 			
 			<!--GROUPME INTEGRATION-->
+			{% load staticfiles %}
 			
 			<div class="card-panel {{event.color}} center-align" id='groupme'>
 				<h5 class="white-text" id="groupme_text">{% if groupme_status %}This event already has a groupme.{% else %}This event doesn't have a groupme yet. {% endif %}</h5>
-				<p><a href="{% if groupme_status %} {% url 'groupme:event_call' event.group.group_id %} {% endif %}" class="{{event.color}} darken-2 btn waves-effect waves-light" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}</a></p>
+				<p  ><a href="{% if groupme_status %} {% url 'groupme:event_call' event.group.group_id %} {% else %} {% url 'groupme:event_create' event.id %} {% endif %}" class="{{event.color}} valign darken-2 waves-effect waves-light btn-large" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}<img class="groupme_icon left" src="{% static 'img/groupme_logo.png' %}"/></a></p>
 			</div>
 			
 			<!--EVENT REGISTER STATUS-->
 			
 			<div class="card-panel {{background_color}} lighten-1 center-align" id='event_register_status'>
 				<h5 class="white-text" id="status_text">{{event_register_status}}</h5>
-				<p><a class="{{background_color}} btn waves-effect waves-light" id="register-btn">{% if registered %}Withdraw{% elif registered != True and need %}Sign up{% else %}No EAs needed{% endif %}</a></p>
+				<p><a class="{{background_color}} btn-large waves-effect waves-light" id="register-btn">{% if registered %}Withdraw{% elif registered != True and need %}Sign up{% else %}No EAs needed{% endif %}</a></p>
 			</div>
 			
 			<div class="card-panel white-text {{event.color}} center-align">

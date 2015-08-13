@@ -78,6 +78,12 @@ figcaption {
   left: 0;
 }
 
+.groupme_icon{
+	width: 40px;
+	height: 40px;
+	margin: 7px 6px;
+}
+
 @media only screen and (max-width : 992px) {
 	.jumbo-container{
 		padding: 5px;

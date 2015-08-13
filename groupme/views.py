@@ -4,6 +4,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse, HttpResponse
 from personal.models import EngineeringAmbassador
 from .models import Group
+from events.models import Event
 from django.core import serializers
 import json, requests, operator, string, random, time
 
@@ -77,6 +78,29 @@ def groupme(request):
 @login_required(login_url='/login/')
 def event_call(request, group_id):
 	request.session['group_id'] = group_id
+	return redirect("/groupme/")
+	
+@login_required(login_url='/login/')
+def event_create(request, event_id):
+	if 'access_token' not in request.session:
+		auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
+		return redirect(auth_url)
+	else:
+		token = request.session['access_token']
+		event = Event.objects.get_subclass(id=event_id)
+		name = str(event)
+		description = "group for isaac #ealove"
+		data = json.dumps({"name":name, "description":description})
+		headers = {"X-Access-Token": token, "Content-Type":"application/json"}
+		send_message = requests.post(groupme_url+'/groups', headers = headers, data = data)
+		# print send_message.json()
+		group_id = request.session['group_id'] = send_message.json()["response"]["id"]
+		
+		new_group = Group.objects.get_or_create(event = event, group_id = group_id, name = name)[0]
+		
+		new_group.members.add(request.user.engineeringambassador)
+		
+				
 	return redirect("/groupme/")
 			
 @ensure_csrf_cookie
