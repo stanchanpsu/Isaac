@@ -42,8 +42,9 @@ $.ajax({
       myid = data['response']['id'];
       groupClick();
       sendMessage();
-      pullMessages();
       displayGroup(group_id, group_name);
+      pullMessages();
+      destroy();
     });
   });  
 
@@ -182,6 +183,28 @@ function pullMessages(){
       }
     });
   }, 1000);
+}
+
+function destroy(){
+  $('#disband').on('click', function(){
+    console.log("clicked");
+    var data = {json_data: JSON.stringify({"group_id":current_group_id})};
+    
+    $.ajax({
+     beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    },
+      type: 'POST',
+      url: '/groupme/destroy/',
+      data: data,
+      success: function(response){
+          console.log("disband");
+      }
+    });
+    
+  });
 }
 
 // animate group panel 

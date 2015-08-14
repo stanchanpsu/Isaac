@@ -1,16 +1,27 @@
 {% include 'header.html' %}
   <!--HEADER BAR-->
   <div class="row valign-wrapper">
-    <header class="top-bar valign-wrapper teal">
+    <div class="top-bar valign-wrapper teal">
       <div class="top-left">
         <h1 id="header" class="valign truncate flow-text"></h1>
       </div>
       <div class="top-right right-align">
         <i id="activate-groups" class="material-icons small">list</i>
       </div>
-      <a id="delete" class="waves-effect waves-light btn red lighten-2"><i class="material-icons right">delete</i>Disband Group</a>
-
-    </header>
+      <a id="delete" href="#modal1" class="modal-trigger waves-effect waves-light btn red lighten-2"><i class="material-icons right">delete</i>Disband Group</a>
+    </div>
+  </div>
+  
+  <!--CONFIRMATION MODAL FOR DISBAND GROUP-->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Are you sure?</h4>
+      <h5>I mean, disbanding this group won't end the world, but then I have to create it again and it's just a pain in the butt.</h5>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect green waves-white white-text btn-flat">Cancel</a>
+      <a id="disband" class="modal-action waves-effect waves-red btn-flat">Disband</a>
+    </div>
   </div>
 
   MAIN DISCUSSION WINDOW

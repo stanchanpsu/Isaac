@@ -76,12 +76,12 @@ def groupme(request):
 			return render(request, 'groupme/groupme.html',{'stylesheet':stylesheet, 'script':script, 'relevant_groups':relevant_groups,"app":app,})
 			
 @login_required(login_url='/login/')
-def event_call(request, group_id):
+def event(request, group_id):
 	request.session['group_id'] = group_id
 	return redirect("/groupme/")
 	
 @login_required(login_url='/login/')
-def event_create(request, event_id):
+def create(request, event_id):
 	if 'access_token' not in request.session:
 		auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
 		return redirect(auth_url)
@@ -94,6 +94,8 @@ def event_create(request, event_id):
 		data = json.dumps({"name":name, "description":description})
 		headers = {"X-Access-Token": token, "Content-Type":"application/json"}
 		send_message = requests.post(groupme_url+'/groups', headers = headers, data = data)
+		
+		print send_message.json()
 		
 		#add the groupme group to django database
 		group_id = request.session['group_id'] = send_message.json()["response"]["id"]
@@ -113,6 +115,32 @@ def event_create(request, event_id):
 		send_message = requests.post(groupme_url+'/groups/' + group_id + '/members/add')	
 			
 		return redirect("/groupme/")
+		
+def destroy(request):
+	if request.is_ajax():
+		if request.POST:
+			message_data = json.loads(request.POST.get('json_data'))
+			group_id = message_data["group_id"]
+			token = request.session["access_token"]
+			
+			#destroy group on groupme using api
+			headers = {"X-Access-Token": token, "Content-Type":"application/json"}
+			destroy = requests.post(groupme_url + '/groups/' + str(group_id) + '/destroy', headers = headers)
+			
+			#if successfully destroyed remove from database
+			if destroy.status_code == 200:
+				delete = get_object_or_404(Group, group_id = group_id).delete()
+				
+				groups = request.user.engineeringambassador.group_set.all()
+				
+				try:
+					current_group_id = groups[0].group_id
+				except:
+					currentgroup_id=""	
+				
+				request.session["group_id"] = current_group_id
+				
+	return redirect("/groupme/")
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')

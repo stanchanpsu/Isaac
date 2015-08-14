@@ -50,7 +50,7 @@
 			
 			<div class="card-panel {{event.color}} {% if groupme_status %} {{event.shade}} {% else %} lighten-1 {% endif %} center-align" id='groupme'>
 				<h5 class="white-text" id="groupme_text">{% if groupme_status %}This event already has a groupme.{% else %}This event doesn't have a groupme yet. {% endif %}</h5>
-				<p ><a href="{% if groupme_status %} {% url 'groupme:event_call' event.group.group_id %} {% else %} {% url 'groupme:event_create' event.id %} {% endif %}" class="{{event.color}} {% if groupme_status %} lighten-1 {% else %} darken-1 {% endif %} valign waves-effect waves-light btn-large" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}<img class="groupme_icon left" src="{% static 'img/groupme_logo.png' %}"/></a></p>
+				<p ><a href="{% if groupme_status %} {% url 'groupme:event' event.group.group_id %} {% else %} {% url 'groupme:create' event.id %} {% endif %}" class="{{event.color}} {% if groupme_status %} lighten-1 {% else %} darken-1 {% endif %} valign waves-effect waves-light btn-large" id="groupme-btn">{% if groupme_status %}Go to groupme{% else %}Make a group{% endif %}<img class="groupme_icon left" src="{% static 'img/groupme_logo.png' %}"/></a></p>
 			</div>
 			
 			<!--EVENT REGISTER STATUS-->
