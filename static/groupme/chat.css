@@ -39,6 +39,10 @@ body{
   right: 50px;
 }
 
+.delete-hidden{
+  display: none;
+}
+
 .discussion-div {
   width:100%;
   position: absolute;
@@ -176,11 +180,12 @@ img {
     width: 100%;
     height: 50px; 
   }
-  .top-bar #delete{
-    display: none;
-  }
+
   .discussion-div{
     top: 106px;
+  }
+  #delete{
+    display:none;
   }
   .discussion {
     height: calc(100vh - 181px);

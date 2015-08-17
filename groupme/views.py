@@ -155,15 +155,17 @@ def token(request):
 			ambassador = get_object_or_404(EngineeringAmbassador, user = user)
 			groups = ambassador.group_set.all()
 			
+			# if events app or groupme app has already stored a current group_id in session - pass it along when the javascript token request is made
 			if "group_id" in request.session:
 				group_id = request.session["group_id"]
 			
-			# set current group_id to the group_id of first registered group
+			# otherwise, default it to #ealove <3
 			else:
 				
 				ealove = get_object_or_404(Group, name="#ealove")
 				group_id = ealove.group_id
-
+			
+			#get the name of the group as well
 			group_name = get_object_or_404(Group, group_id = group_id).name
 				
 			response = json.dumps({"token":token, "group_id":group_id, "group_name":group_name})

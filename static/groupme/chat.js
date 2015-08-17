@@ -68,9 +68,6 @@ function groupClick(){
         type: 'POST',
         url: '/groupme/group_id/',
         data: data,
-        // complete: function(data){
-        //   consol.log(data);
-        // }
       });
       
     });
@@ -78,6 +75,17 @@ function groupClick(){
 
 //function to display messages of a group
 function displayGroup(group_id, group_name){
+  
+  // check if user created the group and show the disband button accordingly
+  $.get(baseurl + "/groups/" + group_id +"?token=" + token, function(data){
+    var creator = data['response']['creator_user_id'];
+    if (creator == myid){
+      $('.top-bar #delete').removeClass("delete-hidden");
+    }
+    else{
+      $('.top-bar #delete').addClass("delete-hidden");
+    }
+  });
   
   $.get(baseurl + "/groups/" + group_id + "/messages?token=" + token, function(d){
     $("#header").text(group_name);
@@ -128,19 +136,27 @@ function sendMessage(){
     
     var data = {json_data: JSON.stringify({"text": message, "group_id":group_id})};
     
-    $.ajax({
-     beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    },
-      type: 'POST',
-      url: '/groupme/message/',
-      data: data,
-      complete: function(response){
-      }
-    });
     
+    // THIS IF STATEMENT IS JUST A GIANT SAFETY SWITCH SO I DONT SEND DUMB THINGS TO CERTAIN GROUPS DURING TESTING
+    if (group_id != 3347869){
+    
+      $.ajax({
+       beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      },
+        type: 'POST',
+        url: '/groupme/message/',
+        data: data,
+        complete: function(response){
+        }
+      });
+    }
+    else{
+      console.log("safety switch is still on.")
+    }
+      
     return false;
   });
 }
@@ -187,7 +203,7 @@ function pullMessages(){
 
 function destroy(){
   $('#disband').on('click', function(){
-    console.log("clicked");
+    
     var data = {json_data: JSON.stringify({"group_id":current_group_id})};
     
     $.ajax({
@@ -200,7 +216,6 @@ function destroy(){
       url: '/groupme/destroy/',
       data: data,
       success: function(response){
-          console.log("disband");
       }
     });
     
