@@ -28,14 +28,13 @@ def groupme(request):
 		
 		groupme_id = me.json()['response']["id"]
 		
-		ambassador.groupme_id = groupme_id		
+		ambassador.groupme_id = groupme_id
 		ambassador.save()
 		
 		return redirect('/groupme/')
 	
 	# if regular page request by user	
 	else:
-		# print request.session['access_token']
 		# if user logged into groupme
 		if 'access_token' not in request.session:
 			auth_url = 'https://oauth.groupme.com/oauth/authorize?client_id=bnveOko8sTysD27ugGxOL5HhPeBmrxhzmXdewuXarxi50FOk'
@@ -49,7 +48,6 @@ def groupme(request):
 			ambassador = get_object_or_404(EngineeringAmbassador, user = user)
 			groups = ambassador.group_set.all()
 			
-			
 			#create a list of isaac groups and a dictionary for matching relevant groupme groups
 			isaac_groups = []
 			relevant_groups = {}
@@ -58,7 +56,7 @@ def groupme(request):
 			for group in groups:
 				isaac_groups.append(group.group_id)
 			
-			# get request to groupme for all a user's groupme groups (up to 20)
+			# get request to groupme for all a user's groupme groups (up to 200)
 			params = {"token":request.session['access_token'], "per_page":200}
 			groupme_groups = requests.get(groupme_url + "/groups", params = params)
 			
@@ -70,6 +68,11 @@ def groupme(request):
 				if group['group_id'] in isaac_groups:
 					relevant_groups[group['group_id']] = group['name']
 					
+			ealove = get_object_or_404(Group, name = "#ealove")
+			
+			relevant_groups[ealove.group_id] = ealove.name
+			
+			#sort relevant groups by group name		
 			relevant_groups = sorted(relevant_groups.items(), key=operator.itemgetter(1))
 			
 			#pass on only relevant groups to template
@@ -157,15 +160,11 @@ def token(request):
 			
 			# set current group_id to the group_id of first registered group
 			else:
-				# if the user has no groups
-				try:
-					group_id = groups[0].group_id
-				except:
-					group_id=""
-			try:
-				group_name = groups.get(group_id = group_id).name
-			except:
-				group_name = ""
+				
+				ealove = get_object_or_404(Group, name="#ealove")
+				group_id = ealove.group_id
+
+			group_name = get_object_or_404(Group, group_id = group_id).name
 				
 			response = json.dumps({"token":token, "group_id":group_id, "group_name":group_name})
 			response = JsonResponse(response,safe=False)

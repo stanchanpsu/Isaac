@@ -9,7 +9,7 @@ class Group(models.Model):
 	name = models.CharField(max_length = 40, blank = True)
 	image_url = models.CharField(max_length = 100, default = None, blank = True, null = True)
 	
-	event = models.OneToOneField(Event, default = None, blank = True)
+	event = models.OneToOneField(Event, default = None, blank = True, null = True)
 	members = models.ManyToManyField(EngineeringAmbassador, blank = True)	
 	
 	def __unicode__(self):
