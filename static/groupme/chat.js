@@ -4,6 +4,7 @@ var myid;
 var baseurl = "https://api.groupme.com/v3";
 var current_group_id;
 var current_message_id;
+var destroy_group;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -31,15 +32,15 @@ function csrfSafeMethod(method) {
 $.ajax({
     url: "/groupme/token/",
     dataType: "json",
-  }).done(function(data){
-    var object = JSON.parse(data);
+  }).done(function(response){
+    var object = JSON.parse(response);
     token = object['token']; // ?token=alphanumerictoken
     var group_id = object['group_id'];
     current_group_id = group_id;
     var group_name = object['group_name'];
 
-    $.get(baseurl + "/users/me?token=" + token, function(data){
-      myid = data['response']['id'];
+    $.get(baseurl + "/users/me?token=" + token, function(response){
+      myid = response['response']['id'];
       groupClick();
       sendMessage();
       displayGroup(group_id, group_name);
@@ -51,7 +52,7 @@ $.ajax({
 //function to listen to clicks on groups
 function groupClick(){
   $('.groups li').on("click", function(){
-    var group_id = $(this).data("id");
+    var group_id = $(this).attr("id");
     current_group_id = group_id;
     var group_name = $(this).text();
     displayGroup(group_id, group_name);
@@ -77,8 +78,8 @@ function groupClick(){
 function displayGroup(group_id, group_name){
   
   // check if user created the group and show the disband button accordingly
-  $.get(baseurl + "/groups/" + group_id +"?token=" + token, function(data){
-    var creator = data['response']['creator_user_id'];
+  $.get(baseurl + "/groups/" + group_id +"?token=" + token, function(response){
+    var creator = response['response']['creator_user_id'];
     if (creator == myid){
       $('.top-bar #delete').removeClass("delete-hidden");
     }
@@ -206,6 +207,9 @@ function destroy(){
     
     var data = {json_data: JSON.stringify({"group_id":current_group_id})};
     
+    // store the group to be destroyed in destroy_group var for DOM removal of the side panel link after success
+    destroy_group = current_group_id;
+    
     $.ajax({
      beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
@@ -216,6 +220,11 @@ function destroy(){
       url: '/groupme/destroy/',
       data: data,
       success: function(response){
+        var object = JSON.parse(response);
+        current_group_id = object["group_id"];
+        var group_name = object["group_name"];
+        displayGroup(current_group_id,group_name);
+        $("#" + destroy_group).remove();
       }
     });
     

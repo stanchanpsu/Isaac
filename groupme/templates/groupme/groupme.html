@@ -110,7 +110,8 @@
 
 <ol class="groups blue">
   {% for group in relevant_groups %}
-  <a><li data-id={{group.0}}>{{group.1}}</li></a>
+  <!--data-id for each group is its group_id number-->
+  <a><li id={{group.0}}>{{group.1}}</li></a>
   {% endfor %}
 </ol>
 

@@ -23,7 +23,7 @@ class Event(models.Model):
 		try:
 			self.EAs_needed = self.total_EAs - self.EAs_registered.count()
 		except:
-			pass
+			self.EAs_needed = self.total_EAs
 		super(Event, self).save(*args, **kwargs)
 	
 	# this is somewhat redundant with InheritanceManager, but it is neccessary since I don't have access to the admin code	

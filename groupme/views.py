@@ -98,8 +98,6 @@ def create(request, event_id):
 		headers = {"X-Access-Token": token, "Content-Type":"application/json"}
 		send_message = requests.post(groupme_url+'/groups', headers = headers, data = data)
 		
-		print send_message.json()
-		
 		#add the groupme group to django database
 		group_id = request.session['group_id'] = send_message.json()["response"]["id"]
 		new_group = Group.objects.get_or_create(event = event, group_id = group_id, name = name)[0]
@@ -118,7 +116,8 @@ def create(request, event_id):
 		send_message = requests.post(groupme_url+'/groups/' + group_id + '/members/add')	
 			
 		return redirect("/groupme/")
-		
+
+@login_required(login_url='/login/')		
 def destroy(request):
 	if request.is_ajax():
 		if request.POST:
@@ -134,16 +133,14 @@ def destroy(request):
 			if destroy.status_code == 200:
 				delete = get_object_or_404(Group, group_id = group_id).delete()
 				
-				groups = request.user.engineeringambassador.group_set.all()
+				ealove = get_object_or_404(Group, name="#ealove")
+				group_id = ealove.group_id
+				group_name = get_object_or_404(Group, group_id = group_id).name
 				
-				try:
-					current_group_id = groups[0].group_id
-				except:
-					currentgroup_id=""	
 				
-				request.session["group_id"] = current_group_id
+				response = json.dumps({"group_id":group_id, "group_name":group_name})
 				
-	return redirect("/groupme/")
+	return JsonResponse(response,safe=False)
 			
 @ensure_csrf_cookie
 @login_required(login_url='/login/')
@@ -166,7 +163,10 @@ def token(request):
 				group_id = ealove.group_id
 			
 			#get the name of the group as well
-			group_name = get_object_or_404(Group, group_id = group_id).name
+			try:
+				group_name = get_object_or_404(Group, group_id = group_id).name
+			except:
+				group_name = "#ealove"
 				
 			response = json.dumps({"token":token, "group_id":group_id, "group_name":group_name})
 			response = JsonResponse(response,safe=False)

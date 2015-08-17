@@ -2,7 +2,8 @@ from django.db import models
 from personal.models import EngineeringAmbassador
 from events.models import Event
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_delete
+from django.shortcuts import get_object_or_404
 
 class Group(models.Model):
 	group_id = models.CharField(max_length = 20, default = 0, blank = True)
@@ -14,3 +15,10 @@ class Group(models.Model):
 	
 	def __unicode__(self):
 		return self.name
+		
+@receiver(post_delete, sender=Event)
+def delete_Group(sender, **kwargs):
+	event = kwargs.get('instance')
+	if hasattr(event, "group"):
+		group = get_object_or_404(Group, event = event)
+		group.delete()
