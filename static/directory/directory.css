@@ -11,8 +11,14 @@
     padding: 10px;
 }
 
-.card-title{
-    line-height: 44px;
+.card .card-title{
+    line-height: 40px;
+    font-size: 21px;
+    margin-right: 5px;
+}
+
+i.right{
+    margin-left: 0;
 }
 
 .card-image {

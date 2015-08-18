@@ -1,12 +1,17 @@
 <div id="profile-header" class="valign-wrapper teal">
-    <div id="header-content" class="container valign ">
-        <div id="profile-pic-wrapper"><img {% if ambassador.picture %}src='{{ambassador.picture.url}}'{% endif %} alt="{{ambassador}}" id='profile_pic' align="middle"></div>
-        <div id="header-text-wrapper" class="white-text">
+      {% if app == 'directory' %}<a id="back" class=
+          "left-align" href="{% url 'directory:directory' %}"><!--if this is the ambassador profile page only -->
+      <i class="material-icons white-text left">arrow_back</i></a>{% endif %}
+    <div id="header-content" class="white-text container valign ">
+        <div class="row">
+            <div id="profile-pic-wrapper"><img {% if ambassador.picture %}src='{{ambassador.picture.url}}'{% endif %} alt="{{ambassador}}" id='profile_pic' align="middle"></div>
+        </div>
+        <div class="row">
             <h2>{{ambassador}}</h2>
             <h4>{{ambassador.company_designation}} {{ambassador.rank}}</h4>
         </div>
+        <div class="row">
+            <h5>{{ambassador.aboutme}}</h5>
+        </div>
     </div>
-</div>
-<div id="aboutme" class="white-text teal">
-    <h5 class="container">{{ambassador.aboutme}}</h5>
 </div>

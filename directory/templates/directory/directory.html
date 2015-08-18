@@ -5,7 +5,7 @@
   <div id="grid">
     <div class="row">
       {% for ambassador in ambassadors %}
-      <div class="col s6 l2">
+      <div class="col s12 l2">
           <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
             {% if ambassador.picture %}
@@ -24,9 +24,6 @@
         </div>
       </div>
       
-      {% if forloop.counter|divisibleby:"6" and not forloop.last %}
-        </div><div class="row">
-      {% endif %}
       {% endfor %}
    </div>
   </div>
