@@ -12,7 +12,7 @@ Django==1.8.2
 django-model-utils==2.2
 duplicity==0.7.1
 html5lib==0.999
-httplib2==0.9
+httplib2==0.18.0
 idna==0.9
 lockfile==0.8
 lxml==3.4.2
