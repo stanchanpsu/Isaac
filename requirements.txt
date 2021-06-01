@@ -43,7 +43,7 @@ system-service==0.1.6
 Twisted-Core==14.0.2
 Twisted-Web==14.0.2
 unity-lens-photos==1.0
-urllib3==1.9.1
+urllib3==1.26.5
 virtualenv==13.1.0
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.6.0
